@@ -1,0 +1,29 @@
+Circuit: * Z:\home\mkranich\OneDrive\studium\Master\ws\cems\prj_ADS1115_ic\zip_meiners\spice\dsm_l1\switches_2.asc
+
+WARNING: Node CLK1 is floating.
+WARNING: Node CLK2 is floating.
+
+WARNING: Less than two connections to node P1.  This node is used by S1.
+WARNING: Less than two connections to node CLK1.  This node is used by S1.
+WARNING: Less than two connections to node VDD.  This node is used by R2.
+WARNING: Less than two connections to node P3.  This node is used by S3.
+WARNING: Less than two connections to node CLK2.  This node is used by S3.
+.OP point found by inspection.
+
+Date: Thu Nov 21 10:51:39 2024
+Total elapsed time: 0.041 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2082
+traniter = 2082
+tranpoints = 1042
+accept = 1042
+rejected = 0
+matrix size = 7
+fillins = 0
+solver = Normal
+Matrix Compiler1: 196 bytes object code size  0.1/0.1/[0.1]
+Matrix Compiler2: 379 bytes object code size  0.1/0.1/[0.1]
+

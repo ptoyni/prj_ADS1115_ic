@@ -1,0 +1,24 @@
+Circuit: * Z:\home\mkranich\OneDrive\studium\Master\ws\cems\prj_ADS1115_ic\zip_meiners\spice\dsm_l2\dsm_l2.asc
+
+Error: unknown token in: "v(hold)>0[?]v(vdd):0"
+Error: unknown token in: "v(in)>v(vdd)/2[?]v(vss):v(vdd)"
+WARNING: Less than two connections to node VD.  This node is used by A§DFF.
+Per .tran options, skipping operating point for transient analysis.
+
+Date: Thu Nov 21 10:52:59 2024
+Total elapsed time: 9.064 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2895860
+traniter = 2895860
+tranpoints = 1339197
+accept = 980298
+rejected = 358899
+matrix size = 35
+fillins = 15
+solver = Normal
+Matrix Compiler1: 1.75 KB object code size  0.6/0.3/[0.3]
+Matrix Compiler2: 2.35 KB object code size  0.3/0.5/[0.2]
+

@@ -21,14 +21,14 @@ H = synthesizeNTF(L, M);
 
 %% Pole-zero map
 fig1 = figure(1);
-plotPZ(H);
+pzplot(H);
 
 %% Bode plot
 f = linspace(0, 0.5, N/2+1);
 z = exp(2i*pi*f);
 fig2 = figure(2);
 plot(f, dbv(evalTF(H, z)));
-sigma_H = dbv( rmsGain(H, 0, 0.5/M))
+sigma_H = dbv(rmsGain(H, 0, 0.5/M))
 
 %% Realize SDM
 [a, g, b, c] = realizeNTF(H, form);
