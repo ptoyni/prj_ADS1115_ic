@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Overall plan on how to work in two groups</title>
+<title>Hello, Quarto</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,19 +20,53 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="initial_ideas_files/libs/clipboard/clipboard.min.js"></script>
-<script src="initial_ideas_files/libs/quarto-html/quarto.js"></script>
-<script src="initial_ideas_files/libs/quarto-html/popper.min.js"></script>
-<script src="initial_ideas_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="initial_ideas_files/libs/quarto-html/anchor.min.js"></script>
-<link href="initial_ideas_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="initial_ideas_files/libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="initial_ideas_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="initial_ideas_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="initial_ideas_files/libs/bootstrap/bootstrap-5bdc1ec511977dd36301403cf8f4f68d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="quarto_example_files/libs/clipboard/clipboard.min.js"></script>
+<script src="quarto_example_files/libs/quarto-html/quarto.js"></script>
+<script src="quarto_example_files/libs/quarto-html/popper.min.js"></script>
+<script src="quarto_example_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="quarto_example_files/libs/quarto-html/anchor.min.js"></script>
+<link href="quarto_example_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="quarto_example_files/libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="quarto_example_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="quarto_example_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="quarto_example_files/libs/bootstrap/bootstrap-5bdc1ec511977dd36301403cf8f4f68d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -74,7 +108,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Overall plan on how to work in two groups</h1>
+<h1 class="title">Hello, Quarto</h1>
 </div>
 
 
@@ -91,20 +125,32 @@ window.Quarto = {
 </header>
 
 
-<section id="general-idea" class="level2">
-<h2 class="anchored" data-anchor-id="general-idea">General idea</h2>
+<section id="markdown" class="level2">
+<h2 class="anchored" data-anchor-id="markdown">Markdown</h2>
+<p>Markdown is an easy to read and write text format:</p>
 <ul>
-<li><p>Weekly meetings besides lab, date is determined on a weekly basis (ideally on sundays or mondays)</p></li>
-<li><p>both teams “present” progress</p></li>
-<li><p>discuss what to do until next lab session</p></li>
+<li>It’s <em>plain text</em> so works well with version control</li>
+<li>It can be <strong>rendered</strong> into HTML, PDF, and more</li>
+<li>Learn more at: <a href="https://quarto.org/docs/authoring/" class="uri">https://quarto.org/docs/authoring/</a></li>
 </ul>
 </section>
-<section id="until-next-meeting-24.11.24" class="level2">
-<h2 class="anchored" data-anchor-id="until-next-meeting-24.11.24">Until next meeting (24.11.24)</h2>
-<ul>
-<li><p>both teams have a look at the interface between <span class="math inline">\(\Delta \Sigma\)</span>-Modulator and DSP (1-bit PWM signal), properties, sampling rate, …</p></li>
-<li></li>
-</ul>
+<section id="code-cell" class="level2">
+<h2 class="anchored" data-anchor-id="code-cell">Code Cell</h2>
+<p>Here is a Python code cell:</p>
+<div id="49efea81" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.cpu_count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>8</code></pre>
+</div>
+</div>
+</section>
+<section id="equation" class="level2">
+<h2 class="anchored" data-anchor-id="equation">Equation</h2>
+<p>Use LaTeX to write equations:</p>
+<p><span class="math display">\[
+\chi' = \sum_{i=1}^n k_i s_i^2
+\]</span></p>
 </section>
 
 </main>
