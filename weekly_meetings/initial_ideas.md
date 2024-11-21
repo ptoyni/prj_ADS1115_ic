@@ -12,6 +12,8 @@ format: html
 
 
 ## Until next meeting (24.11.24)
+- ___READ THE DATASHEET OF ADS1115___ and any additional information you find relevant (look into the bibliography)
+
 - both teams have a look at the interface between $\Delta \Sigma$-Modulator and DSP (1-bit PWM signal), properties, sampling rate, ...
 
 - Specifiying goals for characterizing the ADS1115 ADC:
