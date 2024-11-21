@@ -14,4 +14,6 @@ format: html
 ## Until next meeting (24.11.24)
 - both teams have a look at the interface between $\Delta \Sigma$-Modulator and DSP (1-bit PWM signal), properties, sampling rate, ...
 
-- 
+- Specifiying goals for characterizing the ADS1115 ADC:
+  - Formulate test setups/ experiment setups for characterization
+  - (Maybe) cross reference with datsheet information (e.g. validate datasheet information with test setups)
