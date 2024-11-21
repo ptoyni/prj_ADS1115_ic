@@ -316,7 +316,9 @@ class ADS1115(object):
     
     def __bytesToInt(self, bytesToConvert):
         intVal = int.from_bytes(bytesToConvert, 'big') # "big" = MSB at beginning
+        print("Test sakes")
         return intVal
+    
         
         
 
