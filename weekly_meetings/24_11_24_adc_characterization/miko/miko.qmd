@@ -1,0 +1,23 @@
+---
+title: "ADC characterization Miko" 
+format: pdf
+---
+## overall features of $\Delta \Sigma$-ADCs
+- input signal sampled at comparitevly high frequency (modulator frequency)
+- filtered and decimated (down sampled) for output signal
+- ratio between modulator and output frequency is _oversampling ratio_
+- increasing OSR reduces output noise and output date rate, because more samples are averaged
+
+
+## Description of ADS1115
+- comprises internal voltage reference, clock oscillator and i2c interface
+- switched capacitor $\Delta \Sigma$-ADC followed by digital filter
+- good attenuation of common mode signals
+- input signals are compared to internal voltage reference
+- differetial and single ended mode possible, PGA as differential amp
+- when in single ended, comparision against ground on negative input of ADC
+- single shot and continous mode
+- internal buffer register stores most recent sampled signal independent of op mode
+<br>
+<br>
+- daaadaa
