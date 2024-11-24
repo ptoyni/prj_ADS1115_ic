@@ -20,7 +20,7 @@ format: pdf
     - Reset call via I2C possible, same effect as reset on power up
     - Programmable data rate, conversion time is $\frac{1}{DR}$
     - single shot and continous mode
-    - In single shot mode, device will respond to I2C commands but won't convert anything until corresponding bit is set, after which device powers up in ~25 $\mu$ s, resets bit and performs single conversion before powering down again
+    - In single shot mode, device will respond to I2C commands but won't convert anything until corresponding bit is set, after which device powers up in ~25 $\mu s$, resets bit and performs single conversion before powering down again
     - Continous operation performs conversions continously and stores values in "Conversion Register"
     - Alert pin for different status alerts seems irrelevant for us
     - internal buffer register stores most recent sampled signal independent of op mode
