@@ -20,7 +20,7 @@ H = synthesizeNTF(L, M);
 
 %% Pole-zero map
 fig1 = figure(1);
-plotPZ(H);
+pzplot(H);
 
 %% Bode plot
 f = linspace(0, 0.5, N/2+1);
