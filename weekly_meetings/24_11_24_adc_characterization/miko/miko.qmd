@@ -5,19 +5,31 @@ format: pdf
 ## overall features of $\Delta \Sigma$-ADCs
 - input signal sampled at comparitevly high frequency (modulator frequency)
 - filtered and decimated (down sampled) for output signal
-- ratio between modulator and output frequency is _oversampling ratio_
+- ratio between modulator/sampling frequency ($f_S$) and output data rate/frequency ($D_R$, $f_D$) is _oversampling ratio_ or decimation ratio
 - increasing OSR reduces output noise and output date rate, because more samples are averaged
-
+- decimating samples does not affect accuracy because of Nyquist Theorem (can try to provide matlab representation till next time)
 
 ## Description of ADS1115
-- comprises internal voltage reference, clock oscillator and i2c interface
-- switched capacitor $\Delta \Sigma$-ADC followed by digital filter
-- good attenuation of common mode signals
-- input signals are compared to internal voltage reference
-- differetial and single ended mode possible, PGA as differential amp
-- when in single ended, comparision against ground on negative input of ADC
-- single shot and continous mode
-- internal buffer register stores most recent sampled signal independent of op mode
-<br>
-<br>
-- daaadaa
+- comprises internal voltage reference (external can't be used), clock oscillator (1MHz) and i2c interface
+- OSR ranges from 1162 to 125,000
+
+- I2C & register functions
+    - Programmable FSR, up to \pm 6.144V. Here, the FSR binary code can not be reached if VDD < FSR
+    - standard I2C interface, 100kHz, 400kHz and 3.4MHz clock frequency supported, high speed mode must be specially activated
+    - Registers go to default values after power up after which the ADS enters power down state
+    - Reset call via I2C possible, same effect as reset on power up
+    - Programmable data rate, conversion time is $\frac{1}{DR}$
+    - single shot and continous mode
+    - In single shot mode, device will respond to I2C commands but won't convert anything until corresponding bit is set, after which device powers up in ~25 $\mu$ s, resets bit and performs single conversion before powering down again
+    - Continous operation performs conversions continously and stores values in "Conversion Register"
+    - Alert pin for different status alerts seems irrelevant for us
+    - internal buffer register stores most recent sampled signal independent of op mode
+
+- Electrical specifications
+    - switched capacitor $\Delta \Sigma$-ADC followed by digital filter
+    - input signals are compared to internal voltage reference
+    - when in single ended, comparision against ground on negative input of ADC
+    - differetial and single ended mode possible
+    - good attenuation of signal common mode
+    - Low power duty cycling results in greatly reduced power consumption but also poorer noise performance
+    - first order RC filter with cutoff frequency at output data rate is sufficient against most input aliasing sources
