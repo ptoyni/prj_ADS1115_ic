@@ -1,0 +1,23 @@
+---
+title: "Meeting notes 24.11.2024"
+format: pdf
+---
+
+- Lars presents a file with ideas for the final presentation (/ideas/presentation_proposal.html)
+
+- Talk about actual benefits of dividing into two teams, maybe scrap that idea and concentrate on analog section
+    - power management
+    - internal clock
+    - 
+    
+- Questions for Prof. Meiners   
+    - Actual implementation of digital section in ADC?
+    - What do we need to develop ourselves vs which components can be bought as IP core?
+    - how in-depth should we design the IC? (Alerts, how many analog inputs, PG, fail save, ...)
+ 
+
+## Todo's until 28.11.2024
+- Create very detailed block diagram (Clock, power delivery, integrator, ...)
+- get better understanding of $\Delta \Sigma$-ADCs from Book (/resources/literature/Understanding Delta Sigma ADCs) and datasheet
+    - spare some time thinking about ADC characterization/measurement ideas
+- Install open source IC design tools
