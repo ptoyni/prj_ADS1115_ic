@@ -1,7 +1,7 @@
 %% 1st order Modulator System
 clc
-clear all
-
+clearvars
+close all
 %% Calibration of test system
 L = 1;                % Order of modulator
 form = 'CIFB';        % Cascade of integrator feedback
