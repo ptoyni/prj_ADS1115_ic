@@ -28,13 +28,13 @@ f = linspace(0, 0.5, N/2+1);
 z = exp(2i*pi*f);
 fig2 = figure(2);
 plot(f, dbv(evalTF(H, z)));
-sigma_H = dbv(rmsGain(H, 0, 0.5/M))
+sigma_H = dbv(rmsGain(H, 0, 0.5/M));
 
 %% Realize SDM
 [a, g, b, c] = realizeNTF(H, form);
 b(2:end) = 0;
 ABCD = stuffABCD(a, g, b, c, form);
-[ABCDs umax] = scaleABCD(ABCD);
+[ABCDs, umax] = scaleABCD(ABCD);
 [a, g, b, c] = mapABCD(ABCDs, form);
 
 %% Simulate DSM with delsig toolbox
@@ -69,7 +69,7 @@ sqdBFS(isinf(sqdBFS)) = -150;
 % Calculate SNR
 sigbin = 1 + cycles;
 noise = [sq_hlf(1:sigbin-1), sq_hlf(sigbin+1:end)];
-snr = 10*log10(sq_hlf(sigbin)^2/sum(noise.^2))
+snr = 10*log10(sq_hlf(sigbin)^2/sum(noise.^2));
 
 % Generate the magnitude plot with annotation
 fig4 = figure(4);
@@ -83,7 +83,7 @@ grid;
 
 % Normalize magnitudes to full-scale (FS=nLev-1=1) 
 sqFS = sq/(N/2);
-snr = calculateSNR(sqFS(1:fB), fx)
+snr = calculateSNR(sqFS(1:fB), fx);
 
 fig5 = figure(5);
 set(gca, 'fontsize', 14);
