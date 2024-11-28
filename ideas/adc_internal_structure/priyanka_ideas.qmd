@@ -1,0 +1,19 @@
+## Findings in Behavioural Model
+
+-   We are plotting various graphs and logic's such as SDM, Bode Plot (NTF), Decimation Filter etc..
+
+-   Nyquist Zero and Pole plot - used to analyze the stability of the feedback system. Very crucial in our ADC as system relies on feedback loop for quantization and noise shaping. Plots the frequency response of the system's open-loop transfer function in complex plane.
+
+    -   Poles: represent natural freq where system =\> resonate or tends to become unstable
+
+    -   Zeros: freq where no response or o/p is suppressed
+
+    -   Stable System : all poles lie within "**unit circle"** in z-plane for **discrete-time systems.**
+
+-   We are using "pzplot" to plot Pole-Zero map in MATLAB.
+
+-   Bode Plot for Noise-Transfer Function(**NTF**): describes how the quantization noise is shaped across frequencies.
+
+    -   Mgnitude Plot : typically exhibits **high-pass filter** behavior (like in our case)
+
+    -
