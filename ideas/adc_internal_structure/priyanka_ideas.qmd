@@ -14,6 +14,6 @@
 
 -   Bode Plot for Noise-Transfer Function(**NTF**): describes how the quantization noise is shaped across frequencies.
 
-    -   Mgnitude Plot : typically exhibits **high-pass filter** behavior (like in our case)
+    -   Magnitude Plot : typically exhibits **high-pass filter** behavior (like in our case)
 
     -
