@@ -27,7 +27,21 @@ f = linspace(0, 0.5, N/2+1);
 z = exp(2i*pi*f);
 fig2 = figure(2);
 plot(f, dbv(evalTF(H, z)));
-sigma_H = dbv( rmsGain(H, 0, 0.5/M))
+
+
+% changees by priyanka to rmsGain 
+% responible for calculation of NTF Bode plot and calculating manually
+f_range = linspace(0, 0.5/M, fB);  % Frequency range from 0 to bandwidth (normalized)
+z_range = exp(2i * pi * f_range);    % Frequency points on the unit circle
+H_eval = evalTF(H, z_range);         % Evaluate the transfer function at these frequencies
+rms_gain = sqrt(mean(abs(H_eval).^2));  % RMS of the magnitude response
+sigma_H = 20 * log10(rms_gain);         % Convert to dB
+disp(['RMS Gain (in dB): ', num2str(sigma_H)]);
+
+xlabel('Frequency f/fs');
+ylabel('Magnitude (dB)');
+title('Bode Plot of NTF');
+
 
 %% Realize SDM
 [a, g, b, c] = realizeNTF(H, form);

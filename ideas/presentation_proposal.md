@@ -10,7 +10,7 @@ Treating the presentation as a workgroup-/ department meeting, where the conduct
 (formal contextualization of task)  
    
 1. Highlighting the benefits (& potential limits) of $\Delta \Sigma$-ADCs (Showcase theoretical understanding)
-   + Showcasing references from ADS1115 & behavioral models (meas, etc.) 
+   + Showcasing references from ADS1115 & behavior (meas, etc.) 
  
 2. Defining the Requirements of the ADC (internal + interfaces): 
    + System definition
@@ -18,5 +18,6 @@ Treating the presentation as a workgroup-/ department meeting, where the conduct
    + Start on concrete realizations (OpAmp model, etc)
   
 3. Present first solution of ADC realization (e.g. PCB approach)
+   + On all Design Abstraction levels 
 
 4. Possibly present further solutions for ADC realization (e.g. IC) 
