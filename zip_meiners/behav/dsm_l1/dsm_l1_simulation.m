@@ -1,7 +1,7 @@
 %% Init
 clc
 clearvars
-clear
+close all
 
 %% Spec. normalized
 N  = 64;             % simulation length (output samples)
@@ -61,7 +61,7 @@ v = simout(:,2)'; % prime to adapt dimension
 k = (v*y')/(y*y');
 
 %% Time domain plot
-fig1 = figure(1)
+fig1 = figure(1);
 set(gca, 'fontsize', 14);
 plot(t, u, 'LineWidth', 2);
 axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
@@ -69,13 +69,14 @@ hold on;
 stairs(t, v, 'LineWidth', 2);
 xlabel('Time t/T');
 ylabel('Amplitude');
-legend('u', 'v');
+legend('Input signal', 'Modulator pwm output');
 title('1st Order \Sigma\Delta');
 hold off;
 
 %% Export figure
-print(fig1, 'dsm_l1', '-depsc');
-matlab2tikz('dsm_l1.tikz')
+%This causes problems atm so its commented out
+%print(fig1, 'dsm_l1', '-depsc');
+%matlab2tikz('dsm_l1.tikz')
 
 %% Spectral analysis, lec. 3 slides
 sq = abs(fft(v));
@@ -129,3 +130,4 @@ axis([0 0.06 -150 0]);
 grid on;
 ylabel('dBFS');
 xlabel('f/fs');
+title('Visualization of nouse shaping using windowed sequence')
