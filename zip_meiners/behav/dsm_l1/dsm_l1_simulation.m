@@ -94,7 +94,8 @@ sqdBFS(isinf(sqdBFS)) = -150;
 % Calculate SNR
 sigbin = 1 + cycles;
 noise = [sq_hlf(1:sigbin-1), sq_hlf(sigbin+1:end)];
-snr = 10*log10(sq_hlf(sigbin)^2/sum(noise.^2))
+snr_fft = 10*log10(sq_hlf(sigbin)^2/sum(noise.^2));
+fprintf('SNR calculated under FFT: %1.3f \n', snr_fft)
 
 % Generate the magnitude plot with annotation
 fig2 = figure(2);
@@ -109,7 +110,8 @@ grid;
 
 % Normalize magnitudes to full-scale (FS=nLev-1=1) 
 sqFS = sq/(N/2);
-snr = calculateSNR(sqFS(1:fB), fx)
+snr_delsig = calculateSNR(sqFS(1:fB), fx);
+fprintf('SNR calculated under delsig toolbox: %1.3f \n', snr_delsig)
 
 fig5 = figure(5);
 set(gca, 'fontsize', 14);
