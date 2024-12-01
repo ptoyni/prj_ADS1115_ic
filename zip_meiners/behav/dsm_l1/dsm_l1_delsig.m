@@ -22,12 +22,14 @@ H = synthesizeNTF(L, M);
 %% Pole-zero map
 fig1 = figure(1);
 pzplot(H);
-
 %% Bode plot
 f = linspace(0, 0.5, N/2+1);
 z = exp(2i*pi*f);
 fig2 = figure(2);
 plot(f, dbv(evalTF(H, z)));
+title('Bode plot of first order \Delta\Sigma Modulator')
+xlabel('Frequency')
+ylabel('Magnitude')
 sigma_H = dbv(rmsGain(H, 0, 0.5/M));
 
 %% Realize SDM
@@ -50,7 +52,7 @@ hold off;
 axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
 xlabel('Time t/T');
 ylabel('Amplitude');
-legend('u', 'v');
+legend('Input signal', 'PWM output');
 title('1st Order \Sigma\Delta');
 
 %% Spectral Anlysis, FFT
@@ -75,6 +77,7 @@ snr = 10*log10(sq_hlf(sigbin)^2/sum(noise.^2));
 fig4 = figure(4);
 set(gca, 'fontsize', 14);
 plot(f, sqdBFS, 'linewidth', 2);
+title('Visualization of noise shaping using FFT')
 xlabel('Frequency f/fs')
 ylabel('DFT Magnitude in dBFS')
 grid;
@@ -92,6 +95,7 @@ axis([0 0.06 -150 0]);
 grid on;
 ylabel('dBFS');
 xlabel('f/fs')
+title('Visualization of noise shaping using delsig toolbox')
 
 
 %% Windowed plot
@@ -104,3 +108,4 @@ axis([0 0.06 -150 0]);
 grid on;
 ylabel('dBFS');
 xlabel('f/fs');
+title('Visualization of nouse shaping using windowed sequence')
