@@ -93,7 +93,7 @@ axis([0 0.06 -150 0]);
 grid on;
 ylabel('dBFS');
 xlabel('f/fs')
-
+title('Visualization of Noise Shaping');
 
 %% Windowed plot
 specHW = fft(v.*ds_hann(N))/(N/4);
@@ -104,6 +104,7 @@ axis([0 0.06 -150 0]);
 grid on;
 ylabel('dBFS');
 xlabel('f/fs');
+title('Visualization of Noise Shaping using widowed sequence');
 
 %% Decimation filter
 % Assume fB = 220 kHz, fx = 20 Hz

@@ -61,6 +61,9 @@ hold on;
 stairs(tsamples, v(tsamples+1));
 hold off;
 axis([0 2048 -1.2 1.2])
+xlabel("Time t/T");
+ylabel("Amplitude");
+title("Time-Domain Plot of DSM");
 
 %% Spectral Anlysis, FFT
 sq = abs(fft(v));
