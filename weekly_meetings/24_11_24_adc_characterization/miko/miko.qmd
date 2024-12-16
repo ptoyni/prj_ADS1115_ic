@@ -33,3 +33,6 @@ format: pdf
     - good attenuation of signal common mode
     - Low power duty cycling results in greatly reduced power consumption but also poorer noise performance
     - first order RC filter with cutoff frequency at output data rate is sufficient against most input aliasing sources
+
+
+
