@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.32">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Overall plan on how to work in two groups</title>
+<title>MATLAB Behavioural Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,16 +23,19 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="initial_ideas_files/libs/clipboard/clipboard.min.js"></script>
-<script src="initial_ideas_files/libs/quarto-html/quarto.js"></script>
-<script src="initial_ideas_files/libs/quarto-html/popper.min.js"></script>
-<script src="initial_ideas_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="initial_ideas_files/libs/quarto-html/anchor.min.js"></script>
-<link href="initial_ideas_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="initial_ideas_files/libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="initial_ideas_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="initial_ideas_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="initial_ideas_files/libs/bootstrap/bootstrap-5bdc1ec511977dd36301403cf8f4f68d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="MATLAB_behav_doc_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MATLAB_behav_doc_files/libs/quarto-html/quarto.js"></script>
+<script src="MATLAB_behav_doc_files/libs/quarto-html/popper.min.js"></script>
+<script src="MATLAB_behav_doc_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="MATLAB_behav_doc_files/libs/quarto-html/anchor.min.js"></script>
+<link href="MATLAB_behav_doc_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MATLAB_behav_doc_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="MATLAB_behav_doc_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="MATLAB_behav_doc_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="MATLAB_behav_doc_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="MATLAB_behav_doc_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="MATLAB_behav_doc_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="MATLAB_behav_doc_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -74,7 +77,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Overall plan on how to work in two groups</h1>
+<h1 class="title">MATLAB Behavioural Documentation</h1>
 </div>
 
 
@@ -91,32 +94,54 @@ window.Quarto = {
 </header>
 
 
-<section id="general-idea" class="level2">
-<h2 class="anchored" data-anchor-id="general-idea">General idea</h2>
+<section id="st-order-model" class="level2">
+<h2 class="anchored" data-anchor-id="st-order-model">1st Order Model:</h2>
+<section id="comprised-of" class="level4">
+<h4 class="anchored" data-anchor-id="comprised-of">Comprised of:</h4>
 <ul>
-<li><p>Weekly meetings besides lab, date is determined on a weekly basis (ideally on sundays or mondays)</p></li>
-<li><p>both teams “present” progress</p></li>
-<li><p>discuss what to do until next lab session</p></li>
+<li>sum block:
+<ul>
+<li>one positive and one negativ input</li>
+</ul></li>
+<li>discrete integrator:
+<ul>
+<li>realised as: <span class="math inline">\(\frac{z^{-1}}{1-z^{-1}}\)</span></li>
+</ul></li>
+<li>comparator:
+<ul>
+<li>switching threshold defined with ‘eps’ := <span class="math inline">\(2^{-52}\)</span> = 2.2204e-16
+<ul>
+<li>essentially switches around ‘0’-crossovers<br>
+</li>
+</ul></li>
+<li>output either ‘1’ (on) or ‘-1’ (off)</li>
+<li>feeds back to ‘sum’ block, with negative sign</li>
+</ul></li>
 </ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Input signal] --&gt; B($$\Delta$$) 
+  B --&gt; C[$$\Sigma$$] 
+  C --&gt; D[Comparator]
+  D --&gt; E[Oversampled Output]
+  D --&gt; B
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
-<section id="until-next-meeting-24.11.24" class="level2">
-<h2 class="anchored" data-anchor-id="until-next-meeting-24.11.24">Until next meeting (24.11.24)</h2>
-<ul>
-<li><p><strong><em>READ THE DATASHEET OF ADS1115</em></strong> and any additional information you find relevant (look into the bibliography)</p></li>
-<li><p>both teams have a look at the interface between <span class="math inline">\(\Delta \Sigma\)</span>-Modulator and DSP (1-bit PWM signal), properties, sampling rate, …</p></li>
-<li><p>Specifiying goals for characterizing the ADS1115 ADC:</p>
-<ul>
-<li>Formulate test setups/ experiment setups for characterization</li>
-<li>(Maybe) cross reference with datsheet information (e.g.&nbsp;validate datasheet information with test setups)</li>
-</ul>
-<h2 id="until-next-meeting-1.12.24" class="anchored">Until next meeting (1.12.24)</h2></li>
-<li><p>both teams need to work on the Behavioural Model (Matlab Code and Simulink)</p></li>
-<li><p>Lars and Miko : design 1 (dsm_l1)</p></li>
-<li><p>Priyanka : updating findings in behavioural model in terms of plots in dsm_l2 and working with matlab dsm_l2</p></li>
-<li><p>Aftab: working with simulink of dsm_l2 and understanding of the same</p></li>
-<li><p>Installation of OSCII na proper working of it</p></li>
-<li><p>(optional) go through the Book in literature</p></li>
-</ul>
+</section>
+<section id="nd-order-model" class="level2">
+<h2 class="anchored" data-anchor-id="nd-order-model">2nd Order Model:</h2>
+<section id="comprised-of-1" class="level4">
+<h4 class="anchored" data-anchor-id="comprised-of-1">Comprised of:</h4>
+</section>
 </section>
 
 </main>
@@ -203,8 +228,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -315,7 +338,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
