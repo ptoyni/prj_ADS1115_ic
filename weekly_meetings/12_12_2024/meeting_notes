@@ -1,0 +1,17 @@
+---
+title: "Meeting notes 12.12.2024"
+format: pdf
+---
+
+## Discussion of goals until the end of the project
+
+
+## Presentation topics 
+in no particular order
+- Noise shaping
+- oversampling
+    - sampling (Nyquist)
+- feedback loops
+- quantization
+    - stability (pole-zero)
+- (Acc sensoring/input characterization)

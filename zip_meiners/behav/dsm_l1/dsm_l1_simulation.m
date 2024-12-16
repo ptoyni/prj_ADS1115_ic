@@ -28,8 +28,8 @@ fB = fs/2/M;          % Bandwidth
 cycles = 9;           % Number of sinusoids
 fx = cycles * fs/N;   % Test tone
 A = 0.8;              % Signal amplitude
-t = Ts * [0:N-1];
-u = A * sin(2 * pi * fx/fs * [0:N-1]);
+t = Ts * (0:N-1);
+u = A * sin(2 * pi * fx/fs * (0:N-1));
 
 %% Simulink
 mdl = 'dsm_l1_sim';
@@ -82,7 +82,7 @@ hold off;
 sq = abs(fft(v));
 
 % Remove redundant half of spectrum and normalize to FS
-f = [0:N/2-1]/N;  % frequency vector
+f = (0:N/2-1)/N;  % frequency vector
 z = exp(2i*pi*f);
 
 sq_hlf = sq(1:end/2)/(N/2);
