@@ -3,8 +3,8 @@ title: "MATLAB Behavioural Documentation"
 format: html
 ---
 
-## 1st Order Model:
-#### Comprised of:
+## 1st Order Modulator Model:
+### Comprised of:
 
 - sum block:
   - one positive and one negativ input
@@ -25,6 +25,16 @@ flowchart LR
   D --> B
 ```
 
-## 2nd Order Model:
+### In-Depth description:
+##### Input signal:
+- Analog signal 
+  - conveniently a sinusoid
+  - is non-linear, yet periodicly predictable
+
+##### Delta ($\Delta$):
+- Feedback-node of the system 
+
+
+## 2nd Order Modulator Model:
 #### Comprised of:
 
