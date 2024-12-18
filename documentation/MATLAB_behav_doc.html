@@ -94,61 +94,10 @@ window.Quarto = {
 </header>
 
 
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
-<section id="st-order-model" class="level2">
-<h2 class="anchored" data-anchor-id="st-order-model">1st Order Model:</h2>
-<section id="comprised-of" class="level4">
-<h4 class="anchored" data-anchor-id="comprised-of">Comprised of:</h4>
-<ul>
-<li>sum block:
-<ul>
-<li>one positive and one negativ input</li>
-</ul></li>
-<li>discrete integrator:
-<ul>
-<li>realised as: <span class="math inline">\(\frac{z^{-1}}{1-z^{-1}}\)</span></li>
-</ul></li>
-<li>comparator:
-<ul>
-<li>switching threshold defined with ‘eps’ := <span class="math inline">\(2^{-52}\)</span> = 2.2204e-16
-<ul>
-<li>essentially switches around ‘0’-crossovers<br>
-</li>
-</ul></li>
-<li>output either ‘1’ (on) or ‘-1’ (off)</li>
-<li>feeds back to ‘sum’ block, with negative sign</li>
-</ul></li>
-</ul>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A[Input signal] --&gt; B($$\Delta$$) 
-  B --&gt; C[$$\Sigma$$] 
-  C --&gt; D[Comparator]
-  D --&gt; E[Oversampled Output]
-  D --&gt; B
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="nd-order-model" class="level2">
-<h2 class="anchored" data-anchor-id="nd-order-model">2nd Order Model:</h2>
-<section id="comprised-of-1" class="level4">
-<h4 class="anchored" data-anchor-id="comprised-of-1">Comprised of:</h4>
-<p>=======</p>
-</section>
-</section>
 <section id="st-order-modulator-model" class="level2">
 <h2 class="anchored" data-anchor-id="st-order-modulator-model">1st Order Modulator Model:</h2>
-<section id="comprised-of-2" class="level3">
-<h3 class="anchored" data-anchor-id="comprised-of-2">Comprised of:</h3>
+<section id="comprised-of" class="level3">
+<h3 class="anchored" data-anchor-id="comprised-of">Comprised of:</h3>
 <ul>
 <li>sum block (<span class="math inline">\(\delta\)</span>):
 <ul>
@@ -222,7 +171,7 @@ window.Quarto = {
 </ul></li>
 <li>coefficient driven gains after integrstors and before <span class="math inline">\(\delta\)</span>s</li>
 </ul>
-<p><em>figure to be added (pathing issues)</em> <img src="../recources/pictures/Mod_2nd_Order.svg" class="img-fluid" alt="Figure"> &gt;&gt;&gt;&gt;&gt;&gt;&gt; 2423135717f1f1972e8714e75445ab936579a8a4</p>
+<p><em>figure to be added (pathing issues)</em> <img src="../recources/pictures/Mod_2nd_Order.svg" class="img-fluid" alt="Figure"></p>
 </section>
 </section>
 
