@@ -3,10 +3,10 @@ title: "MATLAB Behavioural Documentation"
 format: html
 ---
 
-## 1st Order Model:
-#### Comprised of:
+## 1st Order Modulator Model:
+### Comprised of:
 
-- sum block:
+- sum block ($\delta$):
   - one positive and one negativ input
 - discrete integrator:
   -  realised as: $\frac{z^{-1}}{1-z^{-1}}$
@@ -25,6 +25,25 @@ flowchart LR
   D --> B
 ```
 
-## 2nd Order Model:
-#### Comprised of:
+### In-Depth description:
+##### Input signal:
+- Analog signal 
+  - conveniently a sinusoid
+  - is non-linear, yet periodicly predictable
 
+##### Delta ($\Delta$):
+- Feedback-node of the system 
+
+
+## 2nd Order Modulator Model:
+### Comprised of (additional):
+
+- sum block ($\delta$):
+  - one positive and one negativ input
+- discrete integrator:
+  -  realised as: $\frac{z^{-1}}{1-z^{-1}}$
+- coefficient driven gains after integrstors and before $\delta$s
+
+
+*figure to be added (pathing issues)*
+![Figure](../recources/pictures/Mod_2nd_Order.svg)
