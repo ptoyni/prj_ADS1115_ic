@@ -182,15 +182,46 @@ Then the text continues in the next line.</p>
     Y[k] = \sum_{n = -\infty}^{\infty}x[k]\cdot h[k-n].
 \end{equation}\]</span></p>
 <p>If you want to have a nice figure:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="recources/example_image.jpeg" class="img-fluid figure-img"></p>
-<figcaption>I want this era of artstlye back :(</figcaption>
-</figure>
-</div>
+<p><img src="recources/example_image.jpeg" class="img-fluid" alt="Title"><br>
+</p>
 <section id="matlab-calls-or-data-calls-in-general" class="level2">
 <h2 class="anchored" data-anchor-id="matlab-calls-or-data-calls-in-general">Matlab calls or data calls in general</h2>
 <p>In the following, calls are made to the matlab files for first order modulator. All the data from simulation are stored in a seperate folder and can be accessed by just giving relative paths for further processing in python</p>
+<div id="cell-7" class="cell" data-execution_count="26">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.io <span class="im">import</span> loadmat <span class="co">#this actually enables the import of .mat</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#import matlab data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>time_domain <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_time_domain_plot.mat"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>spectral_analysis1 <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_spectral_analysis1.mat"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>spectral_analysis2 <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_spectral_analysis2.mat"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>windowed_plot <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_windowed_plot.mat"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#to access imported matlab data</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> time_domain[<span class="st">'t'</span>]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>voltage <span class="op">=</span> time_domain[<span class="st">'u'</span>]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.plot(time,voltage, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.stairs(time,voltage)</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Time domain plot first order $\Delta \Sigma$ modulator'</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time [s]'</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Amplitude [V]'</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="guide_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 </section>
 
