@@ -18,30 +18,12 @@ u = A * sin(2 * pi * fx/fs * [0:N-1]);
 %% Design NTF
 H = synthesizeNTF(L, M);
 
-%% Pole-zero map
-fig1 = figure(1);
-pzplot(H);
-
 %% Bode plot
 f = linspace(0, 0.5, N/2+1);
 z = exp(2i*pi*f);
 fig2 = figure(2);
 plot(f, dbv(evalTF(H, z)));
-
-
-% changees by priyanka to rmsGain 
-% responible for calculation of NTF Bode plot and calculating manually
-f_range = linspace(0, 0.5/M, fB);  % Frequency range from 0 to bandwidth (normalized)
-z_range = exp(2i * pi * f_range);    % Frequency points on the unit circle
-H_eval = evalTF(H, z_range);         % Evaluate the transfer function at these frequencies
-rms_gain = sqrt(mean(abs(H_eval).^2));  % RMS of the magnitude response
-sigma_H = 20 * log10(rms_gain);         % Convert to dB
-disp(['RMS Gain (in dB): ', num2str(sigma_H)]);
-
-xlabel('Frequency f/fs');
-ylabel('Magnitude (dB)');
-title('Bode Plot of NTF');
-
+sigma_H = dbv( rmsGain(H, 0, 0.5/M))
 
 %% Realize SDM
 [a, g, b, c] = realizeNTF(H, form);
@@ -61,11 +43,8 @@ hold on;
 stairs(tsamples, v(tsamples+1));
 hold off;
 axis([0 2048 -1.2 1.2])
-xlabel("Time t/T");
-ylabel("Amplitude");
-title("Time-Domain Plot of DSM");
 
-%% Spectral Anlysis, FFT
+%% Spectral Anlysis, Lec. 4 - ADC Metrics
 sq = abs(fft(v));
 
 % Remove redundant half of spectrum and normalize to FS
@@ -77,11 +56,6 @@ sqdBFS = 20*log10(sq_hlf);
 
 % log10(0) -> -inf/inf correction
 sqdBFS(isinf(sqdBFS)) = -150;
-
-% Calculate SNR
-sigbin = 1 + cycles;
-noise = [sq_hlf(1:sigbin-1), sq_hlf(sigbin+1:end)];
-snr = 10*log10(sq_hlf(sigbin)^2/sum(noise.^2))
 
 %% Generate the magnitude plot with annotation
 fig4 = figure(4);
