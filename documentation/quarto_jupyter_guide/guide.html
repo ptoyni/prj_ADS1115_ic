@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.36">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -65,10 +65,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="guide_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="guide_files/libs/quarto-html/anchor.min.js"></script>
 <link href="guide_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="guide_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="guide_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="guide_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="guide_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="guide_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="guide_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -177,13 +177,21 @@ Then the text continues in the next line.</p>
 </div>
 </div>
 </div>
-<p>Then, by pressing Crtl+Shift+K (just as in a default quarto document) you can create a basic quarto output. It depicts everything from Text to code to figures</p>
-<p>You can even insert funny latex formulae, no need to change the cell to latex <span class="math display">\[\begin{equation}
+<p>Then, by pressing Crtl+Shift+K (just as in a default quarto document) you can create a quarto output in the format specified in the header. It depicts everything from Text to code to figures, depending on the format chosen.</p>
+<p>You can even insert funny formulae, no need to change the cell to latex <span class="math display">\[\begin{equation}
     Y[k] = \sum_{n = -\infty}^{\infty}x[k]\cdot h[k-n].
 \end{equation}\]</span></p>
 <p>If you want to have a nice figure:</p>
-<p><img src="recources/example_image.jpeg" class="img-fluid" alt="Title"><br>
-</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="recources/example_image.jpeg" class="img-fluid figure-img"></p>
+<figcaption>I want this era of artstlye back :(</figcaption>
+</figure>
+</div>
+<section id="matlab-calls-or-data-calls-in-general" class="level2">
+<h2 class="anchored" data-anchor-id="matlab-calls-or-data-calls-in-general">Matlab calls or data calls in general</h2>
+<p>In the following, calls are made to the matlab files for first order modulator. All the data from simulation are stored in a seperate folder and can be accessed by just giving relative paths for further processing in python</p>
+</section>
 </section>
 
 </main>
