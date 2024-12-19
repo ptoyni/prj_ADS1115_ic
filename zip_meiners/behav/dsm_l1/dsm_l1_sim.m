@@ -96,7 +96,8 @@ xlabel('Frequency f/fs')
 ylabel('DFT Magnitude in dBFS')
 grid;
 
-save("./zip_meiners/behav/dsm_l1/data/dat_spectral_analysis1.mat", "t", "v")
+% Export data for further processing
+save("./zip_meiners/behav/dsm_l1/data/dat_spectral_analysis1.mat", "f", "sqdBFS")
 %% Spectral analysis, delsig toolbox
 
 % Normalize magnitudes to full-scale (FS=nLev-1=1) 
@@ -110,6 +111,7 @@ grid on;
 ylabel('dBFS');
 xlabel('f/fs')
 
+% Export data for further processing
 save("./zip_meiners/behav/dsm_l1/data/dat_spectral_analysis2.mat", "t", "v")
 %% Windowed plot
 specHW = fft(v.*ds_hann(N))/(N/4);
@@ -122,4 +124,5 @@ grid on;
 ylabel('dBFS');
 xlabel('f/fs');
 
+% Export data for further processing
 save("./zip_meiners/behav/dsm_l1/data/dat_windowed_plot.mat", "t", "v")
