@@ -3,20 +3,24 @@ title: "MATLAB Behavioural Documentation"
 format: html
 ---
 
+![Blockdiagram of 1st order modulator](../recources/pictures/1st_Order_MOD_behav.png)
+
 ## 1st Order Modulator Model:
 ### Comprised of:
 
 - sum block ($\Delta$):
   - one positive and one negativ input
+  - 
 - discrete-time integrator as accumulator:
   -  realised as: $\frac{z^{-1}}{1-z^{-1}}$
+  -  
 - comparator (non-linear element):
   - switching threshold defined with 'eps' := $2^{-52}$ = 2.2204e-16
     - essentially switches around '0'-crossovers   
   - output either '1' (on) or '-1' (off)
 - feedback path from comparator output to sum block (neg. sign)  
   
-![Blockdiagram of 2nd Order Modulator](../recources/pictures/1st_Order_MOD_behav.png)
+![Behavioural Model of 1st Order Modulator](../recources/pictures/1st_Order_MOD_behav.png)
 
 
 ### In-Depth description:
@@ -25,12 +29,14 @@ format: html
   - Conveniently a sinusoid
     - Is non-linear, yet periodicly predictable
 
+
 ##### Delta ($\Delta$):
 - Feedback-node of the system 
 
 
 ##### Integrator/ Loop Filter ($\Sigma$)
 - Discrete-time implementation of integrator => accumulator
+  - also represents a lowpass filter
   - Includes a delay of one time step.
 - Serves as the "loop filter" of our system.
   - Accumulates difference ("error") between input and quantized feedback, including a sample delay.
@@ -39,7 +45,7 @@ format: html
   \frac{z^{-1}}{1-z^{-1}}
   $$
 - System relevance:
-  1. Accumulation of inpur signal
+  1. Accumulation of input signal
   2. Shaping of Quantization Noise ($\textit{Noise Shaping}$)
   
 
