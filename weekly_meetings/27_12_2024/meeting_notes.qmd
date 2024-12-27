@@ -1,0 +1,38 @@
+---
+title: "Meeting notes 27.12.2024"
+format: "pdf"
+---
+
+## Work done:
+Lars:\
+- semi full OTA design in XSchem\
+
+Priyanka:\
+- full fledged OTA design in XSchem\
+
+Miko:\
+- Decimator overview\
+- Decimator spectrum figures in MatLab\
+
+
+## Work to be done
+Lars:\
+- Further OTA design\
+- Analysis of noise transfer in MatLab\
+- Documentation of MatLab behavioural\
+
+Priyanka:\
+- Further OTA design with more complex Opamp\
+    - including noise\
+
+Miko:\
+- Decimation MatLab\
+- Documentation template\
+
+
+## Questions and problems
+- What is the actual input to the ADC, what does the accelerometer output?
+- Inclusion of PCB level analysis in presentation?
+- Evaluation of lab hardware (acc, adc)
+
+- ADC converts analog input signal to digital without loss of information due to nyquist theorem, so that the ADC output over time is the accelerometer output
