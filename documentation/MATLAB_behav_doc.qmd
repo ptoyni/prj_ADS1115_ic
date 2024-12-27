@@ -3,44 +3,58 @@ title: "MATLAB Behavioural Documentation"
 format: html
 ---
 
+![Blockdiagram of 1st order modulator](../recources/pictures/1st_Order_MOD_behav.png)
+
 ## 1st Order Modulator Model:
 ### Comprised of:
 
-- sum block ($\delta$):
+- sum block ($\Delta$):
   - one positive and one negativ input
-- discrete integrator:
+  - 
+- discrete-time integrator as accumulator:
   -  realised as: $\frac{z^{-1}}{1-z^{-1}}$
-- comparator:
+  -  
+- comparator (non-linear element):
   - switching threshold defined with 'eps' := $2^{-52}$ = 2.2204e-16
     - essentially switches around '0'-crossovers   
   - output either '1' (on) or '-1' (off)
-  - feeds back to 'sum' block, with negative sign 
+- feedback path from comparator output to sum block (neg. sign)  
   
-```{mermaid}
-flowchart LR
-  A[Input signal] --> B($$\Delta$$) 
-  B --> C[$$\Sigma$$] 
-  C --> D[Comparator]
-  D --> E[Oversampled Output]
-  D --> B
-```
+![Behavioural Model of 1st Order Modulator](../recources/pictures/1st_Order_MOD_behav.png)
+
 
 ### In-Depth description:
 ##### Input signal:
 - Analog signal 
-  - conveniently a sinusoid
-  - is non-linear, yet periodicly predictable
+  - Conveniently a sinusoid
+    - Is non-linear, yet periodicly predictable
+
 
 ##### Delta ($\Delta$):
 - Feedback-node of the system 
 
+
+##### Integrator/ Loop Filter ($\Sigma$)
+- Discrete-time implementation of integrator => accumulator
+  - also represents a lowpass filter
+  - Includes a delay of one time step.
+- Serves as the "loop filter" of our system.
+  - Accumulates difference ("error") between input and quantized feedback, including a sample delay.
+  - Modeled, using the expression:
+  $$
+  \frac{z^{-1}}{1-z^{-1}}
+  $$
+- System relevance:
+  1. Accumulation of input signal
+  2. Shaping of Quantization Noise ($\textit{Noise Shaping}$)
+  
 
 ## 2nd Order Modulator Model:
 ### Comprised of (additional):
 
 - sum block ($\delta$):
   - one positive and one negativ input
-- discrete integrator:
+- discrete integrator/ loopfilter:
   -  realised as: $\frac{z^{-1}}{1-z^{-1}}$
 - coefficient driven gains after integrators and before $\delta$s
 
