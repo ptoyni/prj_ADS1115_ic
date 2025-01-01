@@ -44,11 +44,31 @@ format: "html"
   \frac{z^{-1}}{1-z^{-1}}
   $$
   The expression can be derived from the combination of $\frac{1}{1-z^{-1}}$, which is the z-transform equavalent to the LaPlace integrator expression $\frac{1}{s}$, and an additional delay $z^{-1}$. 
-- >>
+
 - System relevance:
   1. Accumulation of input signal
   2. Shaping of Quantization Noise ($\textit{Noise Shaping}$)
-  
+
+
+- **Noise shaping**: 
+  - Discrete idea (LaPlace):
+    - Behaviour of System from previous Figure can be expressed as:
+$$
+\begin{align}
+v &= (u-v) \cdot \frac{z^{-1}}{1-z^{-1}}\\ 
+v &= u \cdot z^{-1} + e (1-z^{-1})
+\end{align}
+$$
+u := input signal, e := quantization error, v := output signal
+
+    - For low frequencies, meaning $\omega \approx 0 \rightarrow z = e^{j\omega} = 1$:
+$$
+e (1-\frac{1}{1}) = e \cdot 0 = 0
+$$
+    - For high frequencies, meaning $\omega \approx \pi \rightarrow z = e^{j\omega} = -1$:
+$$
+e\, \Big(1-\frac{1}{-1}\Big) = e\, (1+1) = 2\,e
+$$
 
 ## 2nd Order Modulator Model:
 ### Comprised of (additional):

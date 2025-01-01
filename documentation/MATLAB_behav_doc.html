@@ -163,16 +163,29 @@ window.Quarto = {
 \frac{z^{-1}}{1-z^{-1}}
 \]</span> The expression can be derived from the combination of <span class="math inline">\(\frac{1}{1-z^{-1}}\)</span>, which is the z-transform equavalent to the LaPlace integrator expression <span class="math inline">\(\frac{1}{s}\)</span>, and an additional delay <span class="math inline">\(z^{-1}\)</span>.</li>
 </ul></li>
-<li><blockquote class="blockquote">
-<blockquote class="blockquote">
-
-</blockquote>
-</blockquote></li>
 <li>System relevance:
 <ol type="1">
 <li>Accumulation of input signal</li>
 <li>Shaping of Quantization Noise (<span class="math inline">\(\textit{Noise Shaping}\)</span>)</li>
 </ol></li>
+<li><strong>Noise shaping</strong>:
+<ul>
+<li>Discrete idea (LaPlace):
+<ul>
+<li><p>Behaviour of System from previous Figure can be expressed as: <span class="math display">\[
+\begin{align}
+v &amp;= (u-v) \cdot \frac{z^{-1}}{1-z^{-1}}\\
+v &amp;= u \cdot z^{-1} + e (1-z^{-1})
+\end{align}
+\]</span> u := input signal, e := quantization error, v := output signal</p></li>
+<li><p>For low frequencies, meaning <span class="math inline">\(\omega \approx 0 \rightarrow z = e^{j\omega} = 1\)</span>: <span class="math display">\[
+e (1-\frac{1}{1}) = e \cdot 0 = 0
+\]</span></p></li>
+<li><p>For high frequencies, meaning <span class="math inline">\(\omega \approx \pi \rightarrow z = e^{j\omega} = -1\)</span>: <span class="math display">\[
+e\, \Big(1-\frac{1}{-1}\Big) = e\, (1+1) = 2\,e
+\]</span></p></li>
+</ul></li>
+</ul></li>
 </ul>
 </section>
 </section>
