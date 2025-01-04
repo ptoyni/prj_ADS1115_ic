@@ -93,7 +93,7 @@ window.Quarto = {
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../recources/pictures/1st_Order_MOD_behav.png" class="img-fluid figure-img"></p>
+<p><img src="../recources/pictures/Delta_Sigma_Mod1.png" class="img-fluid figure-img"></p>
 <figcaption>Blockdiagram of 1st order modulator</figcaption>
 </figure>
 </div>
@@ -105,12 +105,10 @@ window.Quarto = {
 <li>sum block (<span class="math inline">\(\Delta\)</span>):
 <ul>
 <li>one positive and one negativ input</li>
-<li></li>
 </ul></li>
-<li>discrete-time integrator as accumulator:
+<li>delayed discrete-time integrator/ accumulator:
 <ul>
 <li>realised as: <span class="math inline">\(\frac{z^{-1}}{1-z^{-1}}\)</span></li>
-<li></li>
 </ul></li>
 <li>comparator (non-linear element):
 <ul>
@@ -125,7 +123,7 @@ window.Quarto = {
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../recources/pictures/1st_Order_MOD_behav.png" class="img-fluid figure-img"></p>
+<p><img src="../recources/pictures/1st_Order_MOD_behav.png" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Behavioural Model of 1st Order Modulator</figcaption>
 </figure>
 </div>
@@ -163,13 +161,31 @@ window.Quarto = {
 <li>Accumulates difference (“error”) between input and quantized feedback, including a sample delay.</li>
 <li>Modeled, using the expression: <span class="math display">\[
 \frac{z^{-1}}{1-z^{-1}}
-\]</span></li>
+\]</span> The expression can be derived from the combination of <span class="math inline">\(\frac{1}{1-z^{-1}}\)</span>, which is the z-transform equavalent to the LaPlace integrator expression <span class="math inline">\(\frac{1}{s}\)</span>, and an additional delay <span class="math inline">\(z^{-1}\)</span>.</li>
 </ul></li>
 <li>System relevance:
 <ol type="1">
 <li>Accumulation of input signal</li>
 <li>Shaping of Quantization Noise (<span class="math inline">\(\textit{Noise Shaping}\)</span>)</li>
 </ol></li>
+<li><strong>Noise shaping</strong>:
+<ul>
+<li>Discrete idea (LaPlace):
+<ul>
+<li><p>Behaviour of System from previous Figure can be expressed as: <span class="math display">\[
+\begin{align}
+v &amp;= (u-v) \cdot \frac{z^{-1}}{1-z^{-1}}\\
+v &amp;= u \cdot z^{-1} + e (1-z^{-1})
+\end{align}
+\]</span> u := input signal, e := quantization error, v := output signal</p></li>
+<li><p>For low frequencies, meaning <span class="math inline">\(\omega \approx 0 \rightarrow z = e^{j\omega} = 1\)</span>: <span class="math display">\[
+e (1-\frac{1}{1}) = e \cdot 0 = 0
+\]</span></p></li>
+<li><p>For high frequencies, meaning <span class="math inline">\(\omega \approx \pi \rightarrow z = e^{j\omega} = -1\)</span>: <span class="math display">\[
+e\, \Big(1-\frac{1}{-1}\Big) = e\, (1+1) = 2\,e
+\]</span></p></li>
+</ul></li>
+</ul></li>
 </ul>
 </section>
 </section>
@@ -191,7 +207,7 @@ window.Quarto = {
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../recources/pictures/Mod_2nd_Order.svg" class="img-fluid figure-img"></p>
+<p><img src="../recources/pictures/Mod_2nd_Order.svg" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Blockdiagram of 2nd Order Modulator</figcaption>
 </figure>
 </div>
