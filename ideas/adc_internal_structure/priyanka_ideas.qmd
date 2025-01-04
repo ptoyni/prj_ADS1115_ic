@@ -16,4 +16,6 @@
 
     -   Magnitude Plot : typically exhibits **high-pass filter** behavior (like in our case)
 
-    -
+-   DFT Magnitude Spectrum
+
+-   
