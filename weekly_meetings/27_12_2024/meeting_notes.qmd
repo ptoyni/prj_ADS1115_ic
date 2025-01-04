@@ -4,28 +4,28 @@ format: "pdf"
 ---
 
 ## Work done:
-Lars:\
+**Lars:**\
 - semi full OTA design in XSchem\
 
-Priyanka:\
+**Priyanka:**\
 - full fledged OTA design in XSchem\
 
-Miko:\
+**Miko:**\
 - Decimator overview\
 - Decimator spectrum figures in MatLab\
 
 
 ## Work to be done
-Lars:\
+**Lars:**\
 - Further OTA design\
 - Analysis of noise transfer in MatLab\
 - Documentation of MatLab behavioural\
 
-Priyanka:\
+**Priyanka:**\
 - Further OTA design with more complex Opamp\
     - including noise\
 
-Miko:\
+**Miko:**\
 - Decimation MatLab\
 - Documentation template\
 

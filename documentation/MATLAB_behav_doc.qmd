@@ -1,6 +1,6 @@
 ---
 title: "MATLAB Behavioural Documentation"
-format: html
+format: "html"
 ---
 
 ![Blockdiagram of 1st order modulator](../recources/pictures/1st_Order_MOD_behav.png)

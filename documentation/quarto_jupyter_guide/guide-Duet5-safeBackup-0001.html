@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.36">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Miko Kranich">
-<meta name="dcterms.date" content="2024-12-27">
+<meta name="author" content="Me">
+<meta name="dcterms.date" content="2024-12-18">
 
-<title>Ideas collection for decimatior section</title>
+<title>Quarto-Jupyter-Matlab-Everything guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,22 +22,53 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="collection_files/libs/clipboard/clipboard.min.js"></script>
-<script src="collection_files/libs/quarto-html/quarto.js"></script>
-<script src="collection_files/libs/quarto-html/popper.min.js"></script>
-<script src="collection_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="collection_files/libs/quarto-html/anchor.min.js"></script>
-<link href="collection_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="collection_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="collection_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="collection_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="collection_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="collection_files/libs/quarto-diagram/mermaid.min.js"></script>
-<script src="collection_files/libs/quarto-diagram/mermaid-init.js"></script>
-<link href="collection_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="guide_files/libs/clipboard/clipboard.min.js"></script>
+<script src="guide_files/libs/quarto-html/quarto.js"></script>
+<script src="guide_files/libs/quarto-html/popper.min.js"></script>
+<script src="guide_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="guide_files/libs/quarto-html/anchor.min.js"></script>
+<link href="guide_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="guide_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="guide_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="guide_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="guide_files/libs/bootstrap/bootstrap-7efe0b1fee9f92738ae46ae98d30f7a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -79,7 +110,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Ideas collection for decimatior section</h1>
+<h1 class="title">Quarto-Jupyter-Matlab-Everything guide</h1>
 </div>
 
 
@@ -89,14 +120,14 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Miko Kranich </p>
+             <p>Me </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 27, 2024</p>
+      <p class="date">December 18, 2024</p>
     </div>
   </div>
   
@@ -108,179 +139,102 @@ window.Quarto = {
 </header>
 
 
-<section id="down-sampling" class="level2">
-<h2 class="anchored" data-anchor-id="down-sampling">Down sampling</h2>
-<p>Downsampling by factor <em>M</em> such that I/O-relation is <span class="math inline">\(y[n] = x[nM]\)</span>. In MATLAB, this can be achieved by using the function <span class="math inline">\(\textcolor{red}{downsample(x,M)}\)</span> which downsamples an arbitrary input function <span class="math inline">\(x[n]\)</span> by a factor of <span class="math inline">\(M\)</span>.<br>
-</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
+<section id="heres-some-heading" class="level1">
+<h1>Here’s some heading</h1>
+<ol type="1">
+<li>Here’s the first point of some listing</li>
+<li>And this is the second point of this pointless listing</li>
+</ol>
+<p>After this, there is some text with funny words. With a backslash or two spaces you can create a line break, as seen here.<br>
+Then the text continues in the next line.</p>
+<ul>
+<li>some bulletpoint</li>
+<li>more bulletpoints
+<ul>
+<li>funny indented bullet point</li>
+</ul></li>
+</ul>
+<div id="cell-2" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a cell for some calculations or plot or something, it's just plain python</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1000</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.sin(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>f)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.plot(f,x)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Some sine function'</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time'</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Amplitude'</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
 <div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\downarrow$$ M]
-  B --&gt; C($$y_n$$) 
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>With input sampling rate <span class="math inline">\(F_T = 1/T\)</span>, the output sampling rate <span class="math inline">\(F_M\)</span> is given by</p>
-<p><span class="math display">\[\begin{equation}
-    F_M = \frac{1}{T_M} = \frac{1}{MT} = \frac{F_T}{M}.
-\end{equation}\]</span></p>
-<p>Thus, the sampling rate is decreased by a factor of <span class="math inline">\(1/M\)</span> while the sampling period is increased by the downsampling factor <span class="math inline">\(M\)</span>.<br>
-<br>
-The frequency-domain relation of <span class="math inline">\(y[n] = x[nM]\)</span> can be derived by taking the z-transform</p>
-<p><span class="math display">\[\begin{equation}
-    Y(z) = \sum_{\infty}^{\infty}x[Mn]z^{-n}
-\end{equation}\]</span></p>
-<p>and with some fancy math (explained here https://wolter.hs-bremen.de/skripte/DSP_II/SKRIPT_DSP_II.pdf), the final form</p>
-<p><span class="math display">\[\begin{equation}
-    Y(z) = \frac{1}{M}\sum_{k = 0}^{M-1}X(z^{1/M}W_M^k),\ W_M^k = e^{-\frac{j1\pi k}{M}}
-\end{equation}\]</span> is obtained. This implies that the output spectrum is the sum of M stretched and shifted replicas of the input spectrum, scaled by a factor of 1/M. The output spectrum of a factor-of-M downsampler is given by</p>
-<p><span class="math display">\[\begin{equation}
-    Y(e^{j\omega}) = \frac{1}{M}\sum_{k = 0}^{M-1}X(e^{-j(\omega-2\pi k)/M}).
-\end{equation}\]</span></p>
-<p>Aliasing in the output spectrum <span class="math inline">\(Y(e^{j\omega})\)</span> is absent if and only if</p>
-<p><span class="math display">\[\begin{equation}
-    X(e^{j\omega}) = 0,\ \pi/M \leq |\omega| \leq \pi
-\end{equation}\]</span> meaning <span class="math inline">\(x[n]\)</span> must be band-limited to <span class="math inline">\(\pm \pi/M\)</span>.</p>
-<p>As an example, see the figures of a factor-3 downsampler below <img src="../../../recources/figures/digital_section_miko/input_spectrum.PNG" class="img-fluid" alt="Example input-spectrum of factor-3 downsampler"> <img src="../../../recources/figures/digital_section_miko/output_spectrum.PNG" class="img-fluid" alt="Example output-spectrum of factor-3 downsampler"></p>
-<p>with the mathematical representation</p>
-<p><span class="math display">\[\begin{equation}
-    Y(e^{j\omega}) = \frac{1}{3}\{ X(e^{j\omega /3}) + X(e^{j(\omega -2\pi)/3}) + X(e^{j(\omega -4\pi) /3})\}
-\end{equation}\]</span></p>
-<p>meaning the following steps are being done<br>
-1. Stretch X(e^{j}) by a factor of 3 to obtain <span class="math inline">\(X(e^{j\omega /3})\)</span> so the input spectrum is widened<br>
-2. Create a and shift 2 copies of <span class="math inline">\(X(e^{j\omega})\)</span> cectered at the frequencies <span class="math inline">\(\omega = 2 \pi k,\ k = 1,2\)</span><br>
-3. Add the strechted and shifted replicas and scale the sum by 1/3 to obtain <span class="math inline">\(Y(e^{j\omega})\)</span><br>
-</p>
-<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../../recources/figures/digital_section_miko/step_by_step.PNG" class="img-fluid figure-img"></p>
-<figcaption>Step-by-step downsampling</figcaption>
+<p><img src="guide_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
-<p><strong>This shows the importance of proper filtering!</strong></p>
+</div>
+</div>
+<p>Then, by pressing Crtl+Shift+K (just as in a default quarto document) you can create a quarto output in the format specified in the header. It depicts everything from Text to code to figures, depending on the format chosen.</p>
+<p>You can even insert funny formulae, no need to change the cell to latex <span class="math display">\[\begin{equation}
+    Y[k] = \sum_{n = -\infty}^{\infty}x[k]\cdot h[k-n].
+\end{equation}\]</span></p>
+<p>If you want to have a nice figure:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="recources/example_image.jpeg" class="img-fluid figure-img"></p>
+<figcaption><c>I want this era of artstlye back :(&lt;</c></figcaption>
+</figure>
+</div>
+<section id="matlab-calls-or-data-calls-in-general" class="level2">
+<h2 class="anchored" data-anchor-id="matlab-calls-or-data-calls-in-general">Matlab calls or data calls in general</h2>
+<p>In the following, calls are made to the matlab files for first order modulator.<br>
+THE DATA MUST BE EXPORTED BY RUNNING THE MATLAB SCRIPTS MANUALLY.<br>
+All the data from simulation are stored in a seperate folder and can be accessed by just giving relative paths for further processing in python</p>
+<div id="cell-7" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.io <span class="im">import</span> loadmat <span class="co">#this actually enables the import of .mat</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#import matlab data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>time_domain <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_time_domain_plot.mat"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>spectral_analysis1 <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_spectral_analysis1.mat"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>spectral_analysis2 <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_spectral_analysis2.mat"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>windowed_plot <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_windowed_plot.mat"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#to access imported matlab data</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> time_domain[<span class="st">'t'</span>]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>voltage <span class="op">=</span> time_domain[<span class="st">'u'</span>]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>the_other <span class="op">=</span> time_domain[<span class="st">'v'</span>]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>the_other_mod <span class="op">=</span> np.append(the_other[<span class="dv">0</span>], <span class="dv">1</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.plot(time[<span class="dv">0</span>], voltage[<span class="dv">0</span>], linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Voltage'</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>plt.stairs(time[<span class="dv">0</span>], the_other_mod)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.axis([min(time).any(), max(time).any()/8, 1.1*min(the_other_mod).any(), 1.1*max(the_other_mod).any()])</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Time domain plot first order $\Delta \Sigma$ modulator'</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time [s]'</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Amplitude [V]'</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="guide_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="up-sampling" class="level2">
-<h2 class="anchored" data-anchor-id="up-sampling">Up sampling</h2>
-<p>Basically the same as downsampling<br>
-</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\uparrow$$ L]
-  B --&gt; C($$y_n$$)
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p><span class="math inline">\(\textcolor{red}{TBC}\)</span></p>
-</section>
-<section id="cascade-structures" class="level2">
-<h2 class="anchored" data-anchor-id="cascade-structures">Cascade structures</h2>
-<p>Up- and downsamplers can be cascaded to obtain a rational conversion factors.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\uparrow$$ L]
-  B --&gt; C[$$\downarrow$$ M]
-  C --&gt; D($$y1_n$$) 
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\downarrow$$ M]
-  B --&gt; C[$$\uparrow$$ L]
-  C --&gt; D($$y2_n$$) 
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>This cascading is interchangable with no change to the I/O-relation <span class="math display">\[\begin{equation}
-    y_1[n] = y_2[n]
-\end{equation}\]</span> if and only if M and L are relatively prime, meaning M and L do not have any common factor that is integer k &gt; 1.</p>
-<section id="multirate-identity" class="level3">
-<h3 class="anchored" data-anchor-id="multirate-identity">Multirate identity</h3>
-<p>The two multirate identities for up/down sampling and filtering are</p>
-<p>Identity #1 <span class="math display">\[\begin{equation}
-  Y_1(z) = H(z)\cdot \frac{1}{M}\sum_{k=0}^{M-1}X(z^{1/M}W_M^k)
-\end{equation}\]</span> i.e., we can interchange the order of down-sampling and filtering, if we down-sample the filter response<br>
-<br>
-and Identity #2 <span class="math display">\[\begin{equation}
-  Y_2(z) = H(z^L)\cdot X(z^L)
-\end{equation}\]</span> i.e., we can interchange the order of up-sampling and filtering, if we up-sample the filter response</p>
-</section>
-</section>
-<section id="decimators-and-interpolators" class="level2">
-<h2 class="anchored" data-anchor-id="decimators-and-interpolators">Decimators and interpolators</h2>
-<p>Prior to down-sampling a signal v[n] must be band-limited to <span class="math inline">\(|\omega| &lt; \pi/M\)</span> to avoid aliasing. This can be done with an additional LP filter <span class="math inline">\(H_d(z)\)</span> called the decimation filter</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$H_dz$$]
-  B --&gt; |$$v_n$$| C[$$\downarrow$$ M]
-  C --&gt; D($$y_n$$)
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>This system is called a <em>decimator</em>.<br>
-<br>
-<br>
-Since up-sampling causes unwanted images in the spectrum of the up-sampled signal <span class="math inline">\(x_u[n]\)</span>, the unwanted images included in <span class="math inline">\(|\omega| &gt; \pi/L\)</span> must be removed using an additional LP filter <span class="math inline">\(H_u(u)\)</span> called the interpolator filter</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\uparrow$$ M]
-  B --&gt; |$$x_un$$| C[$$H_uz$$]
-  C --&gt; D($$y_n$$)
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>This system is called a <em>interpolator</em>.</p>
-</section>
-<section id="now-for-some-actual-calculations" class="level2">
-<h2 class="anchored" data-anchor-id="now-for-some-actual-calculations">Now for some actual calculations</h2>
-<p>With the ADC specifications given on 28.11.2024 following<br>
-1. Dynamic range (DR) : 16bit ~ 98dB<br>
-2. Signal bandwidth (B/bw) : 215Hz<br>
-3. Nyquist Frequency (<span class="math inline">\(f_N\)</span>) : 430Hz<br>
-4. Modulator order (L) : 2<br>
-5. Sampling frequency (<span class="math inline">\(f_s\)</span>): 220kHz<br>
-6. Oversampling ratio (OSR) : <span class="math inline">\(M = \lceil \frac{f_s}{f_N}\rceil = 512\)</span> &nbsp;</p>
 </section>
 
 </main>

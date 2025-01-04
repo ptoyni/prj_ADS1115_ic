@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Miko Kranich">
-<meta name="dcterms.date" content="2024-12-27">
+<meta name="dcterms.date" content="2025-01-04">
+<meta name="keywords" content="Microelectronics, AD-Conversion, ..">
 
-<title>Ideas collection for decimatior section</title>
+<title>Design of a Analog-Digital-Converter after the ADS1115</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,265 +22,187 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="collection_files/libs/clipboard/clipboard.min.js"></script>
-<script src="collection_files/libs/quarto-html/quarto.js"></script>
-<script src="collection_files/libs/quarto-html/popper.min.js"></script>
-<script src="collection_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="collection_files/libs/quarto-html/anchor.min.js"></script>
-<link href="collection_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="collection_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="collection_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="collection_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="collection_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="collection_files/libs/quarto-diagram/mermaid.min.js"></script>
-<script src="collection_files/libs/quarto-diagram/mermaid-init.js"></script>
-<link href="collection_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="report_grp4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="report_grp4_files/libs/quarto-html/quarto.js"></script>
+<script src="report_grp4_files/libs/quarto-html/popper.min.js"></script>
+<script src="report_grp4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="report_grp4_files/libs/quarto-html/anchor.min.js"></script>
+<link href="report_grp4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="report_grp4_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="report_grp4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="report_grp4_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
-<body class="fullcontent">
+<body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#wow" id="toc-wow" class="nav-link" data-scroll-target="#wow"><span class="header-section-number">1.1</span> Wow</a></li>
+  </ul></li>
+  <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="header-section-number">2</span> Theory</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Ideas collection for decimatior section</h1>
+<h1 class="title">Design of a Analog-Digital-Converter after the ADS1115</h1>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Miko Kranich <a href="mailto:mkranich@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Hochschule Bremen
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Lars Nickisch <a href="mailto:lnickisch@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Priyanka Toyni <a href="mailto:ptoyni@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Aftab Nagarji <a href="mailto:anagarji@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Miko Kranich </p>
-          </div>
-  </div>
-    
+      
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 27, 2024</p>
+      <p class="date">2025-01-04</p>
     </div>
   </div>
   
     
   </div>
   
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>The following is the design report of our laboratory group of the</p>
+  </div>
+</div>
 
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>Microelectronics, AD-Conversion, ..</p>
+  </div>
+</div>
 
 </header>
 
 
-<section id="down-sampling" class="level2">
-<h2 class="anchored" data-anchor-id="down-sampling">Down sampling</h2>
-<p>Downsampling by factor <em>M</em> such that I/O-relation is <span class="math inline">\(y[n] = x[nM]\)</span>. In MATLAB, this can be achieved by using the function <span class="math inline">\(\textcolor{red}{downsample(x,M)}\)</span> which downsamples an arbitrary input function <span class="math inline">\(x[n]\)</span> by a factor of <span class="math inline">\(M\)</span>.<br>
-</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\downarrow$$ M]
-  B --&gt; C($$y_n$$) 
-</pre>
+<hr>
+<p>jupyter: python3</p>
+<hr>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>This is the introduction to our report.</p>
+<section id="wow" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="wow"><span class="header-section-number">1.1</span> Wow</h2>
+<p>It even has subchapters!</p>
+<p>For a demonstration of a line plot on a polar axis, see <a href="#fig-polar" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="cell-fig-polar" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> r</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  subplot_kw <span class="op">=</span> {<span class="st">'projection'</span>: <span class="st">'polar'</span>} </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ax.plot(theta, r)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ax.set_rticks([<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>])</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-polar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="report_grp4_files/figure-html/fig-polar-output-1.png" width="450" height="439" class="figure-img">
 </div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>With input sampling rate <span class="math inline">\(F_T = 1/T\)</span>, the output sampling rate <span class="math inline">\(F_M\)</span> is given by</p>
-<p><span class="math display">\[\begin{equation}
-    F_M = \frac{1}{T_M} = \frac{1}{MT} = \frac{F_T}{M}.
-\end{equation}\]</span></p>
-<p>Thus, the sampling rate is decreased by a factor of <span class="math inline">\(1/M\)</span> while the sampling period is increased by the downsampling factor <span class="math inline">\(M\)</span>.<br>
-<br>
-The frequency-domain relation of <span class="math inline">\(y[n] = x[nM]\)</span> can be derived by taking the z-transform</p>
-<p><span class="math display">\[\begin{equation}
-    Y(z) = \sum_{\infty}^{\infty}x[Mn]z^{-n}
-\end{equation}\]</span></p>
-<p>and with some fancy math (explained here https://wolter.hs-bremen.de/skripte/DSP_II/SKRIPT_DSP_II.pdf), the final form</p>
-<p><span class="math display">\[\begin{equation}
-    Y(z) = \frac{1}{M}\sum_{k = 0}^{M-1}X(z^{1/M}W_M^k),\ W_M^k = e^{-\frac{j1\pi k}{M}}
-\end{equation}\]</span> is obtained. This implies that the output spectrum is the sum of M stretched and shifted replicas of the input spectrum, scaled by a factor of 1/M. The output spectrum of a factor-of-M downsampler is given by</p>
-<p><span class="math display">\[\begin{equation}
-    Y(e^{j\omega}) = \frac{1}{M}\sum_{k = 0}^{M-1}X(e^{-j(\omega-2\pi k)/M}).
-\end{equation}\]</span></p>
-<p>Aliasing in the output spectrum <span class="math inline">\(Y(e^{j\omega})\)</span> is absent if and only if</p>
-<p><span class="math display">\[\begin{equation}
-    X(e^{j\omega}) = 0,\ \pi/M \leq |\omega| \leq \pi
-\end{equation}\]</span> meaning <span class="math inline">\(x[n]\)</span> must be band-limited to <span class="math inline">\(\pm \pi/M\)</span>.</p>
-<p>As an example, see the figures of a factor-3 downsampler below <img src="../../../recources/figures/digital_section_miko/input_spectrum.PNG" class="img-fluid" alt="Example input-spectrum of factor-3 downsampler"> <img src="../../../recources/figures/digital_section_miko/output_spectrum.PNG" class="img-fluid" alt="Example output-spectrum of factor-3 downsampler"></p>
-<p>with the mathematical representation</p>
-<p><span class="math display">\[\begin{equation}
-    Y(e^{j\omega}) = \frac{1}{3}\{ X(e^{j\omega /3}) + X(e^{j(\omega -2\pi)/3}) + X(e^{j(\omega -4\pi) /3})\}
-\end{equation}\]</span></p>
-<p>meaning the following steps are being done<br>
-1. Stretch X(e^{j}) by a factor of 3 to obtain <span class="math inline">\(X(e^{j\omega /3})\)</span> so the input spectrum is widened<br>
-2. Create a and shift 2 copies of <span class="math inline">\(X(e^{j\omega})\)</span> cectered at the frequencies <span class="math inline">\(\omega = 2 \pi k,\ k = 1,2\)</span><br>
-3. Add the strechted and shifted replicas and scale the sum by 1/3 to obtain <span class="math inline">\(Y(e^{j\omega})\)</span><br>
-</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../../recources/figures/digital_section_miko/step_by_step.PNG" class="img-fluid figure-img"></p>
-<figcaption>Step-by-step downsampling</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A line plot on a polar axis
+</figcaption>
 </figure>
 </div>
-<p><strong>This shows the importance of proper filtering!</strong></p>
-</section>
-<section id="up-sampling" class="level2">
-<h2 class="anchored" data-anchor-id="up-sampling">Up sampling</h2>
-<p>Basically the same as downsampling<br>
-</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\uparrow$$ L]
-  B --&gt; C($$y_n$$)
-</pre>
-</div>
-<p></p></figure><p></p>
 </div>
 </div>
-</div>
-<p><span class="math inline">\(\textcolor{red}{TBC}\)</span></p>
-</section>
-<section id="cascade-structures" class="level2">
-<h2 class="anchored" data-anchor-id="cascade-structures">Cascade structures</h2>
-<p>Up- and downsamplers can be cascaded to obtain a rational conversion factors.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\uparrow$$ L]
-  B --&gt; C[$$\downarrow$$ M]
-  C --&gt; D($$y1_n$$) 
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\downarrow$$ M]
-  B --&gt; C[$$\uparrow$$ L]
-  C --&gt; D($$y2_n$$) 
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>This cascading is interchangable with no change to the I/O-relation <span class="math display">\[\begin{equation}
-    y_1[n] = y_2[n]
-\end{equation}\]</span> if and only if M and L are relatively prime, meaning M and L do not have any common factor that is integer k &gt; 1.</p>
-<section id="multirate-identity" class="level3">
-<h3 class="anchored" data-anchor-id="multirate-identity">Multirate identity</h3>
-<p>The two multirate identities for up/down sampling and filtering are</p>
-<p>Identity #1 <span class="math display">\[\begin{equation}
-  Y_1(z) = H(z)\cdot \frac{1}{M}\sum_{k=0}^{M-1}X(z^{1/M}W_M^k)
-\end{equation}\]</span> i.e., we can interchange the order of down-sampling and filtering, if we down-sample the filter response<br>
-<br>
-and Identity #2 <span class="math display">\[\begin{equation}
-  Y_2(z) = H(z^L)\cdot X(z^L)
-\end{equation}\]</span> i.e., we can interchange the order of up-sampling and filtering, if we up-sample the filter response</p>
 </section>
 </section>
-<section id="decimators-and-interpolators" class="level2">
-<h2 class="anchored" data-anchor-id="decimators-and-interpolators">Decimators and interpolators</h2>
-<p>Prior to down-sampling a signal v[n] must be band-limited to <span class="math inline">\(|\omega| &lt; \pi/M\)</span> to avoid aliasing. This can be done with an additional LP filter <span class="math inline">\(H_d(z)\)</span> called the decimation filter</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$H_dz$$]
-  B --&gt; |$$v_n$$| C[$$\downarrow$$ M]
-  C --&gt; D($$y_n$$)
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>This system is called a <em>decimator</em>.<br>
-<br>
-<br>
-Since up-sampling causes unwanted images in the spectrum of the up-sampled signal <span class="math inline">\(x_u[n]\)</span>, the unwanted images included in <span class="math inline">\(|\omega| &gt; \pi/L\)</span> must be removed using an additional LP filter <span class="math inline">\(H_u(u)\)</span> called the interpolator filter</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A($$x_n$$) --&gt; B[$$\uparrow$$ M]
-  B --&gt; |$$x_un$$| C[$$H_uz$$]
-  C --&gt; D($$y_n$$)
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>This system is called a <em>interpolator</em>.</p>
-</section>
-<section id="now-for-some-actual-calculations" class="level2">
-<h2 class="anchored" data-anchor-id="now-for-some-actual-calculations">Now for some actual calculations</h2>
-<p>With the ADC specifications given on 28.11.2024 following<br>
-1. Dynamic range (DR) : 16bit ~ 98dB<br>
-2. Signal bandwidth (B/bw) : 215Hz<br>
-3. Nyquist Frequency (<span class="math inline">\(f_N\)</span>) : 430Hz<br>
-4. Modulator order (L) : 2<br>
-5. Sampling frequency (<span class="math inline">\(f_s\)</span>): 220kHz<br>
-6. Oversampling ratio (OSR) : <span class="math inline">\(M = \lceil \frac{f_s}{f_N}\rceil = 512\)</span> &nbsp;</p>
+<section id="theory" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Theory</h1>
+<p>Bla bla, some theory</p>
+<p>something something frequency depentend, parasitic capacities, I don’t care <span class="citation" data-cites="reisch">@reisch</span></p>
 </section>
 
 </main>
