@@ -1,7 +1,7 @@
 %% 1st order Modulator System
 clc
-clearvars
-close all
+clear all
+
 %% Calibration of test system
 L = 1;                % Order of modulator
 form = 'CIFB';        % Cascade of integrator feedback
@@ -19,24 +19,18 @@ u = A * sin(2 * pi * fx/fs * [0:N-1]);
 %% Design NTF
 H = synthesizeNTF(L, M);
 
-%% Pole-zero map
-fig1 = figure(1);
-pzplot(H);
 %% Bode plot
 f = linspace(0, 0.5, N/2+1);
 z = exp(2i*pi*f);
 fig2 = figure(2);
 plot(f, dbv(evalTF(H, z)));
-title('Bode plot of first order \Delta\Sigma Modulator')
-xlabel('Frequency')
-ylabel('Magnitude')
-sigma_H = dbv(rmsGain(H, 0, 0.5/M));
+sigma_H = dbv( rmsGain(H, 0, 0.5/M))
 
 %% Realize SDM
 [a, g, b, c] = realizeNTF(H, form);
 b(2:end) = 0;
 ABCD = stuffABCD(a, g, b, c, form);
-[ABCDs, umax] = scaleABCD(ABCD);
+[ABCDs umax] = scaleABCD(ABCD);
 [a, g, b, c] = mapABCD(ABCDs, form);
 
 %% Simulate DSM with delsig toolbox
@@ -52,7 +46,7 @@ hold off;
 axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
 xlabel('Time t/T');
 ylabel('Amplitude');
-legend('Input signal', 'PWM output');
+legend('u', 'v');
 title('1st Order \Sigma\Delta');
 
 %% Spectral Anlysis, FFT
@@ -71,13 +65,12 @@ sqdBFS(isinf(sqdBFS)) = -150;
 % Calculate SNR
 sigbin = 1 + cycles;
 noise = [sq_hlf(1:sigbin-1), sq_hlf(sigbin+1:end)];
-snr = 10*log10(sq_hlf(sigbin)^2/sum(noise.^2));
+snr = 10*log10(sq_hlf(sigbin)^2/sum(noise.^2))
 
 % Generate the magnitude plot with annotation
 fig4 = figure(4);
 set(gca, 'fontsize', 14);
 plot(f, sqdBFS, 'linewidth', 2);
-title('Visualization of noise shaping using FFT')
 xlabel('Frequency f/fs')
 ylabel('DFT Magnitude in dBFS')
 grid;
@@ -86,7 +79,6 @@ grid;
 
 % Normalize magnitudes to full-scale (FS=nLev-1=1) 
 sqFS = sq/(N/2);
-snr = calculateSNR(sqFS(1:fB), fx);
 
 fig5 = figure(5);
 set(gca, 'fontsize', 14);
@@ -95,7 +87,6 @@ axis([0 0.06 -150 0]);
 grid on;
 ylabel('dBFS');
 xlabel('f/fs')
-title('Visualization of noise shaping using delsig toolbox')
 
 
 %% Windowed plot
@@ -108,4 +99,3 @@ axis([0 0.06 -150 0]);
 grid on;
 ylabel('dBFS');
 xlabel('f/fs');
-title('Visualization of nouse shaping using windowed sequence')
