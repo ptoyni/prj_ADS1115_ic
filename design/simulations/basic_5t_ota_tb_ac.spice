@@ -1,0 +1,71 @@
+** sch_path: /foss/designs/analog-circuit-design/priyanka/basic_5t_ota_tb_ac.sch
+**.subckt basic_5t_ota_tb_ac
+Vdd v_dd GND 1.8
+Vss v_ss GND 0
+C1 v_out v_ss 1p m=1
+Vin v_in v_ss dc 0.8 ac 1
+I0 v_dd net1 2.94u
+.save v(v_in)
+.save v(v_out)
+x1 v_dd v_out net1 v_out v_in v_ss basic_5t_ota
+**** begin user architecture code
+
+
+.temp 27
+.control
+option sparse
+save all
+op
+write basic_5t_ota_tb-ac.raw
+set appendwrite
+
+ac dec 101 1k 100MEG
+write basic_5t_ota_tb-ac.raw
+plot 20*log10(v_out)
+
+meas ac dcgain MAX vmag(v_out) FROM=10 TO=10k
+let f3db = dcgain/sqrt(2)
+meas ac fbw WHEN vmag(v_out)=f3db FALL=1
+let gainerror=(dcgain-1)/1
+print dcgain
+print fbw
+print gainerror
+
+plot 180/pi*phase(v_out) vs frequency
+
+noise v(v_out) Vin dec 101 1k 100MEG
+print onoise_total
+
+.endc
+
+
+ .lib cornerMOSlv.lib mos_tt
+
+ .lib cornerRES.lib res_typ
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  basic_5t_ota.sym # of pins=6
+** sym_path: /foss/designs/analog-circuit-design/priyanka/basic_5t_ota.sym
+** sch_path: /foss/designs/analog-circuit-design/priyanka/basic_5t_ota.sch
+.subckt basic_5t_ota vdd vout ibias vinm vinp vss
+*.ipin vss
+*.ipin vdd
+*.ipin ibias
+*.ipin vinm
+*.ipin vinp
+*.opin vout
+XM1 vout net1 vdd vdd sg13_lv_pmos w=0.20u l=0.2u ng=1 m=1
+XM2 net2 vinm vout vss sg13_lv_nmos w=0.141u l=0.2u ng=1 m=1
+XM3 net1 net1 vdd vdd sg13_lv_pmos w=0.20u l=0.2u ng=1 m=1
+XM4 net2 vinp net1 vss sg13_lv_nmos w=0.141u l=0.2u ng=1 m=1
+XM5 vss net3 net2 vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+XM6 vss net3 net4 vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+XM7 vss net3 net3 vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+XM9 net4 ibias vdd vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+XM8 net3 ibias ibias vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.end
