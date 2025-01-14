@@ -1,0 +1,13 @@
+---
+jupyter: python3
+---
+
+# Questions for final design phase
+
+### Model/ Behavioural (or System) Description
+
+
+### Circuit Design
+
+
+### Digital Filter Stage
