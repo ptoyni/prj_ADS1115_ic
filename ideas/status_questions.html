@@ -3,15 +3,11 @@
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.39">
-<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-01-09">
-<meta name="dcterms.date" content="2025-01-09">
-<meta name="keywords" content="Microelectronics, AD-Conversion, ..">
 
-<title>Design of a Analog-Digital-Converter after the ADS1115</title>
+<title>status_questions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,186 +20,43 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="report_grp4_files/libs/clipboard/clipboard.min.js"></script>
-<script src="report_grp4_files/libs/quarto-html/quarto.js"></script>
-<script src="report_grp4_files/libs/quarto-html/popper.min.js"></script>
-<script src="report_grp4_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="report_grp4_files/libs/quarto-html/anchor.min.js"></script>
-<link href="report_grp4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="report_grp4_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="report_grp4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="report_grp4_files/libs/bootstrap/bootstrap-7efe0b1fee9f92738ae46ae98d30f7a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="status_questions_files/libs/clipboard/clipboard.min.js"></script>
+<script src="status_questions_files/libs/quarto-html/quarto.js"></script>
+<script src="status_questions_files/libs/quarto-html/popper.min.js"></script>
+<script src="status_questions_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="status_questions_files/libs/quarto-html/anchor.min.js"></script>
+<link href="status_questions_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="status_questions_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="status_questions_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="status_questions_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="status_questions_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
 
-<body>
+<body class="fullcontent">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
-<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
-  <ul class="collapse">
-  <li><a href="#wow" id="toc-wow" class="nav-link" data-scroll-target="#wow"><span class="header-section-number">1.1</span> Wow</a></li>
-  </ul></li>
-  <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="header-section-number">2</span> Theory</a></li>
-  </ul>
-</nav>
-</div>
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-</div>
-<main class="content" id="quarto-document-content">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Design of a Analog-Digital-Converter after the ADS1115</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Miko Kranich <a href="mailto:mkranich@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Hochschule Bremen
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Lars Nickisch <a href="mailto:lnickisch@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Priyanka Toyni <a href="mailto:ptoyni@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Aftab Nagarji <a href="mailto:anagarji@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-      </div>
-  </div>
-
-<div class="quarto-title-meta">
-
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-09</p>
-      <p class="date">2025-01-09</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-<div>
-  <div class="abstract">
-    <div class="block-title">Abstract</div>
-    <p>The following is the design report of our laboratory group of the …</p>
-  </div>
-</div>
-
-<div>
-  <div class="keywords">
-    <div class="block-title">Keywords</div>
-    <p>Microelectronics, AD-Conversion, ..</p>
-  </div>
-</div>
-
-</header>
 
 
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>This is the introduction to our report.</p>
-<section id="wow" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="wow"><span class="header-section-number">1.1</span> Wow</h2>
-<p>It even has subchapters!</p>
-<p>For a demonstration of a line plot on a polar axis, see <a href="#fig-polar" class="quarto-xref">Figure&nbsp;1</a>.</p>
-<div id="cell-fig-polar" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> r</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  subplot_kw <span class="op">=</span> {<span class="st">'projection'</span>: <span class="st">'polar'</span>} </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ax.plot(theta, r)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ax.set_rticks([<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>])</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div id="fig-polar" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="report_grp4_files/figure-html/fig-polar-output-1.png" width="450" height="439" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: A line plot on a polar axis
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
+<section id="questions-for-final-design-phase" class="level1">
+<h1>Questions for final design phase</h1>
+<section id="model-behavioural-or-system-description" class="level3">
+<h3 class="anchored" data-anchor-id="model-behavioural-or-system-description">Model/ Behavioural (or System) Description</h3>
 </section>
+<section id="circuit-design" class="level3">
+<h3 class="anchored" data-anchor-id="circuit-design">Circuit Design</h3>
 </section>
-<section id="theory" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Theory</h1>
-<p>Bla bla, some theory</p>
-<p>something something frequency depentend, parasitic capacities, I don’t care <span class="citation" data-cites="reisch">@reisch</span></p>
+<section id="digital-filter-stage" class="level3">
+<h3 class="anchored" data-anchor-id="digital-filter-stage">Digital Filter Stage</h3>
+</section>
 </section>
 
 </main>

@@ -1,4 +1,4 @@
-** sch_path: /foss/designs/EE628/5_Design/2_Idealized_circuits/tb_ideal_idsm2_scaled.sch
+** sch_path: /foss/designs/prj_ADS1115_ic-1/zip_meiners/ic_design/2_Idealized_circuits/tb_ideal_idsm2_scaled.sch
 **.subckt tb_ideal_idsm2_scaled
 Vp1 p1 GND dc 0 pulse(0, {vdd}, 5n, 100p, 100p, {per/2-5n}, {per})
 E1 vo1 GND net3 VMID -1000

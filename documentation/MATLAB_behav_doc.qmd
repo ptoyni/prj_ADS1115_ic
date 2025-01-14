@@ -3,7 +3,7 @@ title: "MATLAB Behavioural Documentation"
 format: "html"
 ---
 
-![Blockdiagram of 1st order modulator](../recources/pictures/Delta_Sigma_Mod1.png)
+![Blockdiagram of 1st order modulator](../recources/pictures/Delta_Sigma_Mod1.png){width=80%}
 
 ## 1st Order Modulator Model:
 ### Comprised of:
@@ -80,4 +80,4 @@ $$
 - coefficient driven gains after integrators and before $\delta$s
 
 
-![Blockdiagram of 2nd Order Modulator](../recources/pictures/Mod_2nd_Order.svg){width=60%}
+![Blockdiagram of 2nd Order Modulator](../recources/pictures/Mod_2nd_Order.svg){width=70%}
