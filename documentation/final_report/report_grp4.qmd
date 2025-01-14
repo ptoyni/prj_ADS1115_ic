@@ -29,10 +29,10 @@ format:
     code-fold: true
     cite-method: biblatex
 
-bibliography: sources.bib
+bibliography: ./sources.bib
 
 abstract: >
-  The following is the design report of our laboratory group of the 
+  The following is the design report of our laboratory group of the ...
 
 keywords: 
   - Microelectronics
@@ -43,3 +43,4 @@ keywords:
 {{< include chapters/introduction/introduction.qmd >}}
 
 {{< include chapters/theory/theory.qmd >}}
+
