@@ -1,4 +1,4 @@
-** sch_path: /foss/designs/analog-circuit-design/priyanka/basic_5t_ota_tran.sch
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/basic_5t_ota_tran.sch
 **.subckt basic_5t_ota_tran
 Vdd v_dd GND 1.8
 Vss v_ss GND 0
@@ -35,8 +35,8 @@ print tsettle
 **.ends
 
 * expanding   symbol:  basic_5t_ota.sym # of pins=6
-** sym_path: /foss/designs/analog-circuit-design/priyanka/basic_5t_ota.sym
-** sch_path: /foss/designs/analog-circuit-design/priyanka/basic_5t_ota.sch
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/basic_5t_ota.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/basic_5t_ota.sch
 .subckt basic_5t_ota vdd vout ibias vinm vinp vss
 *.ipin vss
 *.ipin vdd

@@ -1,0 +1,14 @@
+LTspice 24.0.12 for Windows
+Circuit: * C:\Users\nicki\Documents\Studium_ET\HSB_Master\Module_MSc\WiSe_MSc\CEMS\prj_ADS1115_ic-1\zip_meiners\ltspice\dsm_l2\dsm_l2.asc
+Start Time: Wed Jan 15 20:10:29 2025
+Error: unknown token in: "v(hold)>0[?]v(vdd):0"
+Error: unknown token in: "v(in)>v(vdd)/2[?]v(vss):v(vdd)"
+solver = Normal
+Maximum thread count: 8
+tnom = 27
+temp = 27
+method = modified trap
+WARNING: Less than two connections to node vd.  This node is used by a§dff.
+Per .tran options, skipping operating point for transient analysis.
+Total elapsed time: 45.344 seconds.
+
