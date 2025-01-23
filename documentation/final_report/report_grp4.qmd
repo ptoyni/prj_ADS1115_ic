@@ -29,6 +29,8 @@ format:
     code-fold: true
     cite-method: biblatex
 
+css: styles.css
+
 bibliography: ./sources.bib
 
 abstract: >
@@ -40,7 +42,10 @@ keywords:
   - ..
 ---
 
+{{< include important_notes.qmd >}}
+
 {{< include chapters/introduction/introduction.qmd >}}
 
 {{< include chapters/theory/theory.qmd >}}
 
+{{< include chapters/clock_gen/clock_gen.qmd >}}

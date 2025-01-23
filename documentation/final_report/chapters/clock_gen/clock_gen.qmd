@@ -1,0 +1,54 @@
+# Clock-Phase generation
+
+::: {.justify}
+
+The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure @fig-phase_gen. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases $\phi_1$, $\phi_{1d}$, $\phi_2$ and $\phi_{2d}$. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between $\phi_1$ and $\phi_2$ as well as their respective delayed versions. By changing the capacitance of the marked inverters the actual delay between $\phi_i$ and $\phi_{id}$ can be controlled. It is worth noting however, that the capacitive load $C_L$ experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure @fig-delay_load. @fig-delay_norm
+
+![Basic structure for delayed clock phase generation](figures/clk_gen/schem_clock_generation.svg){#fig-phase_gen text-align="left"}
+
+```{python}
+#| label: fig-delay_norm
+#| fig-cap: "Delayed clock signals"
+
+import numpy as np
+import matplotlib.pyplot as plt
+import ltspice as lt
+
+#parse data from .raw file
+#for compiling the finished document this path needs to be relative to "report_grp4.qmd"
+fpath       = '../../matlab_python/clk_gen/tb_clkgen.raw'
+l           = lt.Ltspice(fpath)
+l.parse()
+
+#extract relevant data
+time        = l.get_time()
+vclk        = l.get_data('v(clkin)')
+vp1         = l.get_data('v(p1)')
+vp1e        = l.get_data('v(p1e)')
+vp2         = l.get_data('v(p2)')
+vp2e        = l.get_data('v(p2e)')
+
+#redefine data arrays considering new length
+factor = 10
+length = round(len(time)/factor)
+
+time    = np.array(time[:length], dtype=np.float32)
+vclk    = np.array(np.flip(vclk[:length]), dtype=np.float32)
+vp1     = np.array(np.flip(vp1[:length]), dtype=np.float32)
+vp1e    = np.array(np.flip(vp1e[:length]), dtype=np.float32)
+vp2     = np.array(np.flip(vp2[:length]), dtype=np.float32)
+vp2e    = np.array(np.flip(vp2e[:length]), dtype=np.float32)
+
+#plot data
+plt.close('all')
+plt.figure(1)
+plt.plot(time*1e9, vp1, label=r'$\phi_1$')
+plt.plot(time*1e9, vp1e, label=r'$\phi_{1d}$')
+plt.plot(time*1e9, vp2, label=r'$\phi_2$')
+plt.title('Voltage input clock over time')
+plt.xlabel('$t$/ns')
+plt.ylabel('V')
+plt.legend()
+plt.grid()
+
+```

@@ -35,7 +35,7 @@ print(bin(readConfig()))
 
 while True:
     val = readValue()
-    print("value = ", val, "; as Voltage = ", (3.3/26250)*val) # check for correctness of conversion
+    print("value = ", val)#, "; as Voltage = ", (3.3/26250)*val) # check for correctness of conversion
     utime.sleep(0.5)
     
     
