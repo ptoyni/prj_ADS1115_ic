@@ -1,0 +1,53 @@
+---
+title: Design of a Analog-Digital-Converter after the ADS1115
+authors: 
+  - name: Miko Kranich
+    email: mkranich@stud.hs-bremen.de
+    affiliations: 
+    - name: Hochschule Bremen
+      address: Neustadtswall 30a
+      postal-code: 28299
+      city: Bremen
+  - name: Lars Nickisch
+    email: lnickisch@stud.hs-bremen.de
+  - name: Priyanka Toyni 
+    email: ptoyni@stud.hs-bremen.de
+  - name: Aftab Nagarji 
+    email: anagarji@stud.hs-bremen.de
+date: today
+date-format: iso
+
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    toc-depth: 3
+    toc-expand: 3
+    number-sections: true
+    number-depth: 3
+    code-fold: true
+    cite-method: biblatex
+
+css: styles.css
+
+bibliography: ./sources.bib
+
+abstract: >
+  The following is the design report of our laboratory group of the ...
+
+keywords: 
+  - Microelectronics
+  - AD-Conversion
+  - ..
+---
+
+{{< include important_notes.qmd >}}
+
+{{< include chapters/introduction/introduction.qmd >}}
+
+{{< include chapters/theory/theory.qmd >}}
+
+{{< include chapters/clock_gen/clock_gen.qmd >}}
+
+# References
