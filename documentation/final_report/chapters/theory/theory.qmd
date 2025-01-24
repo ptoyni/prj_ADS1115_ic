@@ -1,4 +1,4 @@
 # Theory
 Bla bla, some theory
 
-something something frequency depentend, parasitic capacities, I don't care @reisch
+something something frequency depentend, parasitic capacities, I don't care [@reisch]

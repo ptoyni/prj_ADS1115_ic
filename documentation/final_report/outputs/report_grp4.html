@@ -6,10 +6,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Miko Kranich">
+<meta name="author" content="Lars Nickisch">
+<meta name="author" content="Priyanka Toyni">
+<meta name="author" content="Aftab Nagarji">
 <meta name="dcterms.date" content="2025-01-24">
-<meta name="keywords" content="Microelectronics, AD-Conversion, ..">
 
-<title>Design of a Analog-Digital-Converter after the ADS1115</title>
+<title>Design of an Analog-Digital-Converter after the ADS1115</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,7 +130,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Design of a Analog-Digital-Converter after the ADS1115</h1>
+<h1 class="title">Design of an Analog-Digital-Converter after the ADS1115</h1>
 </div>
 
 
@@ -173,19 +176,7 @@ window.Quarto = {
     
   </div>
   
-<div>
-  <div class="abstract">
-    <div class="block-title">Abstract</div>
-    <p>The following is the design report of our laboratory group of the …</p>
-  </div>
-</div>
 
-<div>
-  <div class="keywords">
-    <div class="block-title">Keywords</div>
-    <p>Microelectronics, AD-Conversion, ..</p>
-  </div>
-</div>
 
 </header>
 
@@ -197,6 +188,7 @@ window.Quarto = {
 <li><p>When parsing data from .raw files, the toolbox will throw a warning. To prevent this, right click on “l.parse()” -&gt; “Go to definition”. There, you comment out line 197 and the warning is gone.</p></li>
 <li><p>To justify text I added a custom command in “styles.css”. To use this command and have the text appearance be nicer, use “::: {.justify}” at the beginning of each chapter</p></li>
 <li><p>Whenever referencing to a figure, some data file, etc. and you compile the whole document (“report_grp4.qmd”) the paths specified have to be relative to the main document, otherwise quarto won’t find the specified file</p></li>
+<li><p>If you need help with importing .raw files using python, please look at my version in chapters/clock_gen/clock_gen.qmd</p></li>
 </ol>
 </section>
 <section id="introduction" class="level1" data-number="2">
@@ -240,12 +232,12 @@ Figure&nbsp;1: A line plot on a polar axis
 <section id="theory" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Theory</h1>
 <p>Bla bla, some theory</p>
-<p>something something frequency depentend, parasitic capacities, I don’t care <span class="citation" data-cites="reisch">@reisch</span></p>
+<p>something something frequency depentend, parasitic capacities, I don’t care <span class="citation" data-cites="reisch">[@reisch]</span></p>
 </section>
 <section id="clock-phase-generation" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Clock-Phase generation</h1>
 <div class="justify">
-<p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;2</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> as well as their respective delayed versions. By changing the capacitance of the marked inverters the actual delay between <span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_{id}\)</span> can be controlled. It is worth noting however, that the capacitive load <span class="math inline">\(C_L\)</span> experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure <strong>?@fig-delay_load</strong>. <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;3</a></p>
+<p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;2</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
 <div id="fig-phase_gen" class="quarto-float quarto-figure quarto-figure-center anchored" data-text-align="left">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-phase_gen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -256,6 +248,7 @@ Figure&nbsp;2: Basic structure for delayed clock phase generation
 </figcaption>
 </figure>
 </div>
+<p>By changing the capacitance of the marked inverters the actual delay between <span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_{id}\)</span> can be controlled. It is worth noting however, that the capacitive load <span class="math inline">\(C_L\)</span> experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;3</a></p>
 <div id="cell-fig-delay_norm" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
@@ -281,12 +274,12 @@ Figure&nbsp;2: Basic structure for delayed clock phase generation
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>length <span class="op">=</span> <span class="bu">round</span>(<span class="bu">len</span>(time)<span class="op">/</span>factor)</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>time    <span class="op">=</span> np.array(time[:length], dtype<span class="op">=</span>np.float32)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>vclk    <span class="op">=</span> np.array(np.flip(vclk[:length]), dtype<span class="op">=</span>np.float32)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>vp1     <span class="op">=</span> np.array(np.flip(vp1[:length]), dtype<span class="op">=</span>np.float32)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>vp1e    <span class="op">=</span> np.array(np.flip(vp1e[:length]), dtype<span class="op">=</span>np.float32)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>vp2     <span class="op">=</span> np.array(np.flip(vp2[:length]), dtype<span class="op">=</span>np.float32)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>vp2e    <span class="op">=</span> np.array(np.flip(vp2e[:length]), dtype<span class="op">=</span>np.float32)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>time    <span class="op">=</span> time[:length]</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>vclk    <span class="op">=</span> np.flip(vclk[:length])</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>vp1     <span class="op">=</span> np.flip(vp1[:length])</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>vp1e    <span class="op">=</span> np.flip(vp1e[:length])</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>vp2     <span class="op">=</span> np.flip(vp2[:length])</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>vp2e    <span class="op">=</span> np.flip(vp2e[:length])</span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
@@ -313,7 +306,10 @@ Figure&nbsp;3: Delayed clock signals
 </div>
 </div>
 </div>
-<p>some more text bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla</p>
+<p>Figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;3</a> shows the normal delay between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_{1d}\)</span> as well as the non-overlap with <span class="math inline">\(\phi_2\)</span>. These curves were generated by simulating the clock generation circuit provided by B. Murmann <span class="citation" data-cites="murmann">[@murmann]</span></p>
+<section id="references" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> References</h1>
+</section>
 </div>
 </section>
 
