@@ -1,4 +1,6 @@
 # Theory
+::: {.justify}
+
 
 ## System overview of the $\Delta$$\Sigma$ modulator
 
@@ -8,8 +10,8 @@ The desired loop filter for the modulator will be realised utilizing an active i
 
 @opamp_integrator.
 
-![Simple opamp based integrator](/recources/figures/theory_pics/Integrator_Circuit.svg){#opamp_integrator text-align="left"}
+![Simple opamp based integrator](figures/theory/Intergrator_Circuit){#opamp_integrator text-align="left"}
 
 @opamp_sc_integrator.
 
-![Opamp based switched capacitot integrator](/recources/figures/theory_pics/SC_Integrator_Circuit.svg){#opamp_sc_integrator text-align="left"}
+![Opamp based switched capacitot integrator](figures/theory/SC_Integrator_Circuit){#opamp_sc_integrator text-align="left"}

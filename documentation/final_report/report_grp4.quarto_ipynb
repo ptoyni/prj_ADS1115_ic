@@ -29,7 +29,7 @@
         "\n",
         "For a demonstration of a line plot on a polar axis, see @fig-polar."
       ],
-      "id": "05133262"
+      "id": "d5c99f1f"
     },
     {
       "cell_type": "code",
@@ -67,6 +67,13 @@
         "\n",
         "The desired loop filter for the modulator will be realised utilizing an active integrator circuit that utilizes a switched capacitance input stage.\n",
         "\n",
+        "@opamp_integrator.\n",
+        "\n",
+        "![Simple opamp based integrator](/recources/figures/theory_pics/Integrator_Circuit.svg){#opamp_integrator text-align=\"left\"}\n",
+        "\n",
+        "@opamp_sc_integrator.\n",
+        "\n",
+        "![Opamp based switched capacitot integrator](/recources/figures/theory_pics/SC_Integrator_Circuit.svg){#opamp_sc_integrator text-align=\"left\"}\n",
         "\n",
         "\n",
         "# Clock-Phase generation\n",
@@ -79,7 +86,7 @@
         "\n",
         "By changing the capacitance of the marked inverters the actual delay between $\\phi_i$ and $\\phi_{id}$ can be controlled. It is worth noting however, that the capacitive load $C_L$ experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure @fig-delay_norm"
       ],
-      "id": "60d66fcf"
+      "id": "6f14596f"
     },
     {
       "cell_type": "code",
@@ -143,7 +150,7 @@
         "\n",
         "# References"
       ],
-      "id": "1c58413a"
+      "id": "70a13db5"
     }
   ],
   "metadata": {
