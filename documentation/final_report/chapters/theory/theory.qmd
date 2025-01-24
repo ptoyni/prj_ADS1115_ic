@@ -1,4 +1,8 @@
 # Theory
-Bla bla, some theory
 
-something something frequency depentend, parasitic capacities, I don't care [@reisch]
+## System overview of the $\Delta$$\Sigma$ modulator
+
+## Switched Capacitor Integrator
+
+The desired loop filter for the modulator will be realised utilizing an active integrator circuit that utilizes a switched capacitance input stage.
+

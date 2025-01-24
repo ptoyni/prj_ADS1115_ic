@@ -2,12 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.36">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Miko Kranich">
+<meta name="author" content="Lars Nickisch">
+<meta name="author" content="Priyanka Toyni">
+<meta name="author" content="Aftab Nagarji">
+<meta name="dcterms.date" content="2025-01-24">
 
-<title>theory</title>
+<title>comp</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,33 +28,107 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="theory_files/libs/clipboard/clipboard.min.js"></script>
-<script src="theory_files/libs/quarto-html/quarto.js"></script>
-<script src="theory_files/libs/quarto-html/popper.min.js"></script>
-<script src="theory_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="theory_files/libs/quarto-html/anchor.min.js"></script>
-<link href="theory_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="theory_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="theory_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="theory_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="theory_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="comp_files/libs/clipboard/clipboard.min.js"></script>
+<script src="comp_files/libs/quarto-html/quarto.js"></script>
+<script src="comp_files/libs/quarto-html/popper.min.js"></script>
+<script src="comp_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="comp_files/libs/quarto-html/anchor.min.js"></script>
+<link href="comp_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="comp_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="comp_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="comp_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="comp_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
-<body class="fullcontent">
+<body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#comparator-design" id="toc-comparator-design" class="nav-link active" data-scroll-target="#comparator-design"><span class="header-section-number">1</span> Comparator Design</a>
+  <ul class="collapse">
+  <li><a href="#model--architecture-elaboration" id="toc-model--architecture-elaboration" class="nav-link" data-scroll-target="#model--architecture-elaboration"><span class="header-section-number">1.1</span> Model-/ Architecture elaboration</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">1.2</span> Implementation</a></li>
+  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation"><span class="header-section-number">1.3</span> Validation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
 
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+</div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Miko Kranich <a href="mailto:mkranich@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Hochschule Bremen
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Lars Nickisch <a href="mailto:lnickisch@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Priyanka Toyni <a href="mailto:ptoyni@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Aftab Nagarji <a href="mailto:anagarji@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2025-01-24</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<section id="theory" class="level1">
-<h1>Theory</h1>
-<p>Bla bla, some theory</p>
-<p>something something frequency depentend, parasitic capacities, I don’t care <span class="citation" data-cites="reisch">@reisch</span></p>
+</header>
+
+
+<section id="comparator-design" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Comparator Design</h1>
+<p>As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.</p>
+<section id="model--architecture-elaboration" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">1.1</span> Model-/ Architecture elaboration</h2>
+<p>The considered implementation of a comparator utilizes the so call “StrongArm-Latch” architecture.</p>
+</section>
+<section id="implementation" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">1.2</span> Implementation</h2>
+</section>
+<section id="validation" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="validation"><span class="header-section-number">1.3</span> Validation</h2>
+</section>
 </section>
 
 </main>

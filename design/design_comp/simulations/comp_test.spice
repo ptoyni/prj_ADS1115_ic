@@ -1,0 +1,43 @@
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_test.sch
+**.subckt comp_test vdda pc d dd vinp dout vssa res ps vinm
+*.opin d
+*.ipin pc
+*.iopin vssa
+*.iopin vdda
+*.ipin ps
+*.ipin res
+*.opin dd
+*.ipin vinm
+*.ipin vinp
+*.opin dout
+XM3m out1p out1m d2m vssa sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM4m out1p out1m vdda vdda sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+XM5m out1p pc vdda vdda sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+XM2m d2m pc d1m vssa sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM1m d1m vinm_samp vssa vssa sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM3p out1m out1p d2p vssa sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM4p out1m out1p vdda vdda sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+XM5p out1m pc vdda vdda sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+XM2p d2p pc d1p vssa sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM1p d1p vinp vssa vssa sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM32m dint net2 net1 VSS sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM2 dint net2 VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+XM3 dint out1m VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+XM21m net1 out1m VSS VSS sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM32p net2 dint net3 VSS sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XM42p net2 dint VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+XM8 net2 out1p VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+XM21p net3 out1p VSS VSS sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+x1 ps dint dd net5 net4 VDD VSS sg13g2_dfrbp_2
+x2 dint VDD VSS d sg13g2_buf_2
+x3 res VDD VSS net4 sg13g2_inv_1
+XMp1 vinm_samp psb vinm vdda sg13_lv_pmos w=1.0u l=0.45u ng=3 m=1
+XMn5 vinm_samp ps vinm vssa sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
+XC1 vinm_samp vssa cap_cmim w=7.0e-6 l=7.0e-6 m=1
+x4 ps VDD VSS psb sg13g2_inv_1
+x5 dd VDD VSS dout sg13g2_inv_2
+* noconn #net5
+**.ends
+.GLOBAL VDD
+.GLOBAL VSS
+.end

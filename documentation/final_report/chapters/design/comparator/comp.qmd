@@ -1,0 +1,11 @@
+# Comparator Design
+
+As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.
+
+## Model-/ Architecture elaboration
+
+The considered implementation of our comparator utilizes the so call "StrongArm-Latch" architecture.
+
+## Implementation
+
+## Validation
