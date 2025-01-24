@@ -29,7 +29,7 @@
         "\n",
         "For a demonstration of a line plot on a polar axis, see @fig-polar."
       ],
-      "id": "43b4b41b"
+      "id": "05133262"
     },
     {
       "cell_type": "code",
@@ -79,7 +79,7 @@
         "\n",
         "By changing the capacitance of the marked inverters the actual delay between $\\phi_i$ and $\\phi_{id}$ can be controlled. It is worth noting however, that the capacitive load $C_L$ experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure @fig-delay_norm"
       ],
-      "id": "2ca6f7f8"
+      "id": "60d66fcf"
     },
     {
       "cell_type": "code",
@@ -143,7 +143,7 @@
         "\n",
         "# References"
       ],
-      "id": "8dca3e14"
+      "id": "1c58413a"
     }
   ],
   "metadata": {
