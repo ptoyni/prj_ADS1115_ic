@@ -6,12 +6,12 @@
 
 ## Switched Capacitor Integrator
 
-The desired loop filter for the modulator will be realised utilizing an active integrator circuit that utilizes a switched capacitance input stage.
+The desired loop filter for the modulator will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
 
 @opamp_integrator.
 
-![Simple opamp based integrator](figures/theory/Intergrator_Circuit){#opamp_integrator text-align="left"}
+![Simple opamp based integrator](figures/theory/Intergrator_Circuit.svg){#opamp_integrator text-align="left"}
 
 @opamp_sc_integrator.
 
-![Opamp based switched capacitot integrator](figures/theory/SC_Integrator_Circuit){#opamp_sc_integrator text-align="left"}
+![Opamp based switched capacitot integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator text-align="left"}
