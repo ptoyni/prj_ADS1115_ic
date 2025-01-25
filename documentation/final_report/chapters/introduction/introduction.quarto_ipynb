@@ -12,7 +12,7 @@
         "\n",
         "For a demonstration of a line plot on a polar axis, see @fig-polar.\n"
       ],
-      "id": "e6da5e47"
+      "id": "c40b0b37"
     },
     {
       "cell_type": "code",
@@ -41,10 +41,9 @@
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "display_name": "Python 3",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "C:\\Users\\nicki\\anaconda3\\share\\jupyter\\kernels\\python3"
+      "name": "python3"
     }
   },
   "nbformat": 4,
