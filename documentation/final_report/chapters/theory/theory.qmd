@@ -10,9 +10,8 @@ The desired loop filter for the modulator will be realised utilizing an active i
 
 @opamp_integrator.
 
-![Simple opamp based integrator](figures/theory/Integrator_Circuit.svg){#opamp_integrator text-align="left"}
+![Simple opamp based integrator](figures/theory/Integrator_Circuit.svg){#opamp_integrator}
 
 @opamp_sc_integrator.
 
-![Opamp based switched capacitot integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator text-align="left"}
-![Opamp based switched capacitot integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator text-align="left"}
+![Opamp based switched capacitot integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator}
