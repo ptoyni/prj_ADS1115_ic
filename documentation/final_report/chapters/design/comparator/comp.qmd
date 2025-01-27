@@ -4,7 +4,11 @@ As the output stage of the modulator subsystem of the desired Analog-Digital Con
 
 ## Model-/ Architecture elaboration
 
-The considered implementation of our comparator utilizes the so call "StrongArm-Latch" architecture.
+The considered implementation of our comparator utilizes the so call "StrongArm-Latch" architecture, followed by a d-latch to account for the reseting within the comparator 
+
+@strongarm_circuit.
+
+![Comparator, realized through StrongArm architecture (placeholder)](figures/comp/StrongArm_placeholder.svg){#strongarm_circuit}
 
 ## Implementation
 

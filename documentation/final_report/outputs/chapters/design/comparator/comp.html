@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-24">
+<meta name="dcterms.date" content="2025-01-27">
 
 <title>comp</title>
 <style>
@@ -104,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-24</p>
+      <p class="date">2025-01-27</p>
     </div>
   </div>
   
@@ -121,7 +121,16 @@ ul.task-list li input[type="checkbox"] {
 <p>As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.</p>
 <section id="model--architecture-elaboration" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">1.1</span> Model-/ Architecture elaboration</h2>
-<p>The considered implementation of a comparator utilizes the so call “StrongArm-Latch” architecture.</p>
+<p>The considered implementation of our comparator utilizes the so call “StrongArm-Latch” architecture, followed by a d-latch to account for the reseting within the comparator</p>
+<ol class="example" type="1">
+<li></li>
+</ol>
+<div id="strongarm_circuit" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/comp/StrongArm_placeholder.svg" class="img-fluid figure-img"></p>
+<figcaption>Comparator, realized through StrongArm architecture (placeholder)</figcaption>
+</figure>
+</div>
 </section>
 <section id="implementation" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">1.2</span> Implementation</h2>

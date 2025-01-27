@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-26">
+<meta name="dcterms.date" content="2025-01-27">
 
 <title>Design of an Analog-Digital-Converter after the ADS1115</title>
 <style>
@@ -168,7 +168,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-26</p>
+      <p class="date">2025-01-27</p>
     </div>
   </div>
   
@@ -351,8 +351,31 @@ Figure&nbsp;4: Gates used for clock generating structures
 </figure>
 </div>
 <p>The cascading of two CMOS inverters in figure <a href="#fig-inv" class="quarto-xref">Figure&nbsp;4 (a)</a> is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font></p>
-<section id="references" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> References</h1>
+<section id="comparator-design" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Comparator Design</h1>
+<p>As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.</p>
+<section id="model--architecture-elaboration" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">5.1</span> Model-/ Architecture elaboration</h2>
+<p>The considered implementation of our comparator utilizes the so call “StrongArm-Latch” architecture, followed by a d-latch to account for the reseting within the comparator</p>
+<ol start="3" class="example" type="1">
+<li></li>
+</ol>
+<div id="strongarm_circuit" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/comp/StrongArm_placeholder.svg" class="img-fluid figure-img"></p>
+<figcaption>Comparator, realized through StrongArm architecture (placeholder)</figcaption>
+</figure>
+</div>
+</section>
+<section id="implementation" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">5.2</span> Implementation</h2>
+</section>
+<section id="validation" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="validation"><span class="header-section-number">5.3</span> Validation</h2>
+</section>
+</section>
+<section id="references" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
 </section>
 </div>
 </section>
