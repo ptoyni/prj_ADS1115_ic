@@ -97,7 +97,7 @@ ylabel('DFT Magnitude in dBFS')
 grid;
 
 % Export data for further processing
-save("./zip_meiners/behav/dsm_l1/data/dat_spectral_analysis1.mat", "f", "sqdBFS")
+save("./data/dat_spectral_analysis1.mat", "f", "sqdBFS")
 %% Spectral analysis, delsig toolbox
 
 % Normalize magnitudes to full-scale (FS=nLev-1=1) 
@@ -112,7 +112,7 @@ ylabel('dBFS');
 xlabel('f/fs')
 
 % Export data for further processing
-save("./zip_meiners/behav/dsm_l1/data/dat_spectral_analysis2.mat", "t", "v")
+save("./data/dat_spectral_analysis2.mat", "t", "v")
 %% Windowed plot
 specHW = fft(v.*ds_hann(N))/(N/4);
 
@@ -125,4 +125,4 @@ ylabel('dBFS');
 xlabel('f/fs');
 
 % Export data for further processing
-save("./zip_meiners/behav/dsm_l1/data/dat_windowed_plot.mat", "t", "v")
+save("./data/dat_windowed_plot.mat", "t", "v")
