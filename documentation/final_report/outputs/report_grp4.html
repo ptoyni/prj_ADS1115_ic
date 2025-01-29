@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-27">
+<meta name="dcterms.date" content="2025-01-29">
 
 <title>Design of an Analog-Digital-Converter after the ADS1115</title>
 <style>
@@ -168,7 +168,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-27</p>
+      <p class="date">2025-01-29</p>
     </div>
   </div>
   
@@ -218,25 +218,43 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 </section>
 <section id="switched-capacitor-integrator" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">3.2</span> Switched Capacitor Integrator</h2>
-<p>The desired loop filter for the modulator will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
-<ol class="example" type="1">
-<li></li>
-</ol>
+<p>(to be cited: Schreier)</p>
+<p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
+<p>A classic implementation of realizing an active integrator would be with the following opamp circuit in figure <span class="citation" data-cites="opamp_integrator">@opamp_integrator</span>.</p>
 <div id="opamp_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/theory/Integrator_Circuit.svg" class="img-fluid figure-img"></p>
 <figcaption>Simple opamp based integrator</figcaption>
 </figure>
 </div>
-<ol start="2" class="example" type="1">
-<li></li>
-</ol>
+<p>(explain basic principle of shown integrator circuit)</p>
+<p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
+<p>Therefore, it is worth utilizing the following input structure in figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
 <div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img"></p>
-<figcaption>Opamp based switched capacitot integrator</figcaption>
+<figcaption>Opamp based switched capacitor integrator</figcaption>
 </figure>
 </div>
+<p>The depicted switches are clocked in a way, that no simultanious high levels will occure.</p>
+<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases.</p>
+<div id="phase1_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/sc_integrator_ph1.PNG" class="img-fluid figure-img"></p>
+<figcaption>Integrator state during phase 1</figcaption>
+</figure>
+</div>
+<div id="phase2_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/sc_integrator_ph2.PNG" class="img-fluid figure-img"></p>
+<figcaption>Integrator state during phase 2</figcaption>
+</figure>
+</div>
+<section id="the-operational-transconductance-amplifier-ota" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="the-operational-transconductance-amplifier-ota"><span class="header-section-number">3.2.1</span> The Operational Transconductance Amplifier (OTA)</h3>
+<p>For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.</p>
+<p>(list of OTA features will be added here)</p>
+</section>
 </section>
 <section id="clock-phase-generation" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Clock-Phase generation</h1>
@@ -356,8 +374,10 @@ Figure&nbsp;4: Gates used for clock generating structures
 <p>As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.</p>
 <section id="model--architecture-elaboration" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">5.1</span> Model-/ Architecture elaboration</h2>
-<p>The considered implementation of our comparator utilizes the so call “StrongArm-Latch” architecture, followed by a d-latch to account for the reseting within the comparator</p>
-<ol start="3" class="example" type="1">
+<p>The considered implementation of our comparator utilizes the so call “StrongArm-Latch” architecture, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide.</p>
+<section id="comparator-stage" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">5.1.1</span> Comparator Stage</h3>
+<ol class="example" type="1">
 <li></li>
 </ol>
 <div id="strongarm_circuit" class="quarto-figure quarto-figure-center anchored">
@@ -366,6 +386,14 @@ Figure&nbsp;4: Gates used for clock generating structures
 <figcaption>Comparator, realized through StrongArm architecture (placeholder)</figcaption>
 </figure>
 </div>
+<p>(paper to be cited: DESIGN AND IMPLEMENTATION OF HIGH SPEED LATCHED COMPARATOR USING gm/Id SIZING METHOD )</p>
+<p>This circuits behaviour is fundamentally tied to the clock states, leading to either the so called “precharge” phase during low clock levels, or the “amplification” phase during an active clock phase.</p>
+<p>(Elaborate briefly on circuit behaviour)</p>
+</section>
+<section id="latching-circuit" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">5.1.2</span> Latching Circuit</h3>
+<p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.</p>
+</section>
 </section>
 <section id="implementation" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">5.2</span> Implementation</h2>

@@ -5,13 +5,37 @@
 ## System overview of the $\Delta$ $\Sigma$ modulator
 
 ## Switched Capacitor Integrator
+(to be cited: Schreier) 
 
-The desired loop filter for the modulator will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
+The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
 
-@opamp_integrator.
+A classic implementation of realizing an active integrator would be with the following opamp circuit in figure @opamp_integrator.
 
 ![Simple opamp based integrator](figures/theory/Integrator_Circuit.svg){#opamp_integrator}
 
-@opamp_sc_integrator.
+(explain basic principle of shown integrator circuit)
 
-![Opamp based switched capacitot integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator}
+There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.
+
+Therefore, it is worth utilizing the following input structure in figure @opamp_sc_integrator, which leads to a switched-capacitor integrator. 
+  
+![Opamp based switched capacitor integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator}
+
+The depicted switches are clocked in a way, that no simultanious high levels will occure.
+
+To derive the system behaviour of this circuitry, let's consider the two phases of operation, given be the switching phases.
+
+![Integrator state during phase 1](figures/theory/sc_integrator_ph1.PNG){#phase1_integrator}
+
+![Integrator state during phase 2](figures/theory/sc_integrator_ph2.PNG){#phase2_integrator}
+
+### The Operational Transconductance Amplifier (OTA)
+
+For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.
+
+(list of OTA features will be added here)
+
+
+
+
+
