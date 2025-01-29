@@ -9,7 +9,7 @@ V4 VDD GND {vdd}
  .lib cornerMOSlv.lib mos_tt
 
 
-.param temp=27 vdd=1.5 per=1u vdiff=1m
+.param temp=27 vdd=1.2 per=1u vdiff=1m
 .param Wnmos=1u Wpmos=2u
 .param Lnmos=.3u Lpmos=.3u Lnmos2=1u
 .option method=gear reltol=1e-5
@@ -19,7 +19,7 @@ save all
 tran 10p 4n
 write tb_comp_test1.raw
 
-alterparam vdiff=1u
+alterparam vdiff=1
 ;alterparam Wnmos=1u Wpmos=2u
 
 reset
