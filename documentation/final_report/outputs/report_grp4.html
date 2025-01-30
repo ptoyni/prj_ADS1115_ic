@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-29">
+<meta name="dcterms.date" content="2025-01-30">
 
 <title>Design of an Analog-Digital-Converter after the ADS1115</title>
 <style>
@@ -117,7 +117,7 @@ window.Quarto = {
   <li><a href="#very-important-please-read" id="toc-very-important-please-read" class="nav-link active" data-scroll-target="#very-important-please-read"><span class="header-section-number">1</span> VERY IMPORTANT, PLEASE READ</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#general-overview" id="toc-general-overview" class="nav-link" data-scroll-target="#general-overview"><span class="header-section-number">2.1</span> General Overview</a></li>
+  <li><a href="#general-overview-of-given-adc" id="toc-general-overview-of-given-adc" class="nav-link" data-scroll-target="#general-overview-of-given-adc"><span class="header-section-number">2.1</span> General Overview of given ADC</a></li>
   </ul></li>
   <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="header-section-number">3</span> Theory</a></li>
   </ul>
@@ -168,7 +168,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-29</p>
+      <p class="date">2025-01-30</p>
     </div>
   </div>
   
@@ -193,8 +193,8 @@ window.Quarto = {
 <section id="introduction" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
 <p>Since more and more manufacturers are ending their production of integrated circuit solutions the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course “Concept Engineering Mixed-Technology Systems” held by Professor Meiners at Hochschule Bremen are tasked with creating an Analog-Digital-Converter modeled after the ADS1115 by Texas Instruments. In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of <span class="math inline">\(\Sigma \Delta\)</span> ADC’s, simulations of simplified models as well as a detailed step-by-step design using SPICE simulations based on XSchem designs. <font color="red">THIS CAN BE WORDED WAY BETTER</font>.</p>
-<section id="general-overview" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="general-overview"><span class="header-section-number">2.1</span> General Overview</h2>
+<section id="general-overview-of-given-adc" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="general-overview-of-given-adc"><span class="header-section-number">2.1</span> General Overview of given ADC</h2>
 <p>For testing purposes the ADS1115 is connected to an ADXL335 accelerometer and ESP8266 microcontroller. This setup enables us to more precisely characterize the ADC. For further analysis the accelerometer is just considered as an analog input.</p>
 <p>As can be seen in the above figure <strong>?@fig-complete_system</strong> …</p>
 <p>Figure <a href="#fig-adc_overview" class="quarto-xref">Figure&nbsp;1</a> shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.</p>
