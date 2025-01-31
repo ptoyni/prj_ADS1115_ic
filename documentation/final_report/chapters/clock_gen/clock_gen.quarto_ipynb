@@ -1,0 +1,102 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Clock-Phase generation\n",
+        "\n",
+        "::: {.justify}\n",
+        "\n",
+        "The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure @fig-phase_gen. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases $\\phi_1$, $\\phi_{1d}$, $\\phi_2$ and $\\phi_{2d}$. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between $\\phi_1$ and $\\phi_2$ and in turn for their respective delayed versions.\n",
+        "\n",
+        "![Basic structure for delayed clock phase generation](figures/clk_gen/schem_clock_generation.svg){#fig-phase_gen}\n",
+        "\n",
+        "By changing the capacitance of the marked inverters the actual delay between $\\phi_i$ and $\\phi_{id}$ can be controlled. It is worth noting however, that the capacitive load $C_L$ experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure @fig-delay_norm\n"
+      ],
+      "id": "23dac192"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| label: fig-delay_norm\n",
+        "#| fig-cap: Delayed clock signals\n",
+        "\n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "import ltspice as lt\n",
+        "\n",
+        "#parse data from .raw file\n",
+        "#for compiling the finished document this path needs to be relative to \"report_grp4.qmd\"\n",
+        "fpath       = '../../matlab_python/clk_gen/tb_clkgen.raw'\n",
+        "l           = lt.Ltspice(fpath)\n",
+        "l.parse()\n",
+        "\n",
+        "#extract relevant data\n",
+        "time        = l.get_time()\n",
+        "vclk        = l.get_data('v(clkin)')\n",
+        "vp1         = l.get_data('v(p1)')\n",
+        "vp1e        = l.get_data('v(p1e)')\n",
+        "vp2         = l.get_data('v(p2)')\n",
+        "vp2e        = l.get_data('v(p2e)')\n",
+        "\n",
+        "#redefine data arrays considering new length\n",
+        "factor = 10\n",
+        "length = round(len(time)/factor)\n",
+        "\n",
+        "time    = time[:length]\n",
+        "vclk    = np.flip(vclk[:length])\n",
+        "vp1     = np.flip(vp1[:length])\n",
+        "vp1e    = np.flip(vp1e[:length])\n",
+        "vp2     = np.flip(vp2[:length])\n",
+        "vp2e    = np.flip(vp2e[:length])\n",
+        "\n",
+        "#plot data\n",
+        "plt.close('all')\n",
+        "plt.figure(1)\n",
+        "plt.plot(time*1e9, vp1, label=r'$\\phi_1$')\n",
+        "plt.plot(time*1e9, vp1e, label=r'$\\phi_{1d}$')\n",
+        "plt.plot(time*1e9, vp2, label=r'$\\phi_2$')\n",
+        "plt.title('Voltage input clock over time')\n",
+        "plt.xlabel('$t$/ns')\n",
+        "plt.ylabel('V')\n",
+        "plt.legend()\n",
+        "plt.grid()"
+      ],
+      "id": "fig-delay_norm",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Figure @fig-delay_norm shows the normal delay between $\\phi_1$ and $\\phi_{1d}$ as well as the non-overlap with $\\phi_2$. The structure used for clock generation was modeled after the circuit provided by Boris Murman [@murmann]. In this, they used the *sg13g2* standard cells for the NAND gates and inverters which are not built from single transistors and hence their capacitance can not be changed. <font color=\"red\">This however does not affect the circuits ability to generate the needed delays and non-overlaps. Creating the gates from transistors, and in turn the whole structure, does show the same behaviour. TO BE CONFIRMED WITH ACUTAL SC/ADC FOLLOWING</font>.\n",
+        "We thus continue to use the version with gate parameters controllable through the transistors. <font color=\"red\">WHY WAS THIS DECISION MADE?</font>\n",
+        "\n",
+        "The circuits used for the gates are depicted in figures @fig-inv and @fig-nand for the inverters and NAND gates respectively.\n",
+        "\n",
+        "::: {#fig-gates layout-ncol=2}\n",
+        "![Inverter](figures/clk_gen/inverter.svg){#fig-inv}\n",
+        "\n",
+        "![NAND Gate](figures/clk_gen/nand_gate.svg){#fig-nand}\n",
+        "\n",
+        "Gates used for clock generating structures\n",
+        ":::\n",
+        "The cascading of two CMOS inverters in figure @fig-inv is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color=\"red\">REALLY?</font>"
+      ],
+      "id": "8a002967"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\nicki\\anaconda3\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

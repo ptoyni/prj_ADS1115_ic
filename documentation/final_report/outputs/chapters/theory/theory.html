@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-24">
+<meta name="dcterms.date" content="2025-01-29">
 
 <title>theory</title>
 <style>
@@ -128,7 +128,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-24</p>
+      <p class="date">2025-01-29</p>
     </div>
   </div>
   
@@ -143,30 +143,35 @@ window.Quarto = {
 <section id="theory" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Theory</h1>
 <div class="justify">
-<section id="system-overview-of-the-deltasigma-modulator" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="system-overview-of-the-deltasigma-modulator"><span class="header-section-number">1.1</span> System overview of the <span class="math inline">\(\Delta\)</span><span class="math inline">\(\Sigma\)</span> modulator</h2>
+<section id="system-overview-of-the-delta-sigma-modulator" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="system-overview-of-the-delta-sigma-modulator"><span class="header-section-number">1.1</span> System overview of the <span class="math inline">\(\Delta\)</span> <span class="math inline">\(\Sigma\)</span> modulator</h2>
 </section>
 <section id="switched-capacitor-integrator" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">1.2</span> Switched Capacitor Integrator</h2>
-<p>The desired loop filter for the modulator will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
-<ol class="example" type="1">
-<li></li>
-</ol>
+<p>(to be cited: Schreier)</p>
+<p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
+<p>A classic implementation of realizing an active integrator would be with the following opamp circuit in figure <span class="citation" data-cites="opamp_integrator">@opamp_integrator</span>.</p>
 <div id="opamp_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/theory/Intergrator_Circuit.svg" class="img-fluid figure-img" data-text-align="left"></p>
+<p><img src="figures/theory/Integrator_Circuit.svg" class="img-fluid figure-img"></p>
 <figcaption>Simple opamp based integrator</figcaption>
 </figure>
 </div>
-<ol start="2" class="example" type="1">
-<li></li>
-</ol>
+<p>(explain beasic principle of shown integrator circuit)</p>
+<p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
+<p>Therefore, it is worth utilizing the following input structure in figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
 <div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img" data-text-align="left"></p>
+<p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img"></p>
 <figcaption>Opamp based switched capacitot integrator</figcaption>
 </figure>
 </div>
+<p>The depicted switches are clocked in a way, that no simultanious high levels will occure.</p>
+<section id="the-operational-transconductance-amplifier-ota" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="the-operational-transconductance-amplifier-ota"><span class="header-section-number">1.2.1</span> The Operational Transconductance Amplifier (OTA)</h3>
+<p>For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.</p>
+<p>(list of OTA features will be added here)</p>
+</section>
 </section>
 </div>
 </section>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.36">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-26">
+<meta name="dcterms.date" content="2025-01-30">
 
 <title>Design of an Analog-Digital-Converter after the ADS1115</title>
 <style>
@@ -68,10 +68,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="report_grp4_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="report_grp4_files/libs/quarto-html/anchor.min.js"></script>
 <link href="report_grp4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="report_grp4_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="report_grp4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="report_grp4_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="report_grp4_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -117,7 +117,7 @@ window.Quarto = {
   <li><a href="#very-important-please-read" id="toc-very-important-please-read" class="nav-link active" data-scroll-target="#very-important-please-read"><span class="header-section-number">1</span> VERY IMPORTANT, PLEASE READ</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#general-overview" id="toc-general-overview" class="nav-link" data-scroll-target="#general-overview"><span class="header-section-number">2.1</span> General Overview</a></li>
+  <li><a href="#general-overview-of-given-adc" id="toc-general-overview-of-given-adc" class="nav-link" data-scroll-target="#general-overview-of-given-adc"><span class="header-section-number">2.1</span> General Overview of given ADC</a></li>
   </ul></li>
   <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="header-section-number">3</span> Theory</a></li>
   </ul>
@@ -168,7 +168,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-26</p>
+      <p class="date">2025-01-30</p>
     </div>
   </div>
   
@@ -193,9 +193,11 @@ window.Quarto = {
 <section id="introduction" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
 <p>Since more and more manufacturers are ending their production of integrated circuit solutions the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course “Concept Engineering Mixed-Technology Systems” held by Professor Meiners at Hochschule Bremen are tasked with creating an Analog-Digital-Converter modeled after the ADS1115 by Texas Instruments. In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of <span class="math inline">\(\Sigma \Delta\)</span> ADC’s, simulations of simplified models as well as a detailed step-by-step design using SPICE simulations based on XSchem designs. <font color="red">THIS CAN BE WORDED WAY BETTER</font>.</p>
-<section id="general-overview" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="general-overview"><span class="header-section-number">2.1</span> General Overview</h2>
+<section id="general-overview-of-given-adc" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="general-overview-of-given-adc"><span class="header-section-number">2.1</span> General Overview of given ADC</h2>
 <p>For testing purposes the ADS1115 is connected to an ADXL335 accelerometer and ESP8266 microcontroller. This setup enables us to more precisely characterize the ADC. For further analysis the accelerometer is just considered as an analog input.</p>
+<p>As can be seen in the above figure <strong>?@fig-complete_system</strong> …</p>
+<p>Figure <a href="#fig-adc_overview" class="quarto-xref">Figure&nbsp;1</a> shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.</p>
 <p>As can be seen in the above figure <strong>?@fig-complete_system</strong> …</p>
 <p>Figure <a href="#fig-adc_overview" class="quarto-xref">Figure&nbsp;1</a> shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.</p>
 <div id="fig-adc_overview" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -218,24 +220,48 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 </section>
 <section id="switched-capacitor-integrator" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">3.2</span> Switched Capacitor Integrator</h2>
-<p>The desired loop filter for the modulator will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
-<ol class="example" type="1">
-<li></li>
-</ol>
+<p>(to be cited: Schreier)</p>
+<p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
+<p>A classic implementation of realizing an active integrator would be with the following opamp circuit in figure <span class="citation" data-cites="opamp_integrator">@opamp_integrator</span>.</p>
 <div id="opamp_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/theory/Integrator_Circuit.svg" class="img-fluid figure-img" data-text-align="left"></p>
+<p><img src="figures/theory/Integrator_Circuit.svg" class="img-fluid figure-img"></p>
 <figcaption>Simple opamp based integrator</figcaption>
 </figure>
 </div>
-<ol start="2" class="example" type="1">
-<li></li>
-</ol>
-<p><img src="figures/theory/SC_Integrator_Circuit.svg" id="opamp_sc_integrator" class="img-fluid" data-text-align="left" alt="Opamp based switched capacitot integrator"> <img src="figures/theory/SC_Integrator_Circuit.svg" id="opamp_sc_integrator" class="img-fluid" data-text-align="left" alt="Opamp based switched capacitot integrator"></p>
+<p>(explain basic principle of shown integrator circuit)</p>
+<p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
+<p>Therefore, it is worth utilizing the following input structure in figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
+<div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img"></p>
+<figcaption>Opamp based switched capacitor integrator</figcaption>
+</figure>
+</div>
+<p>The depicted switches are clocked in a way, that no simultanious high levels will occure.</p>
+<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases.</p>
+<div id="phase1_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/sc_integrator_ph1.PNG" class="img-fluid figure-img"></p>
+<figcaption>Integrator state during phase 1</figcaption>
+</figure>
+</div>
+<div id="phase2_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/sc_integrator_ph2.PNG" class="img-fluid figure-img"></p>
+<figcaption>Integrator state during phase 2</figcaption>
+</figure>
+</div>
+<section id="the-operational-transconductance-amplifier-ota" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="the-operational-transconductance-amplifier-ota"><span class="header-section-number">3.2.1</span> The Operational Transconductance Amplifier (OTA)</h3>
+<p>For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.</p>
+<p>(list of OTA features will be added here)</p>
+</section>
 </section>
 <section id="clock-phase-generation" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Clock-Phase generation</h1>
 <div class="justify">
+<p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;2</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
 <p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;2</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
 <div id="fig-phase_gen" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -244,9 +270,12 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase_gen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Basic structure for delayed clock phase generation
+Figure&nbsp;2: Basic structure for delayed clock phase generation
 </figcaption>
 </figure>
 </div>
+<p>By changing the capacitance of the marked inverters the actual delay between <span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_{id}\)</span> can be controlled. It is worth noting however, that the capacitive load <span class="math inline">\(C_L\)</span> experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;3</a></p>
+<div id="cell-fig-delay_norm" class="cell" data-execution_count="1">
 <p>By changing the capacitance of the marked inverters the actual delay between <span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_{id}\)</span> can be controlled. It is worth noting however, that the capacitive load <span class="math inline">\(C_L\)</span> experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;3</a></p>
 <div id="cell-fig-delay_norm" class="cell" data-execution_count="1">
 <details class="code-fold">
@@ -291,20 +320,66 @@ Figure&nbsp;2: Basic structure for delayed clock phase generation
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'V'</span>)</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ltspice <span class="im">as</span> lt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#parse data from .raw file</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#for compiling the finished document this path needs to be relative to "report_grp4.qmd"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>fpath       <span class="op">=</span> <span class="st">'../../matlab_python/clk_gen/tb_clkgen.raw'</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>l           <span class="op">=</span> lt.Ltspice(fpath)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>l.parse()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#extract relevant data</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>time        <span class="op">=</span> l.get_time()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>vclk        <span class="op">=</span> l.get_data(<span class="st">'v(clkin)'</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>vp1         <span class="op">=</span> l.get_data(<span class="st">'v(p1)'</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>vp1e        <span class="op">=</span> l.get_data(<span class="st">'v(p1e)'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>vp2         <span class="op">=</span> l.get_data(<span class="st">'v(p2)'</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>vp2e        <span class="op">=</span> l.get_data(<span class="st">'v(p2e)'</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#redefine data arrays considering new length</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>length <span class="op">=</span> <span class="bu">round</span>(<span class="bu">len</span>(time)<span class="op">/</span>factor)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>time    <span class="op">=</span> time[:length]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>vclk    <span class="op">=</span> np.flip(vclk[:length])</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>vp1     <span class="op">=</span> np.flip(vp1[:length])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>vp1e    <span class="op">=</span> np.flip(vp1e[:length])</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>vp2     <span class="op">=</span> np.flip(vp2[:length])</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>vp2e    <span class="op">=</span> np.flip(vp2e[:length])</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1, label<span class="op">=</span><span class="vs">r'$\phi_1$'</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1e, label<span class="op">=</span><span class="vs">r'$\phi_</span><span class="sc">{1d}</span><span class="vs">$'</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp2, label<span class="op">=</span><span class="vs">r'$\phi_2$'</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Voltage input clock over time'</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$t$/ns'</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'V'</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[Warning] Variable data type is detected as double precision.</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div id="fig-delay_norm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="report_grp4_files/figure-html/fig-delay_norm-output-1.png" width="589" height="449" class="figure-img">
+<img src="report_grp4_files/figure-html/fig-delay_norm-output-2.png" width="589" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Delayed clock signals
 Figure&nbsp;3: Delayed clock signals
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>Figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;3</a> shows the normal delay between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_{1d}\)</span> as well as the non-overlap with <span class="math inline">\(\phi_2\)</span>. The structure used for clock generation was modeled after the circuit provided by Boris Murman <span class="citation" data-cites="murmann">[@murmann]</span>. In this, they used the <em>sg13g2</em> standard cells for the NAND gates and inverters which are not built from single transistors and hence their capacitance can not be changed. <font color="red">This however does not affect the circuits ability to generate the needed delays and non-overlaps. Creating the gates from transistors, and in turn the whole structure, does show the same behaviour. TO BE CONFIRMED WITH ACUTAL SC/ADC FOLLOWING</font>. We thus continue to use the version with gate parameters controllable through the transistors. <font color="red">WHY WAS THIS DECISION MADE?</font></p>
+<p>The circuits used for the gates are depicted in figures <a href="#fig-inv" class="quarto-xref">Figure&nbsp;4 (a)</a> and <a href="#fig-nand" class="quarto-xref">Figure&nbsp;4 (b)</a> for the inverters and NAND gates respectively.</p>
 <p>Figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;3</a> shows the normal delay between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_{1d}\)</span> as well as the non-overlap with <span class="math inline">\(\phi_2\)</span>. The structure used for clock generation was modeled after the circuit provided by Boris Murman <span class="citation" data-cites="murmann">[@murmann]</span>. In this, they used the <em>sg13g2</em> standard cells for the NAND gates and inverters which are not built from single transistors and hence their capacitance can not be changed. <font color="red">This however does not affect the circuits ability to generate the needed delays and non-overlaps. Creating the gates from transistors, and in turn the whole structure, does show the same behaviour. TO BE CONFIRMED WITH ACUTAL SC/ADC FOLLOWING</font>. We thus continue to use the version with gate parameters controllable through the transistors. <font color="red">WHY WAS THIS DECISION MADE?</font></p>
 <p>The circuits used for the gates are depicted in figures <a href="#fig-inv" class="quarto-xref">Figure&nbsp;4 (a)</a> and <a href="#fig-nand" class="quarto-xref">Figure&nbsp;4 (b)</a> for the inverters and NAND gates respectively.</p>
 <div id="fig-gates" class="quarto-layout-panel">
@@ -338,6 +413,7 @@ Figure&nbsp;3: Delayed clock signals
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Gates used for clock generating structures
 Figure&nbsp;4: Gates used for clock generating structures
 </figcaption>
 </figure>

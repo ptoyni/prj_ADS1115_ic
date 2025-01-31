@@ -2,7 +2,7 @@
 Since more and more manufacturers are ending their production of integrated circuit solutions the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course "Concept Engineering Mixed-Technology Systems" held by Professor Meiners at Hochschule Bremen are tasked with creating an Analog-Digital-Converter modeled after the ADS1115 by Texas Instruments. In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of $\Sigma \Delta$ ADC's, simulations of simplified models as well as a detailed step-by-step design using SPICE simulations based on XSchem designs. <font color="red">THIS CAN BE WORDED WAY BETTER</font>.
 
 
-## General Overview
+## General Overview of given ADC
 For testing purposes the ADS1115 is connected to an ADXL335 accelerometer and ESP8266 microcontroller. This setup enables us to more precisely characterize the ADC. For further analysis the accelerometer is just considered as an analog input. 
 
 As can be seen in the above figure @fig-complete_system ...
