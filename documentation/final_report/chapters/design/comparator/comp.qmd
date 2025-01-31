@@ -4,13 +4,13 @@ As the output stage of the modulator subsystem of the desired Analog-Digital Con
 
 ## Model-/ Architecture elaboration
 
-The considered implementation of our comparator utilizes the so call "StrongArm-Latch" architecture, followed by a latching circuit to account for the reseting within the comparator and the resulting "invalid" outputs it would provide.
+The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting "invalid" outputs it would provide.
 
 ### Comparator Stage
 
 @strongarm_circuit.
 
-![Comparator, realized through StrongArm architecture (placeholder)](figures/comp/StrongArm_placeholder.svg){#strongarm_circuit}
+![Comparator, realized through inverter based architecture (placeholder)](figures/comp/StrongArm_placeholder.svg){#strongarm_circuit}
 
 (paper to be cited: DESIGN AND IMPLEMENTATION OF HIGH SPEED LATCHED COMPARATOR
 USING gm/Id SIZING METHOD
