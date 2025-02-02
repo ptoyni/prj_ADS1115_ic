@@ -14,7 +14,7 @@
         "\n",
         "By changing the capacitance of the marked inverters the actual delay between $\\phi_i$ and $\\phi_{id}$ can be controlled. It is worth noting however, that the capacitive load $C_L$ experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure @fig-delay_norm\n"
       ],
-      "id": "23dac192"
+      "id": "f5607a83"
     },
     {
       "cell_type": "code",
@@ -86,7 +86,7 @@
         ":::\n",
         "The cascading of two CMOS inverters in figure @fig-inv is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color=\"red\">REALLY?</font>"
       ],
-      "id": "8a002967"
+      "id": "0cbd6bce"
     }
   ],
   "metadata": {

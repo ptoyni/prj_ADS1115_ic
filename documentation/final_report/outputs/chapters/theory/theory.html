@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-29">
+<meta name="dcterms.date" content="2025-02-02">
 
 <title>theory</title>
 <style>
@@ -38,6 +38,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="theory_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="theory_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="theory_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="theory_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="theory_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="theory_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -80,7 +83,7 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#theory" id="toc-theory" class="nav-link active" data-scroll-target="#theory"><span class="header-section-number">1</span> Theory</a></li>
+  <li><a href="#theory-of-the-delta-sigma-modulator" id="toc-theory-of-the-delta-sigma-modulator" class="nav-link active" data-scroll-target="#theory-of-the-delta-sigma-modulator"><span class="header-section-number">1</span> Theory of the Delta-Sigma Modulator</a></li>
   </ul>
 </nav>
 </div>
@@ -128,7 +131,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-29</p>
+      <p class="date">2025-02-02</p>
     </div>
   </div>
   
@@ -140,11 +143,40 @@ window.Quarto = {
 </header>
 
 
-<section id="theory" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Theory</h1>
+<section id="theory-of-the-delta-sigma-modulator" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Theory of the Delta-Sigma Modulator</h1>
 <div class="justify">
 <section id="system-overview-of-the-delta-sigma-modulator" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="system-overview-of-the-delta-sigma-modulator"><span class="header-section-number">1.1</span> System overview of the <span class="math inline">\(\Delta\)</span> <span class="math inline">\(\Sigma\)</span> modulator</h2>
+<p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilizes the principles of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.</p>
+<p>The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Anti-Alias Filtering] --&gt; B[Sampling]
+  B --&gt; C[Quantization]
+  C --&gt; D[Digital Filtering]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Anti-Aliasing measures have to be considered to ensure a “clean” input signal to the modulator system, without unwanted parasitic components.</p>
+<p>The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).</p>
+<p>The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing “moving-average filtering”.</p>
+<section id="oversampling-circuits" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">1.1.1</span> Oversampling circuits</h3>
+</section>
+<section id="principle-of-noise-shaping" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="principle-of-noise-shaping"><span class="header-section-number">1.1.2</span> Principle of Noise Shaping</h3>
+<p>The key advantage that Delta-Sigma Modulation brings to the table is “noise shaping”. This is enabled by the feedback structure that is given in our modulator system.</p>
+<p>For that, let’s observe the following block diagram.</p>
+<p>[add diagram and corresponding elaboration (for discrete-time domain would be better)]</p>
+</section>
 </section>
 <section id="switched-capacitor-integrator" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">1.2</span> Switched Capacitor Integrator</h2>
@@ -157,21 +189,29 @@ window.Quarto = {
 <figcaption>Simple opamp based integrator</figcaption>
 </figure>
 </div>
-<p>(explain beasic principle of shown integrator circuit)</p>
+<p>(explain basic principle of shown integrator circuit)</p>
 <p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
 <p>Therefore, it is worth utilizing the following input structure in figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
 <div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img"></p>
-<figcaption>Opamp based switched capacitot integrator</figcaption>
+<figcaption>Opamp based switched capacitor integrator</figcaption>
 </figure>
 </div>
 <p>The depicted switches are clocked in a way, that no simultanious high levels will occure.</p>
-<section id="the-operational-transconductance-amplifier-ota" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="the-operational-transconductance-amplifier-ota"><span class="header-section-number">1.2.1</span> The Operational Transconductance Amplifier (OTA)</h3>
-<p>For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.</p>
-<p>(list of OTA features will be added here)</p>
-</section>
+<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases.</p>
+<div id="phase1_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/sc_integrator_ph1.PNG" class="img-fluid figure-img"></p>
+<figcaption>Integrator state during phase 1</figcaption>
+</figure>
+</div>
+<div id="phase2_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/sc_integrator_ph2.PNG" class="img-fluid figure-img"></p>
+<figcaption>Integrator state during phase 2</figcaption>
+</figure>
+</div>
 </section>
 </div>
 </section>

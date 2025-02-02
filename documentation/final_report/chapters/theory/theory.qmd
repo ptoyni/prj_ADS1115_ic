@@ -1,8 +1,37 @@
-# Theory
+# Theory of the Delta-Sigma Modulator
 ::: {.justify}
 
 
 ## System overview of the $\Delta$ $\Sigma$ modulator
+
+Delta-Sigma modulators ($\Delta\Sigma$) are generally speaking 1-bit sampling systems that utilizes the principles of "oversampling".
+To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.
+
+The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.
+
+```{mermaid}
+flowchart LR
+  A[Anti-Alias Filtering] --> B[Sampling]
+  B --> C[Quantization]
+  C --> D[Digital Filtering]
+```
+
+Anti-Aliasing measures have to be considered to ensure a "clean" input signal to the modulator system, without unwanted parasitic components. 
+
+The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).
+
+The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing "moving-average filtering".
+
+### Oversampling circuits
+
+
+### Principle of Noise Shaping
+
+The key advantage that Delta-Sigma Modulation brings to the table is "noise shaping". This is enabled by the feedback structure that is given in our modulator system.
+
+For that, let's observe the following block diagram.
+
+[add diagram and corresponding elaboration (for discrete-time domain would be better)]
 
 ## Switched Capacitor Integrator
 (to be cited: Schreier) 
@@ -29,11 +58,8 @@ To derive the system behaviour of this circuitry, let's consider the two phases 
 
 ![Integrator state during phase 2](figures/theory/sc_integrator_ph2.PNG){#phase2_integrator}
 
-### The Operational Transconductance Amplifier (OTA)
 
-For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.
 
-(list of OTA features will be added here)
 
 
 
