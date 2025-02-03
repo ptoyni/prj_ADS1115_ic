@@ -73,7 +73,7 @@ legend('u', 'v');
 title('1st Order \Sigma\Delta');
 hold off;
 
-save("./zip_meiners/behav/dsm_l1/data/dat_time_domain_plot.mat", "t", "u", "v")
+save("./data/dat_time_domain_plot.mat", "t", "u", "v")
 %% Spectral analysis, Lec. 4 - ADC Metrics
 sq = abs(fft(v));
 
