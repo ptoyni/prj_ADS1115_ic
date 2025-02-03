@@ -1,5 +1,8 @@
+# General ADC characteristics
+
 # Theory of the Delta-Sigma Modulator
 ::: {.justify}
+
 
 
 ## System overview of the $\Delta$ $\Sigma$ modulator

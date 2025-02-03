@@ -29,6 +29,9 @@ ABCD = stuffABCD(a, g, b, c, form);
 [ABCDs umax] = scaleABCD(ABCD);
 [a, g, b, c] = mapABCD(ABCDs, form);
 
+% pole-zero plot of NTF object
+pzplot(H)
+
 %% Simulink
 mdl = 'dsm_l2_sim';
 %load_system(mdl);
