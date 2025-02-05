@@ -1,26 +1,21 @@
+
+* expanding   symbol:  latch_stage_test.sym # of pins=6
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/latch_stage_test.sym
 ** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/latch_stage_test.sch
-**.subckt latch_stage_test VDD in- in+ d dd clk dout res VSS
-*.opin d
-*.ipin res
-*.opin dd
-*.opin dout
+.subckt latch_stage_test VDD in+ in- latch- latch+ VSS
 *.ipin in+
 *.ipin in-
 *.ipin VDD
 *.ipin VSS
-*.ipin clk
-XM32m dint net2 net1 VSS sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
-XM2 dint net2 VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
-XM3 dint in- VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
-XM21m net1 in- VSS VSS sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
-XM32p net2 dint net3 VSS sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
-XM42p net2 dint VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
-XM8 net2 in+ VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
-XM21p net3 in+ VSS VSS sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
-x1 clk dint dd net5 net4 VDD VSS sg13g2_dfrbp_2
-x2 dint VDD VSS d sg13g2_buf_2
-x3 res VDD VSS net4 sg13g2_inv_1
-x5 dd VDD VSS dout sg13g2_inv_2
-* noconn #net5
-**.ends
-.end
+*.opin latch+
+*.opin latch-
+XM8 latch- in+ VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM1 latch+ latch- VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM2 latch- latch+ VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3 latch+ in- VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3p latch- latch+ net2 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM2p net2 in+ VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM4 latch+ latch- net1 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM5 net1 in- VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+.ends
+

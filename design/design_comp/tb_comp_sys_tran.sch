@@ -40,13 +40,13 @@ C {devices/vdd.sym} 360 -310 0 0 {name=l9 lab=VDD}
 C {devices/gnd.sym} 280 -240 0 0 {name=l10 lab=GND}
 C {devices/vsource.sym} 280 -270 0 0 {name=Vss value="dc 0"}
 C {devices/vdd.sym} 280 -310 0 0 {name=l11 lab=VSS}
-C {devices/code_shown.sym} -600 -550 0 0 {name=NGSPICE only_toplevel=true 
+C {devices/code_shown.sym} -600 -570 0 0 {name=NGSPICE only_toplevel=true 
 value=
 "
 .param temp=27 vdd=1.5 per=10n vdiff=10m 
 .param Wnmos=1u Wpmos=2u 
 .param Lnmos=.2u Lpmos=.2u Lnmos2=1u
-.param Cload=10p
+.param Cload=1p
 .option method=gear reltol=1e-5
 		
 .control	
@@ -60,7 +60,7 @@ plot d dd dout
 
 .endc"
  }
-C {devices/code_shown.sym} -90 -500 0 0 {name=MODEL only_toplevel=true
+C {devices/code_shown.sym} -90 -540 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value=".lib cornerMOSlv.lib mos_tt
 .inc $::PDK_ROOT/sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice"}

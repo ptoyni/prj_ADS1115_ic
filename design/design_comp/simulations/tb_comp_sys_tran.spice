@@ -16,13 +16,13 @@ C3 dout GND Cload m=1
 .param temp=27 vdd=1.5 per=10n vdiff=10m
 .param Wnmos=1u Wpmos=2u
 .param Lnmos=.2u Lpmos=.2u Lnmos2=1u
-.param Cload=10p
+.param Cload=1p
 .option method=gear reltol=1e-5
 
 .control
 save all
 tran 10p 25n
-write ./comp_data/comp_sys_tb.raw
+write /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_data/comp_sys_tb.raw
 plot clk vin_p vin_n
 plot clk x4.out1p x4.out1n
 plot x4.out2p x4.out2n

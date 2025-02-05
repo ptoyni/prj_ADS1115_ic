@@ -1,5 +1,8 @@
+
+* expanding   symbol:  d_flipflop.sym # of pins=6
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/d_flipflop.sym
 ** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/d_flipflop.sch
-**.subckt d_flipflop latch+ d dd clk dout res
+.subckt d_flipflop latch+ d dd clk dout res
 *.opin d
 *.ipin res
 *.opin dd
@@ -9,22 +12,7 @@
 x1 clk latch+ dd net2 net1 VDD VSS sg13g2_dfrbp_2
 x2 latch+ VDD VSS d sg13g2_buf_2
 * noconn #net2
-x4 dout dd better_inv
-x3 net1 res better_inv
-**.ends
-
-* expanding   symbol:  /foss/designs/prj_ADS1115_ic-1/design/design_comp/sub_components/better_inv.sym # of pins=2
-** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/sub_components/better_inv.sym
-** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/sub_components/better_inv.sch
-.subckt better_inv Y A
-*.ipin A
-*.opin Y
-XM1 net1 A GND GND sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
-XM2 net1 GND VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
-XM3 Y net1 GND GND sg13_lv_nmos w=1.0u l=0.45u ng=1 m=1
-XM4 Y GND VDD VDD sg13_lv_pmos w=1.0u l=0.45u ng=1 m=1
+x5 dd VDD VSS dout sg13g2_inv_2
+x3 res VDD VSS net1 sg13g2_inv_2
 .ends
 
-.GLOBAL GND
-.GLOBAL VDD
-.end

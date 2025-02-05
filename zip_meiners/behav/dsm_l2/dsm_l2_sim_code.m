@@ -30,6 +30,7 @@ ABCD = stuffABCD(a, g, b, c, form);
 [a, g, b, c] = mapABCD(ABCDs, form);
 
 % pole-zero plot of NTF object
+H
 pzplot(H)
 
 %% Simulink
@@ -53,10 +54,28 @@ simoptions=simset( ...
 %% Post-processing Simulink, quantizer gains
 y = simout(:,1)'; % prime to adapt dimension
 v = simout(:,2)'; % prime to adapt dimension
+x = simout(:,3)'; % prime to adapt dimension
 %y = simOut.yout.get('y').Values.Data';
 %v = simOut.yout.get('v').Values.Data';
 k = (v*y')/(y*y');
 
+%% Time domain plot
+close; 
+fig1 = figure(1);
+set(gca, 'fontsize', 12);
+plot(t, x, 'LineWidth', 1); 
+hold on;
+plot(t, y, 'LineWidth', 1); 
+axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
+stairs(t, v, 'LineWidth', 1.5);
+plot(t, u, 'LineWidth', 2);
+xlabel('Time t/T');
+ylabel('Amplitude');
+legend('x','y','v','u');
+title('2nd Order \Sigma\Delta');
+hold off;
+
+save("./data/dsm_l2_time_domain_plot.mat", "t", "u", "v", "y", "x")
 %% Spectral analysis, lec. 3 slides
 sq = abs(fft(v));
 
