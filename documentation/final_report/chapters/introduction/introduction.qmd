@@ -1,11 +1,27 @@
 # Introduction
-Since more and more manufacturers are ending their production of integrated circuit solutions the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course "Concept Engineering Mixed-Technology Systems" held by Professor Meiners at Hochschule Bremen are tasked with creating an Analog-Digital-Converter modeled after the ADS1115 by Texas Instruments. In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of $\Sigma \Delta$ ADC's, simulations of simplified models as well as a detailed step-by-step design using SPICE simulations based on XSchem designs. <font color="red">THIS CAN BE WORDED WAY BETTER</font>.
+Since more and more manufacturers are ending their production of integrated circuit solutions, the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course "Concept Engineering Mixed-Technology Systems", held by Professor Meiners at Hochschule Bremen, are tasked with the development of an Analog-Digital-Converter, roughly modeled in a way to replace the ADS1115 by Texas Instruments within a specified measurement system-chain. 
+
+In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of $\Sigma \Delta$ ADC's, an exploration of it's basic behavioural characteristics via system analysis, deriving basic and idealized circuits to match the behaviour, and lastly a detailed step-by-step design using SPICE simulations within the xschem design environment, where solutions on IC-level will be proposed. 
+
+
+## Top-Level Overview of Considered System
+
+The considered system of interest for this semester is a classical meassurement system, consisting of an accelerometer as our analog data source, an ADC to convert said analog data to the digital domain, which can then be handled by a microcontroller as our processing unit.
+
+The specific board-level components that are considered for this signal-chain are the ADXL335 accelerometer, the ADS1115 ADC and an ESP8266 microcontroller.
+
+![Concerned Top-Level Measurement System](figures/introduction/toplvl_sys_overview.png){#fig_toplvl_view}
 
 
 ## General Overview of given ADC
-For testing purposes the ADS1115 is connected to an ADXL335 accelerometer and ESP8266 microcontroller. This setup enables us to more precisely characterize the ADC. For further analysis the accelerometer is just considered as an analog input. 
+The mentioned ICs are given as evaluation- & breakout boards as part of the lab inventory.
 
-As can be seen in the above figure @fig-complete_system ...
+![ADXL335 Functional Block Diagram [datasheet]](figures/introduction/ADXL335.PNG){#fig_ADXL_block}
+
+![ADS1115 Functional Block Diagram [datasheet]](figures/introduction/ADS1115.PNG){#fig_ADS_block}
+
+![ESP8266 Breakoutboard Pinout](figures/introduction/ESP8266_breakout.PNG){#fig_ESP8266}
+
 
 Figure @fig-adc_overview shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. 
 The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.

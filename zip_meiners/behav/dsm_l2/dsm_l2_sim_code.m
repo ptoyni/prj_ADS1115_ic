@@ -61,19 +61,28 @@ k = (v*y')/(y*y');
 
 %% Time domain plot
 close; 
+%set(gca, 'fontsize', 12);
 fig1 = figure(1);
-set(gca, 'fontsize', 12);
-plot(t, x, 'LineWidth', 1); 
-hold on;
-plot(t, y, 'LineWidth', 1); 
-axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
-stairs(t, v, 'LineWidth', 1.5);
-plot(t, u, 'LineWidth', 2);
-xlabel('Time t/T');
-ylabel('Amplitude');
-legend('x','y','v','u');
-title('2nd Order \Sigma\Delta');
-hold off;
+    stairs(t, v, 'LineWidth', 1.5); hold on;
+    plot(t, u, 'LineWidth', 2); hold off;
+    axis([ min(t) max(t)/9 1.1*min(v) 1.1*max(v) ]);
+    xlabel('Time t/T'); ylabel('Amplitude');
+    legend('v: input','u: PWM output');
+    title('2nd Order \Sigma\Delta, Input to Output');
+fig2 = figure(2);
+    plot(t, y, 'LineWidth', 1, 'Color', 'k'); hold on;
+    plot(t, x, 'LineWidth', 1, 'Color', 'r'); hold off;
+    axis([ min(t) max(t)/9 1.1*min(v) 1.1*max(v) ]);
+    xlabel('Time t/T'); ylabel('Amplitude');
+    legend('y: second stage','x: first stage');
+    title('2nd Order \Sigma\Delta, Different Integrator Outputs');
+fig3 = figure(3);
+    plot(t, y, 'LineWidth', 1, 'Color', 'k'); hold on;
+    plot(t, v, 'LineWidth', 1, 'Color', 'r'); hold off;
+    axis([ min(t) max(t)/9 1.1*min(v) 1.1*max(v) ]);
+    xlabel('Time t/T'); ylabel('Amplitude');
+    legend('y: second stage','v: PWM Output');
+    title('2nd Order \Sigma\Delta, Quantization of Second-Stage Output');
 
 save("./data/dsm_l2_time_domain_plot.mat", "t", "u", "v", "y", "x")
 %% Spectral analysis, lec. 3 slides

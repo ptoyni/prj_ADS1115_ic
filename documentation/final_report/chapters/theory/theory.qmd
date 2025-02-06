@@ -1,12 +1,8 @@
-# General ADC characteristics
-
-# Theory of the Delta-Sigma Modulator
+# Theory and Charactersitics of Delta-Sigma Modulators
 ::: {.justify}
 
 
-
-## System overview of the $\Delta$ $\Sigma$ modulator
-
+## Top-Level Overview 
 Delta-Sigma modulators ($\Delta\Sigma$) are generally speaking 1-bit sampling systems that utilizes the principles of "oversampling".
 To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.
 
@@ -25,6 +21,8 @@ The sampling then discretizes the input signal in time, before the quentization 
 
 The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing "moving-average filtering".
 
+## System overview of $\Delta\Sigma$ Modulators
+
 ### Oversampling circuits
 
 
@@ -36,11 +34,18 @@ For that, let's observe the following block diagram.
 
 [add diagram and corresponding elaboration (for discrete-time domain would be better)]
 
-## Switched Capacitor Integrator as Loop Filter 
-# Basic Bahaviour
+### Behavioural Analysis using MATLAB
+
+![System Overview of the 1st order loopfilter](figures/theory/Simple_1stOrder_Mod_sys.png){#fig_loopfilter_sys_1st_order}
+
+
+![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#opamp_sc_integrator}
+
+# Basic Behaviour on Circuit Level
 
 (to be cited: Schreier) 
 
+## Switched Capacitor Integrator as Loop Filter 
 The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
 
 A classic implementation of realizing an active integrator would be with the following opamp circuit in figure @opamp_integrator.
@@ -91,16 +96,9 @@ Utilizing the aforementions relation between voltage, charge and capacitance, we
 
 The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain ($C_1 = C_2$).
 
-The remaining term, describing a delayed integrator, is what will be utilized in the MATLAb assited system analysis. That ultimately leads to the following description of out feedback system.
-
-![System Overview of the 1st order loopfilter](figures/theory/Simple_1stOrder_Mod_sys.png){#loopfilter_sys_1st_order}
-
-# Extended Behaviour Description
-
-We shall also briefly elaborate on the circuit extentions that occure in the case ofthe desired 2nd order casdade structure of the modulator, also including the feedback aspect
+The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure @fig_loopfilter_sys_1st_order.
 
 
-# MATLAB Model Analysis
 
 
 

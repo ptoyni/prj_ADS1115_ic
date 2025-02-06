@@ -8,7 +8,6 @@ title: "Design of an Analog-Digital-Converter after the ADS1115"
 
 {{< include chapters/theory/theory.qmd >}}
 
-
 {{< include chapters/clock_gen/clock_gen.qmd >}}
 
 {{< include chapters/design/comparator/comp.qmd  >}}
