@@ -41,62 +41,7 @@ For that, let's observe the following block diagram.
 
 ![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#opamp_sc_integrator}
 
-# Basic Behaviour on Circuit Level
 
-(to be cited: Schreier) 
-
-## Switched Capacitor Integrator as Loop Filter 
-The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
-
-A classic implementation of realizing an active integrator would be with the following opamp circuit in figure @opamp_integrator.
-
-![Simple opamp based integrator](figures/theory/Integrator_Circuit.svg){#opamp_integrator}
-
-(explain basic principle of shown integrator circuit)
-
-There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.
-
-Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure @opamp_sc_integrator, which leads to a switched-capacitor integrator. 
-  
-![Opamp based switched capacitor integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator}
-
-The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit's functionality. 
-
-To derive the system behaviour of this circuitry, let's consider the two phases of operation, given be the switching phases, depicted in Figures @phase1_integrator and @phase2_integrator.
-
-![Integrator state during phase 1](figures/theory/sc_integrator_ph1.PNG){#phase1_integrator}
-
-![Integrator state during phase 2](figures/theory/sc_integrator_ph2.PNG){#phase2_integrator}
-
-The first phase allows for the capacitor $C_1$ to be charged from the input, leading to the charge accumulation $q_1[1]$, during which the integrating capacitor $C_2$ holds it's previous charge ($q_2[n]$). Due to the relation $V = \frac{Q}{C}$, the output voltage will be equal to the ratio of that charge $q_2[n]$ to the capacitance $C_2$.
-
-The second phase will than result in the charge of $C_1$ to accumulate in $C_2$, due to the opamps input behaviour related to it's "virtual ground". C2 will therefore have the sum of charges, leading to
-
-\begin{align}\label{sc_charge_ph2}
-  q_2[n+1] = q_2 + q_1. 
-\end{align}
-
-After applying the $z$-transform, the result is
-
-\begin{align}
-  Q_2(z) = Q_2(z)\,z^{-1} + Q_1(z)\,z^{-1}
-\end{align}
-
-which in turn can be rearranged to get
-
-\begin{align}
-  \frac{Q_2(z)}{Q_1(z)} = \frac{z^{-1}}{1-z^{-1}}
-\end{align}
-
-Utilizing the aforementions relation between voltage, charge and capacitance, we can derive the voltage I/O behaviour (transfer function) to be the following
-
-\begin{align}
-  \frac{V_{out}}{V_{in}} = \frac{z^{-1}}{1-z^{-1}} \frac{C1}{C2} = H_v(z)
-\end{align}
-
-The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain ($C_1 = C_2$).
-
-The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure @fig_loopfilter_sys_1st_order.
 
 
 

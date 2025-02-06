@@ -12,8 +12,6 @@ The specific board-level components that are considered for this signal-chain ar
 
 ![Concerned Top-Level Measurement System](figures/introduction/toplvl_sys_overview.png){#fig_toplvl_view}
 
-
-## General Overview of given ADC
 The mentioned ICs are given as evaluation- & breakout boards as part of the lab inventory.
 
 ![ADXL335 Functional Block Diagram [datasheet]](figures/introduction/ADXL335.PNG){#fig_ADXL_block}
@@ -22,6 +20,8 @@ The mentioned ICs are given as evaluation- & breakout boards as part of the lab 
 
 ![ESP8266 Breakoutboard Pinout](figures/introduction/ESP8266_breakout.PNG){#fig_ESP8266}
 
+
+## General Overview of given ADC
 
 Figure @fig-adc_overview shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. 
 The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.

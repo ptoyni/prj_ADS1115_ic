@@ -158,13 +158,23 @@ window.Quarto = {
 <figcaption>Concerned Top-Level Measurement System</figcaption>
 </figure>
 </div>
+<p>The mentioned ICs are given as evaluation- &amp; breakout boards as part of the lab inventory.</p>
+<div id="fig_ADXL_block" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/ADXL335.PNG" class="img-fluid figure-img"></p>
+<figcaption>ADXL335 Functional Block Diagram [datasheet]</figcaption>
+</figure>
+</div>
+<div id="fig_ADS_block" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/ADS1115.PNG" class="img-fluid figure-img"></p>
+<figcaption>ADS1115 Functional Block Diagram [datasheet]</figcaption>
+</figure>
+</div>
+<p><img src="figures/introduction/ESP8266_breakout.PNG" class="img-fluid" alt="ESP8266 Breakoutboard Pinout">{#fig_ESP8266&nbsp;width=60%}</p>
 </section>
 <section id="general-overview-of-given-adc" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="general-overview-of-given-adc"><span class="header-section-number">1.2</span> General Overview of given ADC</h2>
-<p>The mentioned ICs are given as evaluation- &amp; breakout boards as part of the lab inventory.</p>
-<p><img src="figures/introduction/ADXL335.PNG" id="fig_ADXL_block" class="img-fluid" alt="ADXL335 Functional Block Diagram [datasheet]">{width=70%}</p>
-<p><img src="figures/introduction/ADS1115.PNG" class="img-fluid" alt="ADS1115 Functional Block Diagram [datasheet]">{#fig_ADS_block, width=70%}</p>
-<p><img src="figures/introduction/ESP8266_breakout.PNG" id="fig_ESP8266" class="img-fluid" alt="ESP8266 Breakoutboard Pinout">{width=70%}</p>
 <p>Figure <a href="#fig-adc_overview" class="quarto-xref">Figure&nbsp;1</a> shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.</p>
 <div id="fig-adc_overview" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">

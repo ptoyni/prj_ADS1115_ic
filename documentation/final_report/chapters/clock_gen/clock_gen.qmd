@@ -1,4 +1,4 @@
-# Clock-Phase generation
+## Clock-Phase generation
 
 ::: {.justify}
 

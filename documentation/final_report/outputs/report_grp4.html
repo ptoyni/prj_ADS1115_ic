@@ -208,13 +208,28 @@ window.Quarto = {
 <figcaption>Concerned Top-Level Measurement System</figcaption>
 </figure>
 </div>
+<p>The mentioned ICs are given as evaluation- &amp; breakout boards as part of the lab inventory.</p>
+<div id="fig_ADXL_block" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/ADXL335.PNG" class="img-fluid figure-img"></p>
+<figcaption>ADXL335 Functional Block Diagram [datasheet]</figcaption>
+</figure>
+</div>
+<div id="fig_ADS_block" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/ADS1115.PNG" class="img-fluid figure-img"></p>
+<figcaption>ADS1115 Functional Block Diagram [datasheet]</figcaption>
+</figure>
+</div>
+<div id="fig_ESP8266" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/ESP8266_breakout.PNG" class="img-fluid figure-img"></p>
+<figcaption>ESP8266 Breakoutboard Pinout</figcaption>
+</figure>
+</div>
 </section>
 <section id="general-overview-of-given-adc" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="general-overview-of-given-adc"><span class="header-section-number">2.2</span> General Overview of given ADC</h2>
-<p>The mentioned ICs are given as evaluation- &amp; breakout boards as part of the lab inventory.</p>
-<p><img src="figures/introduction/ADXL335.PNG" id="fig_ADXL_block" class="img-fluid" alt="ADXL335 Functional Block Diagram [datasheet]">{width=70%}</p>
-<p><img src="figures/introduction/ADS1115.PNG" class="img-fluid" alt="ADS1115 Functional Block Diagram [datasheet]">{#fig_ADS_block, width=70%}</p>
-<p><img src="figures/introduction/ESP8266_breakout.PNG" id="fig_ESP8266" class="img-fluid" alt="ESP8266 Breakoutboard Pinout">{width=70%}</p>
 <p>Figure <a href="#fig-adc_overview" class="quarto-xref">Figure&nbsp;1</a> shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.</p>
 <div id="fig-adc_overview" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -338,8 +353,12 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 <p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure <span class="citation" data-cites="fig_loopfilter_sys_1st_order">@fig_loopfilter_sys_1st_order</span>.</p>
 </section>
 </section>
-<section id="clock-phase-generation" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Clock-Phase generation</h1>
+<section id="design-proposals" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Design Proposals</h1>
+<p>This chapter shall highlight our attempts at realizing the desired subsystems of the <span class="math inline">\(\Delta\Sigma\)</span> modulator on transistor level, utilizing the 130 nm technology offered from the IHP’s sg13g2 BiCMOS PDK for open source usage.</p>
+<p>The following subchapters will elaborate on the separate subcircuits, briefly explain the workings of the circuits before going over the achieved simulation results. Xschem was used as the schematic capture EDA tool, while the testbench-driven simulations utilize ngspice.</p>
+<section id="clock-phase-generation" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="clock-phase-generation"><span class="header-section-number">5.1</span> Clock-Phase generation</h2>
 <div class="justify">
 <p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;2</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
 <div id="fig-phase_gen" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -451,14 +470,15 @@ Figure&nbsp;4: Gates used for clock generating structures
 </figure>
 </div>
 <p>The cascading of two CMOS inverters in figure <a href="#fig-inv" class="quarto-xref">Figure&nbsp;4 (a)</a> is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font></p>
-<section id="comparator-design" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Comparator Design</h1>
-<p>As the output stage of the modulator subsystem of the desired <span class="math inline">\(\Delta\Sigma\)</span> modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal. A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either “high” or “low”.</p>
-<section id="model--architecture-elaboration" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">6.1</span> Model-/ Architecture elaboration</h2>
+<section id="comparator-design" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="comparator-design"><span class="header-section-number">5.2</span> Comparator Design</h2>
+<p>As the output stage of the modulator subsystem of the desired <span class="math inline">\(\Delta\Sigma\)</span> modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal. A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either “high” or “low”, which will do fine to give us the PWM signal at the output.</p>
+<section id="model--architecture-elaboration" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">5.2.1</span> Model-/ Architecture elaboration</h3>
 <p>The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide. Lastly it also utilizes a d-flip-flop for the “digitized” output signal(-s), to be fed back to the loopfilter structures.</p>
-<section id="comparator-stage" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">6.1.1</span> Comparator Stage</h3>
+</section>
+<section id="comparator-stage" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">5.2.2</span> Comparator Stage</h3>
 <p>The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture. It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switched. <span class="citation" data-cites="strongarm_circuit">@strongarm_circuit</span>.</p>
 <div id="strongarm_circuit" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -476,24 +496,30 @@ Figure&nbsp;4: Gates used for clock generating structures
 <p>During high clock phases the nmos transistors start to conduct and allow for current to flow to the shared source contact of the input differential pair, so to <span class="math inline">\(V_{SS}\)</span></p>
 <p>[tbd]</p>
 </section>
-<section id="latching-circuit" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">6.1.2</span> Latching Circuit</h3>
+<section id="latching-circuit" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">5.2.3</span> Latching Circuit</h3>
 <p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.</p>
 </section>
-</section>
-<section id="implementation" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">6.2</span> Implementation</h2>
+<section id="implementation" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="implementation"><span class="header-section-number">5.2.4</span> Implementation</h3>
 <p>[xschem circuit to be placed here]</p>
 </section>
-<section id="validation" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="validation"><span class="header-section-number">6.3</span> Validation</h2>
+<section id="validation" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="validation"><span class="header-section-number">5.2.5</span> Validation</h3>
 <p>[some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]</p>
 </section>
 </section>
-<section id="references" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> References</h1>
+<section id="digital-output-filtering" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="digital-output-filtering"><span class="header-section-number">5.3</span> Digital Output Filtering</h2>
+<div class="justify">
+<p>The topic of digital filtering and decimation after the actual modulator stage could not be explored extensively during this semester. We do however want to briefly that subsystem from a conceptual perspective.</p>
+<section id="references" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
 </section>
 </div>
+</section>
+</div>
+</section>
 </section>
 </div>
 </section>

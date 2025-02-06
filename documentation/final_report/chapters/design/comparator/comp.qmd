@@ -1,10 +1,10 @@
-# Comparator Design
+## Comparator Design
 
 As the output stage of the modulator subsystem of the desired $\Delta\Sigma$ modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal.
-A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either "high" or "low".
+A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either "high" or "low", which will do fine to give us the PWM signal at the output.
 
 
-## Model-/ Architecture elaboration
+### Model-/ Architecture elaboration
 
 The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting "invalid" outputs it would provide.
 Lastly it also utilizes a d-flip-flop for the "digitized" output signal(-s), to be fed back to the loopfilter structures.
@@ -36,12 +36,10 @@ During high clock phases the nmos transistors start to conduct and allow for cur
 
 After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.
 
-
-
-## Implementation
+### Implementation
 
 [xschem circuit to be placed here]
 
-## Validation
+### Validation
 
 [some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]
