@@ -1,7 +1,5 @@
 ## Clock-Phase generation
 
-::: {.justify}
-
 The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure @fig-phase_gen. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases $\phi_1$, $\phi_{1d}$, $\phi_2$ and $\phi_{2d}$. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between $\phi_1$ and $\phi_2$ and in turn for their respective delayed versions.
 
 ![Basic structure for delayed clock phase generation](figures/clk_gen/schem_clock_generation.svg){#fig-phase_gen}
