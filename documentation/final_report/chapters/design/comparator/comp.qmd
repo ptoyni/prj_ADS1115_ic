@@ -1,31 +1,45 @@
-# Comparator Design
+## Comparator Design
 
-As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.
+As the output stage of the modulator subsystem of the desired $\Delta\Sigma$ modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal.
+A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either "high" or "low", which will do fine to give us the PWM signal at the output.
 
-## Model-/ Architecture elaboration
 
-The considered implementation of our comparator utilizes the so call "StrongArm-Latch" architecture, followed by a latching circuit to account for the reseting within the comparator and the resulting "invalid" outputs it would provide.
+### Model-/ Architecture elaboration
+
+The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting "invalid" outputs it would provide.
+Lastly it also utilizes a d-flip-flop for the "digitized" output signal(-s), to be fed back to the loopfilter structures.
 
 ### Comparator Stage
 
+The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called "StrongArm" architecture.
+It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switched. 
 @strongarm_circuit.
 
-![Comparator, realized through StrongArm architecture (placeholder)](figures/comp/StrongArm_placeholder.svg){#strongarm_circuit}
+![Comparator, realized through inverter based architecture (placeholder)](figures/comp/comp_architecture.svg){#strongarm_circuit}
 
-(paper to be cited: DESIGN AND IMPLEMENTATION OF HIGH SPEED LATCHED COMPARATOR
-USING gm/Id SIZING METHOD
+(to be cited:
+
+- Low Voltage, Low Power, Inverter-Based
+Switched-Capacitor Delta-Sigma Modulator
+- Murmann lectures (e.g. 6)
 )
 
 This circuits behaviour is fundamentally tied to the clock states, leading to either the so called "precharge" phase during low clock levels, or the "amplification" phase during an active clock phase.
 
-(Elaborate briefly on circuit behaviour)
+During low clock phases the pmos transistors, directly tied to the supply rail, open up and therefore pull both the output nodes to $V_{DD}$. 
+
+During high clock phases the nmos transistors start to conduct and allow for current to flow to the shared source contact of the input differential pair, so to $V_{SS}$ 
+
+[tbd]
 
 ### Latching Circuit
 
 After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.
 
+### Implementation
 
+[xschem circuit to be placed here]
 
-## Implementation
+### Validation
 
-## Validation
+[some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]

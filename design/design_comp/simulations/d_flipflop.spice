@@ -1,0 +1,18 @@
+
+* expanding   symbol:  d_flipflop.sym # of pins=6
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/d_flipflop.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/d_flipflop.sch
+.subckt d_flipflop latch+ d dd clk dout res
+*.opin d
+*.ipin res
+*.opin dd
+*.opin dout
+*.ipin clk
+*.ipin latch+
+x1 clk latch+ dd net2 net1 VDD VSS sg13g2_dfrbp_2
+x2 latch+ VDD VSS d sg13g2_buf_2
+* noconn #net2
+x5 dd VDD VSS dout sg13g2_inv_2
+x3 res VDD VSS net1 sg13g2_inv_2
+.ends
+

@@ -1,39 +1,55 @@
-# Theory
+# Theory and Charactersitics of Delta-Sigma Modulators
 ::: {.justify}
 
 
-## System overview of the $\Delta$ $\Sigma$ modulator
+## Top-Level Overview 
+Delta-Sigma modulators ($\Delta\Sigma$) are generally speaking 1-bit sampling systems that utilizes the principles of "oversampling".
+To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.
 
-## Switched Capacitor Integrator
-(to be cited: Schreier) 
+The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.
 
-The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
+```{mermaid}
+flowchart LR
+  A[Anti-Alias Filtering] --> B[Sampling]
+  B --> C[Quantization]
+  C --> D[Digital Filtering]
+```
 
-A classic implementation of realizing an active integrator would be with the following opamp circuit in figure @opamp_integrator.
+Anti-Aliasing measures have to be considered to ensure a "clean" input signal to the modulator system, without unwanted parasitic components. 
 
-![Simple opamp based integrator](figures/theory/Integrator_Circuit.svg){#opamp_integrator}
+The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).
 
-(explain basic principle of shown integrator circuit)
+The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing "moving-average filtering".
 
-There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.
+## System overview of $\Delta\Sigma$ Modulators
 
-Therefore, it is worth utilizing the following input structure in figure @opamp_sc_integrator, which leads to a switched-capacitor integrator. 
-  
-![Opamp based switched capacitor integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator}
+### Oversampling circuits
 
-The depicted switches are clocked in a way, that no simultanious high levels will occure.
 
-To derive the system behaviour of this circuitry, let's consider the two phases of operation, given be the switching phases.
+### Principle of Noise Shaping
 
-![Integrator state during phase 1](figures/theory/sc_integrator_ph1.PNG){#phase1_integrator}
+The key advantage that Delta-Sigma Modulation brings to the table is "noise shaping". This is enabled by the feedback structure that is given in our modulator system.
 
-![Integrator state during phase 2](figures/theory/sc_integrator_ph2.PNG){#phase2_integrator}
+For that, let's observe the following block diagram.
 
-### The Operational Transconductance Amplifier (OTA)
+[add diagram and corresponding elaboration (for discrete-time domain would be better)]
 
-For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.
+### Behavioural Analysis using MATLAB
 
-(list of OTA features will be added here)
+![System Overview of the 1st order loopfilter](figures/theory/Simple_1stOrder_Mod_sys.png){#fig_loopfilter_sys_1st_order}
+
+
+![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#opamp_sc_integrator}
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -61,19 +61,21 @@ v = simout(:,2)'; % prime to adapt dimension
 k = (v*y')/(y*y');
 
 %% Time domain plot
-fig1 = figure(1)
-set(gca, 'fontsize', 14);
-plot(t, u, 'LineWidth', 2);
-axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
+close; 
+fig1 = figure(1);
+set(gca, 'fontsize', 12);
+%plot(t, y, 'LineWidth', 1); 
 hold on;
-stairs(t, v, 'LineWidth', 2);
+axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
+stairs(t, v, 'LineWidth', 1.5);
+plot(t, u, 'LineWidth', 2);
 xlabel('Time t/T');
 ylabel('Amplitude');
-legend('u', 'v');
+legend('v', 'u');
 title('1st Order \Sigma\Delta');
 hold off;
 
-save("./zip_meiners/behav/dsm_l1/data/dat_time_domain_plot.mat", "t", "u", "v")
+save("./data/dat_time_domain_plot.mat", "t", "u", "v")
 %% Spectral analysis, Lec. 4 - ADC Metrics
 sq = abs(fft(v));
 

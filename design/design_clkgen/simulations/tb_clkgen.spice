@@ -1,0 +1,32 @@
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_clkgen/tb_clkgen.sch
+**.subckt tb_clkgen
+V1 A GND dc 0 pulse(0, {vdd}, 5n, 100p, 100p, {per/2}, {per})
+Vsup VDD GND {vdd}
+*  x1 -  clkgen  IS MISSING !!!!
+C1 p2e GND {cl} m=1
+C2 p2 GND {cl} m=1
+C3 p1 GND {cl} m=1
+C4 p1e GND {cl} m=1
+**** begin user architecture code
+
+.lib cornerMOSlv.lib mos_tt
+
+
+
+.param temp=27 vdd=1.2 per=20n cl=50f
+.option method=gear
+
+.control
+save all
+tran 10p 15n
+meas tran tp1_p1d TRIG v(p1) VAL=0.6 FALL=1 TARG v(p1d) VAL=0.6 FALL=1
+meas tran tp1d_p2d  TRIG v(p1d)  VAL=0.6 FALL=1 TARG v(p2d) VAL=0.6 RISE=1
+write /foss/designs/prj_ADS1115_ic/design/data/tb_clkgen.raw
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.GLOBAL VDD
+.end

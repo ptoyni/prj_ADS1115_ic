@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-02-07">
+<meta name="dcterms.date" content="2025-02-06">
 
 <title>Design of an Analog-Digital-Converter after the ADS1115</title>
 <style>
@@ -71,7 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="report_grp4_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="report_grp4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="report_grp4_files/libs/bootstrap/bootstrap-7efe0b1fee9f92738ae46ae98d30f7a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="report_grp4_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="report_grp4_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="report_grp4_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="report_grp4_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -117,9 +120,10 @@ window.Quarto = {
   <li><a href="#very-important-please-read" id="toc-very-important-please-read" class="nav-link active" data-scroll-target="#very-important-please-read"><span class="header-section-number">1</span> VERY IMPORTANT, PLEASE READ</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#general-overview-of-given-adc" id="toc-general-overview-of-given-adc" class="nav-link" data-scroll-target="#general-overview-of-given-adc"><span class="header-section-number">2.1</span> General Overview of given ADC</a></li>
+  <li><a href="#top-level-overview-of-considered-system" id="toc-top-level-overview-of-considered-system" class="nav-link" data-scroll-target="#top-level-overview-of-considered-system"><span class="header-section-number">2.1</span> Top-Level Overview of Considered System</a></li>
+  <li><a href="#general-overview-of-given-adc" id="toc-general-overview-of-given-adc" class="nav-link" data-scroll-target="#general-overview-of-given-adc"><span class="header-section-number">2.2</span> General Overview of given ADC</a></li>
   </ul></li>
-  <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="header-section-number">3</span> Theory</a></li>
+  <li><a href="#theory-and-charactersitics-of-delta-sigma-modulators" id="toc-theory-and-charactersitics-of-delta-sigma-modulators" class="nav-link" data-scroll-target="#theory-and-charactersitics-of-delta-sigma-modulators"><span class="header-section-number">3</span> Theory and Charactersitics of Delta-Sigma Modulators</a></li>
   </ul>
 </nav>
 </div>
@@ -168,7 +172,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-02-07</p>
+      <p class="date">2025-02-06</p>
     </div>
   </div>
   
@@ -192,11 +196,40 @@ window.Quarto = {
 </section>
 <section id="introduction" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
-<p>Since more and more manufacturers are ending their production of integrated circuit solutions the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course “Concept Engineering Mixed-Technology Systems” held by Professor Meiners at Hochschule Bremen are tasked with creating an Analog-Digital-Converter modeled after the ADS1115 by Texas Instruments. In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of <span class="math inline">\(\Sigma \Delta\)</span> ADC’s, simulations of simplified models as well as a detailed step-by-step design using SPICE simulations based on XSchem designs. <font color="red">THIS CAN BE WORDED WAY BETTER</font>.</p>
-<section id="general-overview-of-given-adc" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="general-overview-of-given-adc"><span class="header-section-number">2.1</span> General Overview of given ADC</h2>
-<p>For testing purposes the ADS1115 is connected to an ADXL335 accelerometer and ESP8266 microcontroller. This setup enables us to more precisely characterize the ADC. For further analysis the accelerometer is just considered as an analog input.</p>
-<p>As can be seen in the above figure <strong>?@fig-complete_system</strong> …</p>
+<p>Since more and more manufacturers are ending their production of integrated circuit solutions, the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course “Concept Engineering Mixed-Technology Systems”, held by Professor Meiners at Hochschule Bremen, are tasked with the development of an Analog-Digital-Converter, roughly modeled in a way to replace the ADS1115 by Texas Instruments within a specified measurement system-chain.</p>
+<p>In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of <span class="math inline">\(\Sigma \Delta\)</span> ADC’s, an exploration of it’s basic behavioural characteristics via system analysis, deriving basic and idealized circuits to match the behaviour, and lastly a detailed step-by-step design using SPICE simulations within the xschem design environment, where solutions on IC-level will be proposed.</p>
+<section id="top-level-overview-of-considered-system" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="top-level-overview-of-considered-system"><span class="header-section-number">2.1</span> Top-Level Overview of Considered System</h2>
+<p>The considered system of interest for this semester is a classical meassurement system, consisting of an accelerometer as our analog data source, an ADC to convert said analog data to the digital domain, which can then be handled by a microcontroller as our processing unit.</p>
+<p>The specific board-level components that are considered for this signal-chain are the ADXL335 accelerometer, the ADS1115 ADC and an ESP8266 microcontroller.</p>
+<div id="fig_toplvl_view" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/toplvl_sys_overview.png" class="img-fluid figure-img"></p>
+<figcaption>Concerned Top-Level Measurement System</figcaption>
+</figure>
+</div>
+<p>The mentioned ICs are given as evaluation- &amp; breakout boards as part of the lab inventory.</p>
+<div id="fig_ADXL_block" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/ADXL335.PNG" class="img-fluid figure-img"></p>
+<figcaption>ADXL335 Functional Block Diagram [datasheet]</figcaption>
+</figure>
+</div>
+<div id="fig_ADS_block" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/ADS1115.PNG" class="img-fluid figure-img"></p>
+<figcaption>ADS1115 Functional Block Diagram [datasheet]</figcaption>
+</figure>
+</div>
+<div id="fig_ESP8266" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/introduction/ESP8266_breakout.PNG" class="img-fluid figure-img"></p>
+<figcaption>ESP8266 Breakoutboard Pinout</figcaption>
+</figure>
+</div>
+</section>
+<section id="general-overview-of-given-adc" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="general-overview-of-given-adc"><span class="header-section-number">2.2</span> General Overview of given ADC</h2>
 <p>Figure <a href="#fig-adc_overview" class="quarto-xref">Figure&nbsp;1</a> shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.</p>
 <div id="fig-adc_overview" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -210,15 +243,64 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 </div>
 </section>
 </section>
-<section id="theory" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Theory</h1>
+<section id="theory-and-charactersitics-of-delta-sigma-modulators" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Theory and Charactersitics of Delta-Sigma Modulators</h1>
 <div class="justify">
-<section id="system-overview-of-the-delta-sigma-modulator" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="system-overview-of-the-delta-sigma-modulator"><span class="header-section-number">3.1</span> System overview of the <span class="math inline">\(\Delta\)</span> <span class="math inline">\(\Sigma\)</span> modulator</h2>
+<section id="top-level-overview" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="top-level-overview"><span class="header-section-number">3.1</span> Top-Level Overview</h2>
+<p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilizes the principles of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.</p>
+<p>The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Anti-Alias Filtering] --&gt; B[Sampling]
+  B --&gt; C[Quantization]
+  C --&gt; D[Digital Filtering]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Anti-Aliasing measures have to be considered to ensure a “clean” input signal to the modulator system, without unwanted parasitic components.</p>
+<p>The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).</p>
+<p>The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing “moving-average filtering”.</p>
 </section>
-<section id="switched-capacitor-integrator" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">3.2</span> Switched Capacitor Integrator</h2>
+<section id="system-overview-of-deltasigma-modulators" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="system-overview-of-deltasigma-modulators"><span class="header-section-number">3.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</h2>
+<section id="oversampling-circuits" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">3.2.1</span> Oversampling circuits</h3>
+</section>
+<section id="principle-of-noise-shaping" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="principle-of-noise-shaping"><span class="header-section-number">3.2.2</span> Principle of Noise Shaping</h3>
+<p>The key advantage that Delta-Sigma Modulation brings to the table is “noise shaping”. This is enabled by the feedback structure that is given in our modulator system.</p>
+<p>For that, let’s observe the following block diagram.</p>
+<p>[add diagram and corresponding elaboration (for discrete-time domain would be better)]</p>
+</section>
+<section id="behavioural-analysis-using-matlab" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="behavioural-analysis-using-matlab"><span class="header-section-number">3.2.3</span> Behavioural Analysis using MATLAB</h3>
+<div id="fig_loopfilter_sys_1st_order" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/Simple_1stOrder_Mod_sys.png" class="img-fluid figure-img"></p>
+<figcaption>System Overview of the 1st order loopfilter</figcaption>
+</figure>
+</div>
+<div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/2nd_order_behav_output.svg" class="img-fluid figure-img"></p>
+<figcaption>I/O behaviour from MATLAB simulation model</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="basic-behaviour-on-circuit-level" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</h1>
 <p>(to be cited: Schreier)</p>
+<section id="switched-capacitor-integrator-as-loop-filter" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="switched-capacitor-integrator-as-loop-filter"><span class="header-section-number">4.1</span> Switched Capacitor Integrator as Loop Filter</h2>
 <p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
 <p>A classic implementation of realizing an active integrator would be with the following opamp circuit in figure <span class="citation" data-cites="opamp_integrator">@opamp_integrator</span>.</p>
 <div id="opamp_integrator" class="quarto-figure quarto-figure-center anchored">
@@ -229,15 +311,15 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 </div>
 <p>(explain basic principle of shown integrator circuit)</p>
 <p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
-<p>Therefore, it is worth utilizing the following input structure in figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
+<p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
 <div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img"></p>
 <figcaption>Opamp based switched capacitor integrator</figcaption>
 </figure>
 </div>
-<p>The depicted switches are clocked in a way, that no simultanious high levels will occure.</p>
-<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases.</p>
+<p>The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit’s functionality.</p>
+<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases, depicted in Figures <span class="citation" data-cites="phase1_integrator">@phase1_integrator</span> and <span class="citation" data-cites="phase2_integrator">@phase2_integrator</span>.</p>
 <div id="phase1_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/theory/sc_integrator_ph1.PNG" class="img-fluid figure-img"></p>
@@ -250,14 +332,33 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 <figcaption>Integrator state during phase 2</figcaption>
 </figure>
 </div>
-<section id="the-operational-transconductance-amplifier-ota" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="the-operational-transconductance-amplifier-ota"><span class="header-section-number">3.2.1</span> The Operational Transconductance Amplifier (OTA)</h3>
-<p>For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.</p>
-<p>(list of OTA features will be added here)</p>
+<p>The first phase allows for the capacitor <span class="math inline">\(C_1\)</span> to be charged from the input, leading to the charge accumulation <span class="math inline">\(q_1[1]\)</span>, during which the integrating capacitor <span class="math inline">\(C_2\)</span> holds it’s previous charge (<span class="math inline">\(q_2[n]\)</span>). Due to the relation <span class="math inline">\(V = \frac{Q}{C}\)</span>, the output voltage will be equal to the ratio of that charge <span class="math inline">\(q_2[n]\)</span> to the capacitance <span class="math inline">\(C_2\)</span>.</p>
+<p>The second phase will than result in the charge of <span class="math inline">\(C_1\)</span> to accumulate in <span class="math inline">\(C_2\)</span>, due to the opamps input behaviour related to it’s “virtual ground”. C2 will therefore have the sum of charges, leading to</p>
+<p><span class="math display">\[\begin{align}\label{sc_charge_ph2}
+  q_2[n+1] = q_2 + q_1.
+\end{align}\]</span></p>
+<p>After applying the <span class="math inline">\(z\)</span>-transform, the result is</p>
+<p><span class="math display">\[\begin{align}
+  Q_2(z) = Q_2(z)\,z^{-1} + Q_1(z)\,z^{-1}
+\end{align}\]</span></p>
+<p>which in turn can be rearranged to get</p>
+<p><span class="math display">\[\begin{align}
+  \frac{Q_2(z)}{Q_1(z)} = \frac{z^{-1}}{1-z^{-1}}
+\end{align}\]</span></p>
+<p>Utilizing the aforementions relation between voltage, charge and capacitance, we can derive the voltage I/O behaviour (transfer function) to be the following</p>
+<p><span class="math display">\[\begin{align}
+  \frac{V_{out}}{V_{in}} = \frac{z^{-1}}{1-z^{-1}} \frac{C1}{C2} = H_v(z)
+\end{align}\]</span></p>
+<p>The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain (<span class="math inline">\(C_1 = C_2\)</span>).</p>
+<p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure <span class="citation" data-cites="fig_loopfilter_sys_1st_order">@fig_loopfilter_sys_1st_order</span>.</p>
 </section>
 </section>
-<section id="clock-phase-generation" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Clock-Phase generation</h1>
+<section id="design-proposals" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Design Proposals</h1>
+<p>This chapter shall highlight our attempts at realizing the desired subsystems of the <span class="math inline">\(\Delta\Sigma\)</span> modulator on transistor level, utilizing the 130 nm technology offered from the IHP’s sg13g2 BiCMOS PDK for open source usage.</p>
+<p>The following subchapters will elaborate on the separate subcircuits, briefly explain the workings of the circuits before going over the achieved simulation results. Xschem was used as the schematic capture EDA tool, while the testbench-driven simulations utilize ngspice.</p>
+<section id="clock-phase-generation" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="clock-phase-generation"><span class="header-section-number">5.1</span> Clock-Phase generation</h2>
 <div class="justify">
 <p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;2</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
 <div id="fig-phase_gen" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -293,28 +394,27 @@ Figure&nbsp;2: Basic structure for delayed clock phase generation
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>vp2e        <span class="op">=</span> l.get_data(<span class="st">'v(p2e)'</span>)</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#redefine data arrays considering new length</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">15</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>length <span class="op">=</span> <span class="bu">round</span>(<span class="bu">len</span>(time)<span class="op">/</span>factor)</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>time    <span class="op">=</span> time[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>vclk    <span class="op">=</span> vclk[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>vp1     <span class="op">=</span> vp1[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>vp1e    <span class="op">=</span> vp1e[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>vp2     <span class="op">=</span> vp2[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>vp2e    <span class="op">=</span> vp2e[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1, label<span class="op">=</span><span class="vs">r'$\phi_1$'</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1e, label<span class="op">=</span><span class="vs">r'$\phi_</span><span class="sc">{1d}</span><span class="vs">$'</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp2, label<span class="op">=</span><span class="vs">r'$\phi_2$'</span>)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Voltage input clock over time'</span>)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$t$/ns'</span>)</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'V'</span>)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>time    <span class="op">=</span> time[:length]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>vclk    <span class="op">=</span> np.flip(vclk[:length])</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>vp1     <span class="op">=</span> np.flip(vp1[:length])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>vp1e    <span class="op">=</span> np.flip(vp1e[:length])</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>vp2     <span class="op">=</span> np.flip(vp2[:length])</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>vp2e    <span class="op">=</span> np.flip(vp2e[:length])</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1, label<span class="op">=</span><span class="vs">r'$\phi_1$'</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1e, label<span class="op">=</span><span class="vs">r'$\phi_</span><span class="sc">{1d}</span><span class="vs">$'</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp2, label<span class="op">=</span><span class="vs">r'$\phi_2$'</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Voltage input clock over time'</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$t$/ns'</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'V'</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="fig-delay_norm" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -367,43 +467,56 @@ Figure&nbsp;4: Gates used for clock generating structures
 </figure>
 </div>
 <p>The cascading of two CMOS inverters in figure <a href="#fig-inv" class="quarto-xref">Figure&nbsp;4 (a)</a> is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font></p>
-<section id="comparator-design" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Comparator Design</h1>
-<p>As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.</p>
-<section id="model--architecture-elaboration" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">5.1</span> Model-/ Architecture elaboration</h2>
-<p>The considered implementation of our comparator utilizes the so call “StrongArm-Latch” architecture, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide.</p>
-<section id="comparator-stage" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">5.1.1</span> Comparator Stage</h3>
-<ol class="example" type="1">
-<li></li>
-</ol>
+<section id="comparator-design" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="comparator-design"><span class="header-section-number">5.2</span> Comparator Design</h2>
+<p>As the output stage of the modulator subsystem of the desired <span class="math inline">\(\Delta\Sigma\)</span> modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal. A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either “high” or “low”, which will do fine to give us the PWM signal at the output.</p>
+<section id="model--architecture-elaboration" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">5.2.1</span> Model-/ Architecture elaboration</h3>
+<p>The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide. Lastly it also utilizes a d-flip-flop for the “digitized” output signal(-s), to be fed back to the loopfilter structures.</p>
+</section>
+<section id="comparator-stage" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">5.2.2</span> Comparator Stage</h3>
+<p>The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture. It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switched. <span class="citation" data-cites="strongarm_circuit">@strongarm_circuit</span>.</p>
 <div id="strongarm_circuit" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/comp/StrongArm_placeholder.svg" class="img-fluid figure-img"></p>
-<figcaption>Comparator, realized through StrongArm architecture (placeholder)</figcaption>
+<p><img src="figures/comp/comp_architecture.svg" class="img-fluid figure-img"></p>
+<figcaption>Comparator, realized through inverter based architecture (placeholder)</figcaption>
 </figure>
 </div>
-<p>(paper to be cited: DESIGN AND IMPLEMENTATION OF HIGH SPEED LATCHED COMPARATOR USING gm/Id SIZING METHOD )</p>
+<p>(to be cited:</p>
+<ul>
+<li>Low Voltage, Low Power, Inverter-Based Switched-Capacitor Delta-Sigma Modulator</li>
+<li>Murmann lectures (e.g.&nbsp;6) )</li>
+</ul>
 <p>This circuits behaviour is fundamentally tied to the clock states, leading to either the so called “precharge” phase during low clock levels, or the “amplification” phase during an active clock phase.</p>
-<p>(Elaborate briefly on circuit behaviour)</p>
+<p>During low clock phases the pmos transistors, directly tied to the supply rail, open up and therefore pull both the output nodes to <span class="math inline">\(V_{DD}\)</span>.</p>
+<p>During high clock phases the nmos transistors start to conduct and allow for current to flow to the shared source contact of the input differential pair, so to <span class="math inline">\(V_{SS}\)</span></p>
+<p>[tbd]</p>
 </section>
-<section id="latching-circuit" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">5.1.2</span> Latching Circuit</h3>
+<section id="latching-circuit" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">5.2.3</span> Latching Circuit</h3>
 <p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.</p>
 </section>
+<section id="implementation" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="implementation"><span class="header-section-number">5.2.4</span> Implementation</h3>
+<p>[xschem circuit to be placed here]</p>
 </section>
-<section id="implementation" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">5.2</span> Implementation</h2>
-</section>
-<section id="validation" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="validation"><span class="header-section-number">5.3</span> Validation</h2>
+<section id="validation" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="validation"><span class="header-section-number">5.2.5</span> Validation</h3>
+<p>[some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]</p>
 </section>
 </section>
+<section id="digital-output-filtering" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="digital-output-filtering"><span class="header-section-number">5.3</span> Digital Output Filtering</h2>
+<div class="justify">
+<p>The topic of digital filtering and decimation after the actual modulator stage could not be explored extensively during this semester. We do however want to briefly that subsystem from a conceptual perspective.</p>
 <section id="references" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> References</h1>
 </section>
 </div>
+</section>
+</div>
+</section>
 </section>
 </div>
 </section>
