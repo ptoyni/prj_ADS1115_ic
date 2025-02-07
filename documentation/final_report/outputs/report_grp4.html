@@ -506,6 +506,7 @@ Figure&nbsp;4: Gates used for clock generating structures
 </figcaption>
 </figure>
 </div>
+<p>Since CMOS inverters Cascading two CMOS inverters as shown in figure <a href="#fig-inv" class="quarto-xref">Figure&nbsp;4 (a)</a> can be used to stabelize the output</p>
 <p>The cascading of two CMOS inverters in figure <a href="#fig-inv" class="quarto-xref">Figure&nbsp;4 (a)</a> is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font></p>
 </section>
 <section id="comparator-design" class="level2" data-number="5.2">
@@ -517,11 +518,15 @@ Figure&nbsp;4: Gates used for clock generating structures
 </section>
 <section id="comparator-stage" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">5.2.2</span> Comparator Stage</h3>
-<p>The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture. It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switched. <span class="citation" data-cites="strongarm_circuit">@strongarm_circuit</span>.</p>
-<div id="strongarm_circuit" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/comp/comp_architecture.svg" class="img-fluid figure-img"></p>
-<figcaption>Comparator, realized through inverter based architecture (placeholder)</figcaption>
+<p>The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;5</a>. It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches.</p>
+<div id="fig-strongarm_circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/comp/comp_architecture.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Comparator, realized through inverter based architecture
+</figcaption>
 </figure>
 </div>
 <p>(to be cited:</p>
@@ -545,7 +550,7 @@ Figure&nbsp;4: Gates used for clock generating structures
 <section id="validation" class="level3" data-number="5.2.5">
 <h3 data-number="5.2.5" class="anchored" data-anchor-id="validation"><span class="header-section-number">5.2.5</span> Validation</h3>
 <p>[some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]</p>
-<div id="3c12722a" class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -599,19 +604,38 @@ Figure&nbsp;4: Gates used for clock generating structures
 <div class="cell-output cell-output-stdout">
 <pre><code>[Warning] Variable data type is detected as double precision.</code></pre>
 </div>
+<div id="fig-comp_plot" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_grp4_files/figure-html/cell-3-output-2.png" width="589" height="449" class="figure-img"></p>
+<div id="fig-comp_plot-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-comp_plot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="report_grp4_files/figure-html/fig-comp_plot-output-2.png" data-ref-parent="fig-comp_plot" width="589" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comp_plot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Waveforms of comparator simulations
+</figcaption>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_grp4_files/figure-html/cell-3-output-3.png" width="589" height="449" class="figure-img"></p>
+<div id="fig-comp_plot-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="449" width="589">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-comp_plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="report_grp4_files/figure-html/fig-comp_plot-output-3.png" id="fig-comp_plot-2" data-ref-parent="fig-comp_plot" width="589" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comp_plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption>
 </figure>
 </div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6
+</figcaption>
+</figure>
 </div>
 </div>
 </section>
