@@ -66,4 +66,8 @@ The circuits used for the gates are depicted in figures @fig-inv and @fig-nand f
 
 Gates used for clock generating structures
 :::
+
+Since CMOS inverters 
+Cascading two CMOS inverters as shown in figure @fig-inv can be used to stabelize the output
+
 The cascading of two CMOS inverters in figure @fig-inv is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font>
