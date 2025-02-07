@@ -51,7 +51,6 @@ C {devices/vsource.sym} 20 -80 0 0 {name=Vsup value=\{vdd\}
 C {lab_pin.sym} 110 -170 0 0 {name=p3 sig_type=std_logic lab=A
 }
 C {vdd.sym} 20 -140 0 0 {name=l4 lab=VDD}
-C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/clkgen.sym} 370 -200 0 0 {name=x1}
 C {lab_pin.sym} 770 -230 2 0 {name=p1 sig_type=std_logic lab=p1e
 }
 C {lab_pin.sym} 700 -210 2 0 {name=p2 sig_type=std_logic lab=p1}
@@ -103,3 +102,4 @@ C {devices/launcher.sym} 320 -320 0 0 {name=h1
 descr="load waves Ctrl + left click" 
 tclcommand="xschem raw_read $netlist_dir/tb_clkgen.raw tran"
 }
+C {clkgen.sym} 370 -200 0 0 {name=x2}
