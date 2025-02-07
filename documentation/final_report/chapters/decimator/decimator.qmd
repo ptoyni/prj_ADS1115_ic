@@ -1,0 +1,3 @@
+# Digital Section
+
+The PWM signal output by the comparator contains multiples of the sampled signal due to the oversampling. Thus a so-called decimation filter is used, which reduces the output sample rate while retaining all the information of the analog input signal. This is due to 
