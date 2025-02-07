@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-02-04">
+<meta name="dcterms.date" content="2025-02-07">
 
 <title>theory</title>
 <style>
@@ -79,14 +79,7 @@ window.Quarto = {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#general-adc-characteristics" id="toc-general-adc-characteristics" class="nav-link active" data-scroll-target="#general-adc-characteristics"><span class="header-section-number">1</span> General ADC characteristics</a></li>
-  <li><a href="#theory-of-the-delta-sigma-modulator" id="toc-theory-of-the-delta-sigma-modulator" class="nav-link" data-scroll-target="#theory-of-the-delta-sigma-modulator"><span class="header-section-number">2</span> Theory of the Delta-Sigma Modulator</a></li>
-  </ul>
-</nav>
+  
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -94,6 +87,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
+<h1 class="title">Theory and Charactersitics of Delta-Sigma Modulators</h1>
 </div>
 
 
@@ -132,7 +126,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-02-04</p>
+      <p class="date">2025-02-07</p>
     </div>
   </div>
   
@@ -144,14 +138,9 @@ window.Quarto = {
 </header>
 
 
-<section id="general-adc-characteristics" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> General ADC characteristics</h1>
-</section>
-<section id="theory-of-the-delta-sigma-modulator" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Theory of the Delta-Sigma Modulator</h1>
 <div class="justify">
-<section id="system-overview-of-the-delta-sigma-modulator" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="system-overview-of-the-delta-sigma-modulator"><span class="header-section-number">2.1</span> System overview of the <span class="math inline">\(\Delta\)</span> <span class="math inline">\(\Sigma\)</span> modulator</h2>
+<section id="top-level-overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="top-level-overview"><span class="header-section-number">1</span> Top-Level Overview</h2>
 <p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilizes the principles of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.</p>
 <p>The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.</p>
 <div class="cell" data-layout-align="default">
@@ -172,88 +161,40 @@ window.Quarto = {
 <p>Anti-Aliasing measures have to be considered to ensure a “clean” input signal to the modulator system, without unwanted parasitic components.</p>
 <p>The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).</p>
 <p>The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing “moving-average filtering”.</p>
-<section id="oversampling-circuits" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">2.1.1</span> Oversampling circuits</h3>
 </section>
-<section id="principle-of-noise-shaping" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="principle-of-noise-shaping"><span class="header-section-number">2.1.2</span> Principle of Noise Shaping</h3>
+<section id="system-overview-of-deltasigma-modulators" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="system-overview-of-deltasigma-modulators"><span class="header-section-number">2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</h2>
+<section id="oversampling-circuits" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">2.1</span> Oversampling circuits</h3>
+</section>
+<section id="principle-of-noise-shaping" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="principle-of-noise-shaping"><span class="header-section-number">2.2</span> Principle of Noise Shaping</h3>
 <p>The key advantage that Delta-Sigma Modulation brings to the table is “noise shaping”. This is enabled by the feedback structure that is given in our modulator system.</p>
 <p>For that, let’s observe the following block diagram.</p>
 <p>[add diagram and corresponding elaboration (for discrete-time domain would be better)]</p>
 </section>
-</section>
-<section id="switched-capacitor-integrator-as-loop-filter" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="switched-capacitor-integrator-as-loop-filter"><span class="header-section-number">2.2</span> Switched Capacitor Integrator as Loop Filter</h2>
-</section>
-<section id="basic-bahaviour" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Basic Bahaviour</h1>
-<p>(to be cited: Schreier)</p>
-<p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
-<p>A classic implementation of realizing an active integrator would be with the following opamp circuit in figure <span class="citation" data-cites="opamp_integrator">@opamp_integrator</span>.</p>
-<div id="opamp_integrator" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/theory/Integrator_Circuit.svg" class="img-fluid figure-img"></p>
-<figcaption>Simple opamp based integrator</figcaption>
-</figure>
-</div>
-<p>(explain basic principle of shown integrator circuit)</p>
-<p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
-<p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
-<div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img"></p>
-<figcaption>Opamp based switched capacitor integrator</figcaption>
-</figure>
-</div>
-<p>The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit’s functionality.</p>
-<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases, depicted in Figures <span class="citation" data-cites="phase1_integrator">@phase1_integrator</span> and <span class="citation" data-cites="phase2_integrator">@phase2_integrator</span>.</p>
-<div id="phase1_integrator" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/theory/sc_integrator_ph1.PNG" class="img-fluid figure-img"></p>
-<figcaption>Integrator state during phase 1</figcaption>
-</figure>
-</div>
-<div id="phase2_integrator" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/theory/sc_integrator_ph2.PNG" class="img-fluid figure-img"></p>
-<figcaption>Integrator state during phase 2</figcaption>
-</figure>
-</div>
-<p>The first phase allows for the capacitor <span class="math inline">\(C_1\)</span> to be charged from the input, leading to the charge accumulation <span class="math inline">\(q_1[1]\)</span>, during which the integrating capacitor <span class="math inline">\(C_2\)</span> holds it’s previous charge (<span class="math inline">\(q_2[n]\)</span>). Due to the relation <span class="math inline">\(V = \frac{Q}{C}\)</span>, the output voltage will be equal to the ratio of that charge <span class="math inline">\(q_2[n]\)</span> to the capacitance <span class="math inline">\(C_2\)</span>.</p>
-<p>The second phase will than result in the charge of <span class="math inline">\(C_1\)</span> to accumulate in <span class="math inline">\(C_2\)</span>, due to the opamps input behaviour related to it’s “virtual ground”. C2 will therefore have the sum of charges, leading to</p>
-<p><span class="math display">\[\begin{align}\label{sc_charge_ph2}
-  q_2[n+1] = q_2 + q_1.
-\end{align}\]</span></p>
-<p>After applying the <span class="math inline">\(z\)</span>-transform, the result is</p>
-<p><span class="math display">\[\begin{align}
-  Q_2(z) = Q_2(z)\,z^{-1} + Q_1(z)\,z^{-1}
-\end{align}\]</span></p>
-<p>which in turn can be rearranged to get</p>
-<p><span class="math display">\[\begin{align}
-  \frac{Q_2(z)}{Q_1(z)} = \frac{z^{-1}}{1-z^{-1}}
-\end{align}\]</span></p>
-<p>Utilizing the aforementions relation between voltage, charge and capacitance, we can derive the voltage I/O behaviour (transfer function) to be the following</p>
-<p><span class="math display">\[\begin{align}
-  \frac{V_{out}}{V_{in}} = \frac{z^{-1}}{1-z^{-1}} \frac{C1}{C2} = H_v(z)
-\end{align}\]</span></p>
-<p>The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain (<span class="math inline">\(C_1 = C_2\)</span>).</p>
-<p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAb assited system analysis. That ultimately leads to the following description of out feedback system.</p>
-<div id="loopfilter_sys_1st_order" class="quarto-figure quarto-figure-center anchored">
+<section id="behavioural-analysis-using-matlab" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="behavioural-analysis-using-matlab"><span class="header-section-number">2.3</span> Behavioural Analysis using MATLAB</h3>
+<div id="fig_loopfilter_sys_1st_order" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/theory/Simple_1stOrder_Mod_sys.png" class="img-fluid figure-img"></p>
 <figcaption>System Overview of the 1st order loopfilter</figcaption>
 </figure>
 </div>
+<div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/2nd_order_behav_output.svg" class="img-fluid figure-img"></p>
+<figcaption>I/O behaviour from MATLAB simulation model</figcaption>
+</figure>
+</div>
+<pre class="{latex}"><code>\begin{tikzpicture}
+ \draw (0,0) circle (1cm);
+ %\pause
+ \draw (0,0) circle (2cm);
+\end{tikzpicture}</code></pre>
 </section>
-<section id="extended-behaviour-description" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Extended Behaviour Description</h1>
-<p>We shall also briefly elaborate on the circuit extentions that occure in the case ofthe desired 2nd order casdade structure of the modulator, also including the feedback aspect</p>
-</section>
-<section id="matlab-model-analysis" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> MATLAB Model Analysis</h1>
 </section>
 </div>
-</section>
 
 </main>
 <!-- /main column -->

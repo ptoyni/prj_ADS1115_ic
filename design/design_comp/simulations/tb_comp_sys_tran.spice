@@ -2,7 +2,7 @@
 **.subckt tb_comp_sys_tran
 Vdd VDD GND dc {vdd}
 Vss VSS GND dc 0
-Vdiff vin_p vin_n pwl 0 10m 8n 10m 8.1n -10m
+Vdiff vin_p vin_n pwl 0 {vdiff} 8n {vdiff} 8.1n {-vdiff}
 Vmid vin_n GND {vdd/2}
 Vclk clk GND dc 0 pulse(0, {vdd}, 1n, 50p, 50p, {per/2-1n}, {per})
 Vres rst GND dc {vdd} pwl(0, {vdd}, {per/4}, {vdd}, {per/4+50p}, 0)
@@ -13,15 +13,15 @@ C3 dout GND Cload m=1
 **** begin user architecture code
 
 
-.param temp=27 vdd=1.5 per=10n vdiff=10m
-.param Wnmos=1u Wpmos=2u
-.param Lnmos=.2u Lpmos=.2u Lnmos2=1u
+.param temp=27 vdd=3.3 per=15n vdiff=10m
+.param Wnmos=2u Wpmos=4u
+.param Lnmos=.13u Lpmos=.13u Lnmos2=2u
 .param Cload=1p
 .option method=gear reltol=1e-5
 
 .control
 save all
-tran 10p 25n
+tran 10p 40n
 write /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_data/comp_sys_tb.raw
 plot clk vin_p vin_n
 plot clk x4.out1p x4.out1n

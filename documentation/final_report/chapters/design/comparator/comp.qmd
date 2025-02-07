@@ -43,3 +43,54 @@ After the StrongArm comparator, as mentioned previously, a latching circuit is i
 ### Validation
 
 [some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import ltspice as lt
+
+#parse data from .raw file
+#for compiling the finished document this path needs to be relative to "report_grp4.qmd"
+fpath       = '../../design/design_comp/simulations/tb_comp_test.raw'
+l           = lt.Ltspice(fpath)
+l.parse()
+
+#extract relevant data
+time        = l.get_time()
+clk         = l.get_data('v(clk)')
+outp        = l.get_data('v(outp)')
+outn        = l.get_data('v(outn)')
+out2dff     = l.get_data('v(out2dff)')
+nout2dff    = l.get_data('v(nout2dff)')
+
+#redefine data arrays considering new length
+'''
+factor = 10
+length = round(len(time)/factor)
+
+time        = time[:length]
+clk         = np.flip(clk[:length])
+outp        = np.flip(outp[:length])
+outn        = np.flip(outn[:length])
+out2dff     = np.flip(out2dff[:length])
+nout2dff    = np.flip(nout2dff[:length])
+'''
+
+#plot data
+plt.close('all')
+plt.figure(1)
+plt.plot(time*1e9, clk, label=r'clk')
+plt.plot(time*1e9, outp, label=r'outp')
+plt.plot(time*1e9, outn, label=r'outn')
+plt.title('Output Voltages from StrongArm Comparator')
+plt.xlabel('time/ ns'); plt.ylabel('Voltage/ V')
+plt.legend(); plt.grid()
+
+plt.figure(2)
+plt.plot(time*1e9, out2dff, label=r'to d-flip-flop')
+plt.plot(time*1e9, nout2dff, label=r'complement')
+plt.title('Output of RS-Latch')
+plt.xlabel('time/ ns'); plt.ylabel('Voltage/ V')
+plt.legend(); plt.grid()
+```

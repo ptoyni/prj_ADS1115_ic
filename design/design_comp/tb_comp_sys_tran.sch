@@ -5,8 +5,8 @@ K {}
 V {}
 S {}
 E {}
-T {Initially (0-8ns): vin_n = vdd/2; vin_p = (vdd/2)+10m
-Eventually (>8.1n): vin_n = vdd/2; vin_p = (vdd/2)-10m} 0 0 0 0 0.4 0.4 {}
+T {Initially (0-8ns): vin_n = vdd/2; vin_p = (vdd/2)+vdiff
+Eventually (>8.1n): vin_n = vdd/2; vin_p = (vdd/2)-vdiff} 0 0 0 0 0.4 0.4 {}
 N 360 -310 360 -300 {p1
 lab=VDD}
 N 280 -310 280 -300 {p1
@@ -43,15 +43,15 @@ C {devices/vdd.sym} 280 -310 0 0 {name=l11 lab=VSS}
 C {devices/code_shown.sym} -600 -570 0 0 {name=NGSPICE only_toplevel=true 
 value=
 "
-.param temp=27 vdd=1.5 per=10n vdiff=10m 
-.param Wnmos=1u Wpmos=2u 
-.param Lnmos=.2u Lpmos=.2u Lnmos2=1u
+.param temp=27 vdd=3.3 per=15n vdiff=10m 
+.param Wnmos=2u Wpmos=4u 
+.param Lnmos=.13u Lpmos=.13u Lnmos2=2u
 .param Cload=1p
 .option method=gear reltol=1e-5
 		
 .control	
 save all
-tran 10p 25n
+tran 10p 40n
 write /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_data/comp_sys_tb.raw
 plot clk vin_p vin_n
 plot clk x4.out1p x4.out1n
@@ -64,7 +64,7 @@ C {devices/code_shown.sym} -90 -540 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value=".lib cornerMOSlv.lib mos_tt
 .inc $::PDK_ROOT/sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice"}
-C {vsource.sym} -250 -110 0 1 {name=Vdiff value="pwl 0 10m 8n 10m 8.1n -10m"  savecurrent=false}
+C {vsource.sym} -250 -110 0 1 {name=Vdiff value="pwl 0 \{vdiff\} 8n \{vdiff\} 8.1n \{-vdiff\}"  savecurrent=false}
 C {vsource.sym} -250 -30 0 0 {name=Vmid value=\{vdd/2\} savecurrent=false}
 C {vsource.sym} 200 -270 0 1 {name=Vclk value="dc 0 pulse(0, \{vdd\}, 1n, 50p, 50p, \{per/2-1n\}, \{per\})"
  savecurrent=false}
