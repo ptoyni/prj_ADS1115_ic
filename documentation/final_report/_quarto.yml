@@ -35,8 +35,8 @@ format:
     toc: true
     toc-location: left
     toc-title: Contents
-    toc-depth: 3
-    toc-expand: 3
+    toc-depth: 5
+    toc-expand: 5
     number-sections: true
     number-depth: 3
     code-fold: true

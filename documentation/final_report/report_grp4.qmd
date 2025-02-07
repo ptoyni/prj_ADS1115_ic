@@ -1,7 +1,6 @@
 ---
 title: "Design of an Analog-Digital-Converter after the ADS1115"
 ---
-
 {{< include important_notes.qmd >}}
 
 {{< include chapters/introduction/introduction.qmd >}}

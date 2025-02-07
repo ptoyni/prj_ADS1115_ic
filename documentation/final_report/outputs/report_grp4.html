@@ -113,17 +113,45 @@ window.Quarto = {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="5">
     <h2 id="toc-title">Contents</h2>
    
   <ul>
   <li><a href="#very-important-please-read" id="toc-very-important-please-read" class="nav-link active" data-scroll-target="#very-important-please-read"><span class="header-section-number">1</span> VERY IMPORTANT, PLEASE READ</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#top-level-overview-of-considered-system" id="toc-top-level-overview-of-considered-system" class="nav-link" data-scroll-target="#top-level-overview-of-considered-system"><span class="header-section-number">2.1</span> Top-Level Overview of Considered System</a></li>
   <li><a href="#general-overview-of-given-adc" id="toc-general-overview-of-given-adc" class="nav-link" data-scroll-target="#general-overview-of-given-adc"><span class="header-section-number">2.2</span> General Overview of given ADC</a></li>
   </ul></li>
-  <li><a href="#theory-and-charactersitics-of-delta-sigma-modulators" id="toc-theory-and-charactersitics-of-delta-sigma-modulators" class="nav-link" data-scroll-target="#theory-and-charactersitics-of-delta-sigma-modulators"><span class="header-section-number">3</span> Theory and Charactersitics of Delta-Sigma Modulators</a></li>
+  <li><a href="#theory-and-charactersitics-of-delta-sigma-modulators" id="toc-theory-and-charactersitics-of-delta-sigma-modulators" class="nav-link" data-scroll-target="#theory-and-charactersitics-of-delta-sigma-modulators"><span class="header-section-number">3</span> Theory and Charactersitics of Delta-Sigma Modulators</a>
+  <ul>
+  <li><a href="#top-level-overview" id="toc-top-level-overview" class="nav-link" data-scroll-target="#top-level-overview"><span class="header-section-number">3.1</span> Top-Level Overview</a></li>
+  <li><a href="#system-overview-of-deltasigma-modulators" id="toc-system-overview-of-deltasigma-modulators" class="nav-link" data-scroll-target="#system-overview-of-deltasigma-modulators"><span class="header-section-number">3.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</a>
+  <ul>
+  <li><a href="#oversampling-circuits" id="toc-oversampling-circuits" class="nav-link" data-scroll-target="#oversampling-circuits"><span class="header-section-number">3.2.1</span> Oversampling circuits</a></li>
+  <li><a href="#principle-of-noise-shaping" id="toc-principle-of-noise-shaping" class="nav-link" data-scroll-target="#principle-of-noise-shaping"><span class="header-section-number">3.2.2</span> Principle of Noise Shaping</a></li>
+  <li><a href="#behavioural-analysis-using-matlab" id="toc-behavioural-analysis-using-matlab" class="nav-link" data-scroll-target="#behavioural-analysis-using-matlab"><span class="header-section-number">3.2.3</span> Behavioural Analysis using MATLAB</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#basic-behaviour-on-circuit-level" id="toc-basic-behaviour-on-circuit-level" class="nav-link" data-scroll-target="#basic-behaviour-on-circuit-level"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</a>
+  <ul>
+  <li><a href="#switched-capacitor-integrator-as-loop-filter" id="toc-switched-capacitor-integrator-as-loop-filter" class="nav-link" data-scroll-target="#switched-capacitor-integrator-as-loop-filter"><span class="header-section-number">4.1</span> Switched Capacitor Integrator as Loop Filter</a></li>
+  <li><a href="#ideal-system-model-in-ltspice" id="toc-ideal-system-model-in-ltspice" class="nav-link" data-scroll-target="#ideal-system-model-in-ltspice"><span class="header-section-number">4.2</span> Ideal system model in LTSpice</a></li>
+  </ul></li>
+  <li><a href="#design-proposals" id="toc-design-proposals" class="nav-link" data-scroll-target="#design-proposals"><span class="header-section-number">5</span> Design Proposals</a>
+  <ul>
+  <li><a href="#clock-phase-generation" id="toc-clock-phase-generation" class="nav-link" data-scroll-target="#clock-phase-generation"><span class="header-section-number">5.1</span> Clock-Phase generation</a></li>
+  <li><a href="#comparator-design" id="toc-comparator-design" class="nav-link" data-scroll-target="#comparator-design"><span class="header-section-number">5.2</span> Comparator Design</a>
+  <ul>
+  <li><a href="#model--architecture-elaboration" id="toc-model--architecture-elaboration" class="nav-link" data-scroll-target="#model--architecture-elaboration"><span class="header-section-number">5.2.1</span> Model-/ Architecture elaboration</a></li>
+  <li><a href="#comparator-stage" id="toc-comparator-stage" class="nav-link" data-scroll-target="#comparator-stage"><span class="header-section-number">5.2.2</span> Comparator Stage</a></li>
+  <li><a href="#latching-circuit" id="toc-latching-circuit" class="nav-link" data-scroll-target="#latching-circuit"><span class="header-section-number">5.2.3</span> Latching Circuit</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">5.2.4</span> Implementation</a></li>
+  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation"><span class="header-section-number">5.2.5</span> Validation</a></li>
+  </ul></li>
+  <li><a href="#digital-output-filtering" id="toc-digital-output-filtering" class="nav-link" data-scroll-target="#digital-output-filtering"><span class="header-section-number">5.3</span> Digital Output Filtering</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
   </ul>
 </nav>
 </div>
@@ -189,7 +217,6 @@ window.Quarto = {
 <p>To get the quarto output to behave properly, some steps have to be taken.</p>
 <ol type="1">
 <li><p>When parsing data from .raw files, the toolbox will throw a warning. To prevent this, right click on “l.parse()” -&gt; “Go to definition”. There, you comment out line 197 and the warning is gone.</p></li>
-<li><p>To justify text I added a custom command in “styles.css”. To use this command and have the text appearance be nicer, use “::: {.justify}” at the beginning of each chapter</p></li>
 <li><p>Whenever referencing to a figure, some data file, etc. and you compile the whole document (“report_grp4.qmd”) the paths specified have to be relative to the main document, otherwise quarto won’t find the specified file</p></li>
 <li><p>If you need help with importing .raw files using python, please look at my version in chapters/clock_gen/clock_gen.qmd</p></li>
 </ol>
@@ -245,7 +272,6 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 </section>
 <section id="theory-and-charactersitics-of-delta-sigma-modulators" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Theory and Charactersitics of Delta-Sigma Modulators</h1>
-<div class="justify">
 <section id="top-level-overview" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="top-level-overview"><span class="header-section-number">3.1</span> Top-Level Overview</h2>
 <p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilizes the principles of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.</p>
@@ -301,6 +327,7 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 \end{tikzpicture}</code></pre>
 </section>
 </section>
+</section>
 <section id="basic-behaviour-on-circuit-level" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</h1>
 <p>(to be cited: Schreier)</p>
@@ -315,7 +342,7 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 </figure>
 </div>
 <p>(explain basic principle of shown integrator circuit)</p>
-<p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
+<p>There is however the inconvinience that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
 <p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
 <div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -357,6 +384,11 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 <p>The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain (<span class="math inline">\(C_1 = C_2\)</span>).</p>
 <p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure <span class="citation" data-cites="fig_loopfilter_sys_1st_order">@fig_loopfilter_sys_1st_order</span>.</p>
 </section>
+<section id="ideal-system-model-in-ltspice" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="ideal-system-model-in-ltspice"><span class="header-section-number">4.2</span> Ideal system model in LTSpice</h2>
+<p>The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components.<br>
+For the switched capacitor input stage, ideal switches were used. These switches activate when the difference on the two input terminals is greater than zero. The non-overlap in the phases can be controlled by setting the voltage sources modeling the phase generator appropriately. The OTA is modeled by a simple voltage controlled current source with a resistor in parallel. This roughly follows the small signal representation of an OTA. Following the OTA is a comparator consisting of an input difference amplifier which compares the output of the OTA to a constant voltage of <span class="math inline">\(V_{DD}/2\)</span>. The latching is done by two ideal switches with oppositely connected supply terminals. The output is then amplified by comparing the current output voltage level to 0V and setting a voltage source to <span class="math inline">\(V_{SS}\)</span> or <span class="math inline">\(V_{DD}\)</span> accordingly.</p>
+</section>
 </section>
 <section id="design-proposals" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Design Proposals</h1>
@@ -364,7 +396,6 @@ Figure&nbsp;1: Block diagram internal structure ADS1115
 <p>The following subchapters will elaborate on the separate subcircuits, briefly explain the workings of the circuits before going over the achieved simulation results. Xschem was used as the schematic capture EDA tool, while the testbench-driven simulations utilize ngspice.</p>
 <section id="clock-phase-generation" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="clock-phase-generation"><span class="header-section-number">5.1</span> Clock-Phase generation</h2>
-<div class="justify">
 <p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;2</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
 <div id="fig-phase_gen" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -399,26 +430,28 @@ Figure&nbsp;2: Basic structure for delayed clock phase generation
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>vp2e        <span class="op">=</span> l.get_data(<span class="st">'v(p2e)'</span>)</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#redefine data arrays considering new length</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#length = round(len(time))</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">time    = time[:length]</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">vclk    = np.flip(vclk[:length])</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">vp1     = np.flip(vp1[:length])</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">vp1e    = np.flip(vp1e[:length])</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">vp2     = np.flip(vp2[:length])</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">vp2e    = np.flip(vp2e[:length])</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1, label<span class="op">=</span><span class="vs">r'$\phi_1$'</span>)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1e, label<span class="op">=</span><span class="vs">r'$\phi_</span><span class="sc">{1d}</span><span class="vs">$'</span>)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp2, label<span class="op">=</span><span class="vs">r'$\phi_2$'</span>)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Voltage input clock over time'</span>)</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$t$/ns'</span>)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'V'</span>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">15</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>length <span class="op">=</span> <span class="bu">round</span>(<span class="bu">len</span>(time)<span class="op">/</span>factor)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>time    <span class="op">=</span> time[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>vclk    <span class="op">=</span> vclk[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>vp1     <span class="op">=</span> vp1[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>vp1e    <span class="op">=</span> vp1e[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>vp2     <span class="op">=</span> vp2[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>vp2e    <span class="op">=</span> vp2e[<span class="dv">1000</span>:<span class="dv">1150</span>]</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1, label<span class="op">=</span><span class="vs">r'$\phi_1$'</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1e, label<span class="op">=</span><span class="vs">r'$\phi_</span><span class="sc">{1d}</span><span class="vs">$'</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp2, label<span class="op">=</span><span class="vs">r'$\phi_2$'</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Voltage input clock over time'</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$t$/ns'</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'V'</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[Warning] Variable data type is detected as double precision.</code></pre>
@@ -427,7 +460,7 @@ Figure&nbsp;2: Basic structure for delayed clock phase generation
 <div id="fig-delay_norm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="report_grp4_files/figure-html/fig-delay_norm-output-2.png" width="589" height="449" class="figure-img">
+<img src="report_grp4_files/figure-html/fig-delay_norm-output-2.png" width="602" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Delayed clock signals
@@ -474,6 +507,7 @@ Figure&nbsp;4: Gates used for clock generating structures
 </figure>
 </div>
 <p>The cascading of two CMOS inverters in figure <a href="#fig-inv" class="quarto-xref">Figure&nbsp;4 (a)</a> is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font></p>
+</section>
 <section id="comparator-design" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="comparator-design"><span class="header-section-number">5.2</span> Comparator Design</h2>
 <p>As the output stage of the modulator subsystem of the desired <span class="math inline">\(\Delta\Sigma\)</span> modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal. A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either “high” or “low”, which will do fine to give us the PWM signal at the output.</p>
@@ -511,7 +545,7 @@ Figure&nbsp;4: Gates used for clock generating structures
 <section id="validation" class="level3" data-number="5.2.5">
 <h3 data-number="5.2.5" class="anchored" data-anchor-id="validation"><span class="header-section-number">5.2.5</span> Validation</h3>
 <p>[some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]</p>
-<div id="a025f8f0" class="cell" data-execution_count="2">
+<div id="5f8e82b9" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -533,32 +567,34 @@ Figure&nbsp;4: Gates used for clock generating structures
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>nout2dff    <span class="op">=</span> l.get_data(<span class="st">'v(nout2dff)'</span>)</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#redefine data arrays considering new length</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>length <span class="op">=</span> <span class="bu">round</span>(<span class="bu">len</span>(time)<span class="op">/</span>factor)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>time        <span class="op">=</span> time[:length]</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>clk         <span class="op">=</span> np.flip(clk[:length])</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>outp        <span class="op">=</span> np.flip(outp[:length])</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>outn        <span class="op">=</span> np.flip(outn[:length])</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>out2dff     <span class="op">=</span> np.flip(out2dff[:length])</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>nout2dff    <span class="op">=</span> np.flip(nout2dff[:length])</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, clk, label<span class="op">=</span><span class="vs">r'clk'</span>)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, outp, label<span class="op">=</span><span class="vs">r'outp'</span>)</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, outn, label<span class="op">=</span><span class="vs">r'outn'</span>)</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Output Voltages from StrongArm Comparator'</span>)</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time/ ns'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Voltage/ V'</span>)</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid()</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">2</span>)</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, out2dff, label<span class="op">=</span><span class="vs">r'to d-flip-flop'</span>)</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, nout2dff, label<span class="op">=</span><span class="vs">r'complement'</span>)</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Output of RS-Latch'</span>)</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time/ ns'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Voltage/ V'</span>)</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">factor = 10</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">length = round(len(time)/factor)</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">time        = time[:length]</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">clk         = np.flip(clk[:length])</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">outp        = np.flip(outp[:length])</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">outn        = np.flip(outn[:length])</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">out2dff     = np.flip(out2dff[:length])</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">nout2dff    = np.flip(nout2dff[:length])</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, clk, label<span class="op">=</span><span class="vs">r'clk'</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, outp, label<span class="op">=</span><span class="vs">r'outp'</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, outn, label<span class="op">=</span><span class="vs">r'outn'</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Output Voltages from StrongArm Comparator'</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time/ ns'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Voltage/ V'</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid()</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">2</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, out2dff, label<span class="op">=</span><span class="vs">r'to d-flip-flop'</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, nout2dff, label<span class="op">=</span><span class="vs">r'complement'</span>)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Output of RS-Latch'</span>)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time/ ns'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Voltage/ V'</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[Warning] Variable data type is detected as double precision.</code></pre>
@@ -582,17 +618,11 @@ Figure&nbsp;4: Gates used for clock generating structures
 </section>
 <section id="digital-output-filtering" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="digital-output-filtering"><span class="header-section-number">5.3</span> Digital Output Filtering</h2>
-<div class="justify">
-<p>The topic of digital filtering and decimation after the actual modulator stage could not be explored extensively during this semester. We do however want to briefly that subsystem from a conceptual perspective.</p>
+<p>The topic of digital filtering and decimation after the actual modulator stage could not be explored extensively during this semester. We do however want to briefly describe that subsystem from a conceptual perspective.</p>
+</section>
+</section>
 <section id="references" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> References</h1>
-</section>
-</div>
-</section>
-</div>
-</section>
-</section>
-</div>
 </section>
 
 </main>
