@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-27">
+<meta name="dcterms.date" content="2025-02-04">
 
 <title>comp</title>
 <style>
@@ -39,6 +39,35 @@ ul.task-list li input[type="checkbox"] {
 <link href="comp_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="comp_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -53,7 +82,11 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#comparator-design" id="toc-comparator-design" class="nav-link active" data-scroll-target="#comparator-design"><span class="header-section-number">1</span> Comparator Design</a>
   <ul class="collapse">
-  <li><a href="#model--architecture-elaboration" id="toc-model--architecture-elaboration" class="nav-link" data-scroll-target="#model--architecture-elaboration"><span class="header-section-number">1.1</span> Model-/ Architecture elaboration</a></li>
+  <li><a href="#model--architecture-elaboration" id="toc-model--architecture-elaboration" class="nav-link" data-scroll-target="#model--architecture-elaboration"><span class="header-section-number">1.1</span> Model-/ Architecture elaboration</a>
+  <ul class="collapse">
+  <li><a href="#comparator-stage" id="toc-comparator-stage" class="nav-link" data-scroll-target="#comparator-stage"><span class="header-section-number">1.1.1</span> Comparator Stage</a></li>
+  <li><a href="#latching-circuit" id="toc-latching-circuit" class="nav-link" data-scroll-target="#latching-circuit"><span class="header-section-number">1.1.2</span> Latching Circuit</a></li>
+  </ul></li>
   <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">1.2</span> Implementation</a></li>
   <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation"><span class="header-section-number">1.3</span> Validation</a></li>
   </ul></li>
@@ -104,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-27</p>
+      <p class="date">2025-02-04</p>
     </div>
   </div>
   
@@ -118,19 +151,33 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="comparator-design" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Comparator Design</h1>
-<p>As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.</p>
+<p>As the output stage of the modulator subsystem of the desired <span class="math inline">\(\Delta\Sigma\)</span> modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal. A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either “high” or “low”.</p>
 <section id="model--architecture-elaboration" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">1.1</span> Model-/ Architecture elaboration</h2>
-<p>The considered implementation of our comparator utilizes the so call “StrongArm-Latch” architecture, followed by a d-latch to account for the reseting within the comparator</p>
-<ol class="example" type="1">
-<li></li>
-</ol>
+<p>The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide. Lastly it also utilizes a d-flip-flop for the “digitized” output signal(-s), to be fed back to the loopfilter structures.</p>
+<section id="comparator-stage" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">1.1.1</span> Comparator Stage</h3>
+<p>The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture. It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switched. <span class="citation" data-cites="strongarm_circuit">@strongarm_circuit</span>.</p>
 <div id="strongarm_circuit" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/comp/StrongArm_placeholder.svg" class="img-fluid figure-img"></p>
-<figcaption>Comparator, realized through StrongArm architecture (placeholder)</figcaption>
+<figcaption>Comparator, realized through inverter based architecture (placeholder)</figcaption>
 </figure>
 </div>
+<p>(to be cited:</p>
+<ul>
+<li>Low Voltage, Low Power, Inverter-Based Switched-Capacitor Delta-Sigma Modulator</li>
+<li>Murmann lectures (e.g.&nbsp;6) )</li>
+</ul>
+<p>This circuits behaviour is fundamentally tied to the clock states, leading to either the so called “precharge” phase during low clock levels, or the “amplification” phase during an active clock phase.</p>
+<p>During low clock phases the pmos transistors, directly tied to the supply rail, open up and allow …</p>
+<p>During high clock phases the nmos transistors start to conduct and allow for current to flow to the shared source contact of the input differential pair, so to <span class="math inline">\(V_{SS}\)</span></p>
+<p>[tbd]</p>
+</section>
+<section id="latching-circuit" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">1.1.2</span> Latching Circuit</h3>
+<p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.</p>
+</section>
 </section>
 <section id="implementation" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">1.2</span> Implementation</h2>

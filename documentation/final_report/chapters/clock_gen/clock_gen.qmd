@@ -1,6 +1,4 @@
-# Clock-Phase generation
-
-::: {.justify}
+## Clock-Phase generation
 
 The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure @fig-phase_gen. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases $\phi_1$, $\phi_{1d}$, $\phi_2$ and $\phi_{2d}$. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between $\phi_1$ and $\phi_2$ and in turn for their respective delayed versions.
 
@@ -31,15 +29,16 @@ vp2         = l.get_data('v(p2)')
 vp2e        = l.get_data('v(p2e)')
 
 #redefine data arrays considering new length
-factor = 10
+factor = 1/15
 length = round(len(time)/factor)
 
-time    = time[:length]
-vclk    = np.flip(vclk[:length])
-vp1     = np.flip(vp1[:length])
-vp1e    = np.flip(vp1e[:length])
-vp2     = np.flip(vp2[:length])
-vp2e    = np.flip(vp2e[:length])
+
+time    = time[1000:1150]
+vclk    = vclk[1000:1150]
+vp1     = vp1[1000:1150]
+vp1e    = vp1e[1000:1150]
+vp2     = vp2[1000:1150]
+vp2e    = vp2e[1000:1150]
 
 #plot data
 plt.close('all')

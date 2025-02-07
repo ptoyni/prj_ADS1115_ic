@@ -1,0 +1,133 @@
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/tb_comp_sys_ac.sch
+**.subckt tb_comp_sys_ac
+Vdd VDD GND dc {vdd}
+Vss VSS GND dc 0
+Vin vin_p GND dc 0.8 ac 1
+Vclk clk GND dc 0 pulse(0, {vdd}, 1n, 50p, 50p, {per/2-1n}, {per})
+Vres rst GND dc {vdd} pwl(0, {vdd}, {per/4}, {vdd}, {per/4+50p}, 0)
+x4 VDD clk d vin_p d dd rst dout VSS comp_sys
+C1 d GND {Cload} m=1
+C2 dd GND {Cload} m=1
+C3 dout GND Cload m=1
+**** begin user architecture code
+
+
+.param temp=27 vdd=1.5 per=10n vdiff=10m
+.param Wnmos=1u Wpmos=2u
+.param Lnmos=.2u Lpmos=.2u Lnmos2=1u
+.param Cload=1p
+.option method=gear reltol=1e-5
+
+.control
+save all
+ac dec 101 1k 100MEG
+write /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_data/comp_sys_tb_ac.raw
+plot 20*log10(d)
+
+meas ac dcgain MAX vmag(d) FROM=10 To=10k
+let f3db = dcgain/sqrt(2)
+meas ac fbw WHEN vmag(d)=f3db FALL=1
+let gain_err=(dcgain-1)/1
+print dcgain
+print fbw
+print gain_err
+
+plot 180/pi*phase(d) vs frequency
+
+noise v(d) Vin dec 101 1k 100MEG
+print onoise_total
+
+.endc
+
+ .lib cornerMOSlv.lib mos_tt
+.inc /foss/pdks/sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  comp_sys.sym # of pins=9
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_sys.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_sys.sch
+.subckt comp_sys VDD clk d vin_p vin_n dd rst dout VSS
+*.ipin clk
+*.iopin VDD
+*.ipin vin_n
+*.ipin vin_p
+*.iopin VSS
+*.ipin rst
+*.opin d
+*.opin dd
+*.opin dout
+x1 VDD clk out1n out1p vin_p vin_n VSS comp_test
+x2 VDD out1p out1n out2n out2p VSS latch_stage_test
+x3 out2p d dd clk dout rst d_flipflop
+.ends
+
+
+* expanding   symbol:  comp_test.sym # of pins=7
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_test.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_test.sch
+.subckt comp_test VDD clk outn outp vin_p vin_n VSS
+*.ipin clk
+*.iopin VSS
+*.iopin VDD
+*.ipin vin_n
+*.ipin vin_p
+*.opin outn
+*.opin outp
+XM5p outn clk VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM4n outp outn VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM4p outn outp VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM5n outp clk VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3p outn outp d2p VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM3n outp outn d2m VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM2n d2m clk d1m VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM2p d2p clk d1p VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM1n d1m vin_n VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+XM1p d1p vin_p VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+.ends
+
+
+* expanding   symbol:  latch_stage_test.sym # of pins=6
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/latch_stage_test.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/latch_stage_test.sch
+.subckt latch_stage_test VDD in+ in- latch- latch+ VSS
+*.ipin in+
+*.ipin in-
+*.ipin VDD
+*.ipin VSS
+*.opin latch+
+*.opin latch-
+XM8 latch- in+ VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM1 latch+ latch- VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM2 latch- latch+ VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3 latch+ in- VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3p latch- latch+ net2 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM2p net2 in+ VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM4 latch+ latch- net1 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM5 net1 in- VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+.ends
+
+
+* expanding   symbol:  d_flipflop.sym # of pins=6
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/d_flipflop.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/d_flipflop.sch
+.subckt d_flipflop latch+ d dd clk dout res
+*.opin d
+*.ipin res
+*.opin dd
+*.opin dout
+*.ipin clk
+*.ipin latch+
+x1 clk latch+ dd net2 net1 VDD VSS sg13g2_dfrbp_2
+x2 latch+ VDD VSS d sg13g2_buf_2
+* noconn #net2
+x5 dd VDD VSS dout sg13g2_inv_2
+x3 res VDD VSS net1 sg13g2_inv_2
+.ends
+
+.GLOBAL GND
+.GLOBAL VDD
+.GLOBAL VSS
+.GLOBAL clk
+.GLOBAL rst
+.end

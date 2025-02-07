@@ -1,31 +1,96 @@
-# Comparator Design
+## Comparator Design
 
-As the output stage of the modulator subsystem of the desired Analog-Digital Converter, the comparator stage of the modulator serves as the quantizing block.
+As the output stage of the modulator subsystem of the desired $\Delta\Sigma$ modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal.
+A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either "high" or "low", which will do fine to give us the PWM signal at the output.
 
-## Model-/ Architecture elaboration
 
-The considered implementation of our comparator utilizes the so call "StrongArm-Latch" architecture, followed by a latching circuit to account for the reseting within the comparator and the resulting "invalid" outputs it would provide.
+### Model-/ Architecture elaboration
+
+The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting "invalid" outputs it would provide.
+Lastly it also utilizes a d-flip-flop for the "digitized" output signal(-s), to be fed back to the loopfilter structures.
 
 ### Comparator Stage
 
+The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called "StrongArm" architecture.
+It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switched. 
 @strongarm_circuit.
 
-![Comparator, realized through StrongArm architecture (placeholder)](figures/comp/StrongArm_placeholder.svg){#strongarm_circuit}
+![Comparator, realized through inverter based architecture (placeholder)](figures/comp/comp_architecture.svg){#strongarm_circuit}
 
-(paper to be cited: DESIGN AND IMPLEMENTATION OF HIGH SPEED LATCHED COMPARATOR
-USING gm/Id SIZING METHOD
+(to be cited:
+
+- Low Voltage, Low Power, Inverter-Based
+Switched-Capacitor Delta-Sigma Modulator
+- Murmann lectures (e.g. 6)
 )
 
 This circuits behaviour is fundamentally tied to the clock states, leading to either the so called "precharge" phase during low clock levels, or the "amplification" phase during an active clock phase.
 
-(Elaborate briefly on circuit behaviour)
+During low clock phases the pmos transistors, directly tied to the supply rail, open up and therefore pull both the output nodes to $V_{DD}$. 
+
+During high clock phases the nmos transistors start to conduct and allow for current to flow to the shared source contact of the input differential pair, so to $V_{SS}$ 
+
+[tbd]
 
 ### Latching Circuit
 
 After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.
 
+### Implementation
+
+[xschem circuit to be placed here]
+
+### Validation
+
+[some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]
 
 
-## Implementation
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import ltspice as lt
 
-## Validation
+#parse data from .raw file
+#for compiling the finished document this path needs to be relative to "report_grp4.qmd"
+fpath       = '../../design/design_comp/simulations/tb_comp_test.raw'
+l           = lt.Ltspice(fpath)
+l.parse()
+
+#extract relevant data
+time        = l.get_time()
+clk         = l.get_data('v(clk)')
+outp        = l.get_data('v(outp)')
+outn        = l.get_data('v(outn)')
+out2dff     = l.get_data('v(out2dff)')
+nout2dff    = l.get_data('v(nout2dff)')
+
+#redefine data arrays considering new length
+'''
+factor = 10
+length = round(len(time)/factor)
+
+time        = time[:length]
+clk         = np.flip(clk[:length])
+outp        = np.flip(outp[:length])
+outn        = np.flip(outn[:length])
+out2dff     = np.flip(out2dff[:length])
+nout2dff    = np.flip(nout2dff[:length])
+'''
+
+#plot data
+plt.close('all')
+plt.figure(1)
+plt.plot(time*1e9, clk, label=r'clk')
+plt.plot(time*1e9, outp, label=r'outp')
+plt.plot(time*1e9, outn, label=r'outn')
+plt.title('Output Voltages from StrongArm Comparator')
+plt.xlabel('time/ ns'); plt.ylabel('Voltage/ V')
+plt.legend(); plt.grid()
+
+plt.figure(2)
+plt.plot(time*1e9, out2dff, label=r'to d-flip-flop')
+plt.plot(time*1e9, nout2dff, label=r'complement')
+plt.title('Output of RS-Latch')
+plt.xlabel('time/ ns'); plt.ylabel('Voltage/ V')
+plt.legend(); plt.grid()
+```

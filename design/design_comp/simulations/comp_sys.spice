@@ -1,0 +1,19 @@
+
+* expanding   symbol:  comp_sys.sym # of pins=9
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_sys.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_sys.sch
+.subckt comp_sys VDD clk d vin_p vin_n dd rst dout VSS
+*.ipin clk
+*.iopin VDD
+*.ipin vin_n
+*.ipin vin_p
+*.iopin VSS
+*.ipin rst
+*.opin d
+*.opin dd
+*.opin dout
+x1 VDD clk out1n out1p vin_p vin_n VSS comp_test
+x2 VDD out1p out1n out2n out2p VSS latch_stage_test
+x3 out2p d dd clk dout rst d_flipflop
+.ends
+

@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-01-29">
+<meta name="dcterms.date" content="2025-02-07">
 
 <title>theory</title>
 <style>
@@ -38,6 +38,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="theory_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="theory_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="theory_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="theory_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="theory_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="theory_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -76,13 +79,7 @@ window.Quarto = {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#theory" id="toc-theory" class="nav-link active" data-scroll-target="#theory"><span class="header-section-number">1</span> Theory</a></li>
-  </ul>
-</nav>
+  
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -90,6 +87,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
+<h1 class="title">Theory and Charactersitics of Delta-Sigma Modulators</h1>
 </div>
 
 
@@ -128,7 +126,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-01-29</p>
+      <p class="date">2025-02-07</p>
     </div>
   </div>
   
@@ -140,41 +138,63 @@ window.Quarto = {
 </header>
 
 
-<section id="theory" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Theory</h1>
 <div class="justify">
-<section id="system-overview-of-the-delta-sigma-modulator" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="system-overview-of-the-delta-sigma-modulator"><span class="header-section-number">1.1</span> System overview of the <span class="math inline">\(\Delta\)</span> <span class="math inline">\(\Sigma\)</span> modulator</h2>
+<section id="top-level-overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="top-level-overview"><span class="header-section-number">1</span> Top-Level Overview</h2>
+<p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilizes the principles of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.</p>
+<p>The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Anti-Alias Filtering] --&gt; B[Sampling]
+  B --&gt; C[Quantization]
+  C --&gt; D[Digital Filtering]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Anti-Aliasing measures have to be considered to ensure a “clean” input signal to the modulator system, without unwanted parasitic components.</p>
+<p>The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).</p>
+<p>The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing “moving-average filtering”.</p>
 </section>
-<section id="switched-capacitor-integrator" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">1.2</span> Switched Capacitor Integrator</h2>
-<p>(to be cited: Schreier)</p>
-<p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
-<p>A classic implementation of realizing an active integrator would be with the following opamp circuit in figure <span class="citation" data-cites="opamp_integrator">@opamp_integrator</span>.</p>
-<div id="opamp_integrator" class="quarto-figure quarto-figure-center anchored">
+<section id="system-overview-of-deltasigma-modulators" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="system-overview-of-deltasigma-modulators"><span class="header-section-number">2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</h2>
+<section id="oversampling-circuits" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">2.1</span> Oversampling circuits</h3>
+</section>
+<section id="principle-of-noise-shaping" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="principle-of-noise-shaping"><span class="header-section-number">2.2</span> Principle of Noise Shaping</h3>
+<p>The key advantage that Delta-Sigma Modulation brings to the table is “noise shaping”. This is enabled by the feedback structure that is given in our modulator system.</p>
+<p>For that, let’s observe the following block diagram.</p>
+<p>[add diagram and corresponding elaboration (for discrete-time domain would be better)]</p>
+</section>
+<section id="behavioural-analysis-using-matlab" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="behavioural-analysis-using-matlab"><span class="header-section-number">2.3</span> Behavioural Analysis using MATLAB</h3>
+<div id="fig_loopfilter_sys_1st_order" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/theory/Integrator_Circuit.svg" class="img-fluid figure-img"></p>
-<figcaption>Simple opamp based integrator</figcaption>
+<p><img src="figures/theory/Simple_1stOrder_Mod_sys.png" class="img-fluid figure-img"></p>
+<figcaption>System Overview of the 1st order loopfilter</figcaption>
 </figure>
 </div>
-<p>(explain beasic principle of shown integrator circuit)</p>
-<p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
-<p>Therefore, it is worth utilizing the following input structure in figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
 <div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img"></p>
-<figcaption>Opamp based switched capacitot integrator</figcaption>
+<p><img src="figures/theory/2nd_order_behav_output.svg" class="img-fluid figure-img"></p>
+<figcaption>I/O behaviour from MATLAB simulation model</figcaption>
 </figure>
 </div>
-<p>The depicted switches are clocked in a way, that no simultanious high levels will occure.</p>
-<section id="the-operational-transconductance-amplifier-ota" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="the-operational-transconductance-amplifier-ota"><span class="header-section-number">1.2.1</span> The Operational Transconductance Amplifier (OTA)</h3>
-<p>For the loopfilter, there is the general need of operational amplifier. This could be done, via the classical OpAmp, for our case however, an operational transconductance amplifier, inn short OTA, will be used. It comes with a few key differentiating aspects, compared to the OpAmp.</p>
-<p>(list of OTA features will be added here)</p>
+<pre class="{latex}"><code>\begin{tikzpicture}
+ \draw (0,0) circle (1cm);
+ %\pause
+ \draw (0,0) circle (2cm);
+\end{tikzpicture}</code></pre>
 </section>
 </section>
 </div>
-</section>
 
 </main>
 <!-- /main column -->

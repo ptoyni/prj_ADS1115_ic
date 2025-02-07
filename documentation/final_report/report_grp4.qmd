@@ -1,15 +1,23 @@
 ---
 title: "Design of an Analog-Digital-Converter after the ADS1115"
 ---
-
 {{< include important_notes.qmd >}}
 
 {{< include chapters/introduction/introduction.qmd >}}
 
 {{< include chapters/theory/theory.qmd >}}
 
+{{< include chapters/ideal_circ/ideal_circ.qmd >}}
+
+# Design Proposals
+This chapter shall highlight our attempts at realizing the desired subsystems of the $\Delta\Sigma$ modulator on transistor level, utilizing the 130 nm technology offered from the IHP's sg13g2 BiCMOS PDK for open source usage.
+
+The following subchapters will elaborate on the separate subcircuits, briefly explain the workings of the circuits before going over the achieved simulation results. Xschem was used as the schematic capture EDA tool, while the testbench-driven simulations utilize ngspice. 
+
 {{< include chapters/clock_gen/clock_gen.qmd >}}
 
 {{< include chapters/design/comparator/comp.qmd  >}}
+
+{{< include chapters/digital_filt/digital_filt.qmd  >}}
 
 # References
