@@ -1,5 +1,4 @@
 # Theory and Charactersitics of Delta-Sigma Modulators
-::: {.justify}
 
 
 ## Top-Level Overview 
