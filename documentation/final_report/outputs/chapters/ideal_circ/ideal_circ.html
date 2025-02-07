@@ -6,10 +6,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Me">
-<meta name="dcterms.date" content="2024-12-18">
+<meta name="author" content="Miko Kranich">
+<meta name="author" content="Lars Nickisch">
+<meta name="author" content="Priyanka Toyni">
+<meta name="author" content="Aftab Nagarji">
+<meta name="dcterms.date" content="2025-02-07">
 
-<title>Quarto-Jupyter-Matlab-Everything guide</title>
+<title>ideal_circ</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,53 +25,19 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="guide_files/libs/clipboard/clipboard.min.js"></script>
-<script src="guide_files/libs/quarto-html/quarto.js"></script>
-<script src="guide_files/libs/quarto-html/popper.min.js"></script>
-<script src="guide_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="guide_files/libs/quarto-html/anchor.min.js"></script>
-<link href="guide_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="guide_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="guide_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="guide_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="guide_files/libs/bootstrap/bootstrap-7efe0b1fee9f92738ae46ae98d30f7a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="ideal_circ_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ideal_circ_files/libs/quarto-html/quarto.js"></script>
+<script src="ideal_circ_files/libs/quarto-html/popper.min.js"></script>
+<script src="ideal_circ_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ideal_circ_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ideal_circ_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ideal_circ_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ideal_circ_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ideal_circ_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ideal_circ_files/libs/bootstrap/bootstrap-7efe0b1fee9f92738ae46ae98d30f7a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -100,34 +69,70 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="fullcontent">
+<body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#basic-behaviour-on-circuit-level" id="toc-basic-behaviour-on-circuit-level" class="nav-link active" data-scroll-target="#basic-behaviour-on-circuit-level"><span class="header-section-number">1</span> Basic Behaviour on Circuit Level</a>
+  <ul class="collapse">
+  <li><a href="#switched-capacitor-integrator-as-loop-filter" id="toc-switched-capacitor-integrator-as-loop-filter" class="nav-link" data-scroll-target="#switched-capacitor-integrator-as-loop-filter"><span class="header-section-number">1.1</span> Switched Capacitor Integrator as Loop Filter</a></li>
+  <li><a href="#ideal-system-model-in-ltspice" id="toc-ideal-system-model-in-ltspice" class="nav-link" data-scroll-target="#ideal-system-model-in-ltspice"><span class="header-section-number">1.2</span> Ideal system model in LTSpice</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quarto-Jupyter-Matlab-Everything guide</h1>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Miko Kranich <a href="mailto:mkranich@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Hochschule Bremen
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Lars Nickisch <a href="mailto:lnickisch@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Priyanka Toyni <a href="mailto:ptoyni@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Aftab Nagarji <a href="mailto:anagarji@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Me </p>
-          </div>
-  </div>
-    
+      
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 18, 2024</p>
+      <p class="date">2025-02-07</p>
     </div>
   </div>
   
@@ -139,101 +144,65 @@ window.Quarto = {
 </header>
 
 
-<section id="heres-some-heading" class="level1">
-<h1>Here’s some heading</h1>
-<ol type="1">
-<li>Here’s the first point of some listing</li>
-<li>And this is the second point of this pointless listing</li>
-</ol>
-<p>After this, there is some text with funny words. With a backslash or two spaces you can create a line break, as seen here.<br>
-Then the text continues in the next line.</p>
-<ul>
-<li>some bulletpoint</li>
-<li>more bulletpoints
-<ul>
-<li>funny indented bullet point</li>
-</ul></li>
-</ul>
-<div id="cell-2" class="cell" data-execution_count="14">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a cell for some calculations or plot or something, it's just plain python</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1000</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.sin(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>f)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.plot(f,x)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Some sine function'</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time'</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Amplitude'</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
+<section id="basic-behaviour-on-circuit-level" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Basic Behaviour on Circuit Level</h1>
+<p>(to be cited: Schreier)</p>
+<section id="switched-capacitor-integrator-as-loop-filter" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="switched-capacitor-integrator-as-loop-filter"><span class="header-section-number">1.1</span> Switched Capacitor Integrator as Loop Filter</h2>
+<p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
+<p>A classic implementation of realizing an active integrator would be with the following opamp circuit in figure <span class="citation" data-cites="opamp_integrator">@opamp_integrator</span>.</p>
+<div id="opamp_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="guide_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="figures/theory/Integrator_Circuit.svg" class="img-fluid figure-img"></p>
+<figcaption>Simple opamp based integrator</figcaption>
 </figure>
 </div>
-</div>
-</div>
-<p>Then, by pressing Crtl+Shift+K (just as in a default quarto document) you can create a quarto output in the format specified in the header. It depicts everything from Text to code to figures, depending on the format chosen.</p>
-<p>You can even insert funny formulae, no need to change the cell to latex <span class="math display">\[\begin{equation}
-    Y[k] = \sum_{n = -\infty}^{\infty}x[k]\cdot h[k-n].
-\end{equation}\]</span></p>
-<p>If you want to have a nice figure:</p>
-<div class="quarto-figure quarto-figure-center">
+<p>(explain basic principle of shown integrator circuit)</p>
+<p>There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
+<p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <span class="citation" data-cites="opamp_sc_integrator">@opamp_sc_integrator</span>, which leads to a switched-capacitor integrator.</p>
+<div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="recources/example_image.jpeg" class="img-fluid figure-img"></p>
-<figcaption><c>I want this era of artstlye back :(&lt;</c></figcaption>
+<p><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img"></p>
+<figcaption>Opamp based switched capacitor integrator</figcaption>
 </figure>
 </div>
-<section id="matlab-calls-or-data-calls-in-general" class="level2">
-<h2 class="anchored" data-anchor-id="matlab-calls-or-data-calls-in-general">Matlab calls or data calls in general</h2>
-<p>In the following, calls are made to the matlab files for first order modulator.<br>
-THE DATA MUST BE EXPORTED BY RUNNING THE MATLAB SCRIPTS MANUALLY.<br>
-All the data from simulation are stored in a seperate folder and can be accessed by just giving relative paths for further processing in python</p>
-<div id="cell-7" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.io <span class="im">import</span> loadmat <span class="co">#this actually enables the import of .mat</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#import matlab data</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>time_domain <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_time_domain_plot.mat"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>spectral_analysis1 <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_spectral_analysis1.mat"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>spectral_analysis2 <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_spectral_analysis2.mat"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>windowed_plot <span class="op">=</span> loadmat(<span class="st">"../../zip_meiners/behav/dsm_l1/data/dat_windowed_plot.mat"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#to access imported matlab data</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> time_domain[<span class="st">'t'</span>]</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>voltage <span class="op">=</span> time_domain[<span class="st">'u'</span>]</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>the_other <span class="op">=</span> time_domain[<span class="st">'v'</span>]</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>the_other_mod <span class="op">=</span> np.append(the_other[<span class="dv">0</span>], <span class="dv">1</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.plot(time[<span class="dv">0</span>], voltage[<span class="dv">0</span>], linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Voltage'</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>plt.stairs(time[<span class="dv">0</span>], the_other_mod)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.axis([min(time).any(), max(time).any()/8, 1.1*min(the_other_mod).any(), 1.1*max(the_other_mod).any()])</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Time domain plot first order $\Delta \Sigma$ modulator'</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time [s]'</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Amplitude [V]'</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
+<p>The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit’s functionality.</p>
+<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases, depicted in Figures <span class="citation" data-cites="phase1_integrator">@phase1_integrator</span> and <span class="citation" data-cites="phase2_integrator">@phase2_integrator</span>.</p>
+<div id="phase1_integrator" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="guide_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="figures/theory/sc_integrator_ph1.PNG" class="img-fluid figure-img"></p>
+<figcaption>Integrator state during phase 1</figcaption>
 </figure>
 </div>
+<div id="phase2_integrator" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/theory/sc_integrator_ph2.PNG" class="img-fluid figure-img"></p>
+<figcaption>Integrator state during phase 2</figcaption>
+</figure>
 </div>
-</div>
+<p>The first phase allows for the capacitor <span class="math inline">\(C_1\)</span> to be charged from the input, leading to the charge accumulation <span class="math inline">\(q_1[1]\)</span>, during which the integrating capacitor <span class="math inline">\(C_2\)</span> holds it’s previous charge (<span class="math inline">\(q_2[n]\)</span>). Due to the relation <span class="math inline">\(V = \frac{Q}{C}\)</span>, the output voltage will be equal to the ratio of that charge <span class="math inline">\(q_2[n]\)</span> to the capacitance <span class="math inline">\(C_2\)</span>.</p>
+<p>The second phase will than result in the charge of <span class="math inline">\(C_1\)</span> to accumulate in <span class="math inline">\(C_2\)</span>, due to the opamps input behaviour related to it’s “virtual ground”. C2 will therefore have the sum of charges, leading to</p>
+<p><span class="math display">\[\begin{align}\label{sc_charge_ph2}
+  q_2[n+1] = q_2 + q_1.
+\end{align}\]</span></p>
+<p>After applying the <span class="math inline">\(z\)</span>-transform, the result is</p>
+<p><span class="math display">\[\begin{align}
+  Q_2(z) = Q_2(z)\,z^{-1} + Q_1(z)\,z^{-1}
+\end{align}\]</span></p>
+<p>which in turn can be rearranged to get</p>
+<p><span class="math display">\[\begin{align}
+  \frac{Q_2(z)}{Q_1(z)} = \frac{z^{-1}}{1-z^{-1}}
+\end{align}\]</span></p>
+<p>Utilizing the aforementions relation between voltage, charge and capacitance, we can derive the voltage I/O behaviour (transfer function) to be the following</p>
+<p><span class="math display">\[\begin{align}
+  \frac{V_{out}}{V_{in}} = \frac{z^{-1}}{1-z^{-1}} \frac{C1}{C2} = H_v(z)
+\end{align}\]</span></p>
+<p>The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain (<span class="math inline">\(C_1 = C_2\)</span>).</p>
+<p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure <span class="citation" data-cites="fig_loopfilter_sys_1st_order">@fig_loopfilter_sys_1st_order</span>.</p>
+</section>
+<section id="ideal-system-model-in-ltspice" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="ideal-system-model-in-ltspice"><span class="header-section-number">1.2</span> Ideal system model in LTSpice</h2>
+<p>The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components. For the switched capacitor input stage, ideal switches were used. These switches activate when the difference on the two input terminals is greater than zero. The non-overlap in the phases can be controlled by setting the voltage sources modeling the phase generator appropriately. The OTA is modeled by a simple voltage controlled current source with a resistor in parallel. This roughly follows the small signal representation of an OTA. Following the OTA is a comparator consisting of an input difference amplifier which compares the output of the OTA to a constant voltage of <span class="math inline">\(V_{DD}/2\)</span>. The latching is done by two ideal switches with oppositely connected supply terminals. The output is then amplified by comparing the current output voltage level to 0V and setting a voltage source to <span class="math inline">\(V_{SS}\)</span> or <span class="math inline">\(V_{DD}\)</span> accordingly.</p>
 </section>
 </section>
 

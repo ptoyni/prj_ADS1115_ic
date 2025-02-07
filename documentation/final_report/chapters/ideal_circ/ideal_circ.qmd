@@ -11,7 +11,7 @@ A classic implementation of realizing an active integrator would be with the fol
 
 (explain basic principle of shown integrator circuit)
 
-There is however the inconvinience, that the resistor on the input is generally a lossy and potentially noisy element for our system.
+There is however the inconvinience that the resistor on the input is generally a lossy and potentially noisy element for our system.
 
 Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure @opamp_sc_integrator, which leads to a switched-capacitor integrator. 
   
@@ -54,3 +54,9 @@ Utilizing the aforementions relation between voltage, charge and capacitance, we
 The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain ($C_1 = C_2$).
 
 The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure @fig_loopfilter_sys_1st_order.
+
+## Ideal system model in LTSpice
+The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components.\
+For the switched capacitor input stage, ideal switches were used. These switches activate when the difference on the two input terminals is greater than zero. The non-overlap in the phases can be controlled by setting the voltage sources modeling the phase generator appropriately.
+The OTA is modeled by a simple voltage controlled current source with a resistor in parallel. This roughly follows the small signal representation of an OTA. 
+Following the OTA is a comparator consisting of an input difference amplifier which compares the output of the OTA to a constant voltage of $V_{DD}/2$. The latching is done by two ideal switches with oppositely connected supply terminals. The output is then amplified by comparing the current output voltage level to 0V and setting a voltage source to $V_{SS}$ or $V_{DD}$ accordingly. 
