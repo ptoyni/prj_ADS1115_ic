@@ -31,15 +31,16 @@ vp2         = l.get_data('v(p2)')
 vp2e        = l.get_data('v(p2e)')
 
 #redefine data arrays considering new length
-factor = 10
+factor = 1/15
 length = round(len(time)/factor)
 
-time    = time[:length]
-vclk    = np.flip(vclk[:length])
-vp1     = np.flip(vp1[:length])
-vp1e    = np.flip(vp1e[:length])
-vp2     = np.flip(vp2[:length])
-vp2e    = np.flip(vp2e[:length])
+
+time    = time[1000:1150]
+vclk    = vclk[1000:1150]
+vp1     = vp1[1000:1150]
+vp1e    = vp1e[1000:1150]
+vp2     = vp2[1000:1150]
+vp2e    = vp2e[1000:1150]
 
 #plot data
 plt.close('all')

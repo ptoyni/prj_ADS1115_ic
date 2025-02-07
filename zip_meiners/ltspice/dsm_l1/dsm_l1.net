@@ -1,0 +1,57 @@
+* Z:\home\mkranich\OneDrive\studium\Master\ws\cems\prj_ADS1115_ic\zip_meiners\ltspice\dsm_l1\dsm_l1.asc
+Vphi1 phi1 0 PULSE(0 {VDD} 0 100n 100n 2u 4.5u)
+CI1 N001 vx1 {Ci1}
+CS1 N003 N002 {Cs1}
+Vphi2 phi2 0 PULSE(0 {VDD} 2.25u 100n 100n 2u 4.5u)
+XX4 vx1 VCM vq VDD phi2 ideal_clocked_comparator
+XX1 N001 VCM vx1 op_amp
+A1 vq 0 phi1 0 0 0 vd 0 DFLOP
+S1 N002 vin phi1 trip switch
+S2 Vfb N002 phi2 trip switch
+S3 N003 N001 phi2 trip switch
+S4 VCM N003 phi1 trip switch
+Etrip1 trip 0 Vdd 0 0.5
+Vin1 Vin 0 SINE({Voff} {Vamp} {freq})
+VDD Vdd 0 {VDD}
+VCM Vcm 0 {VCM}
+XX3 VDD 0 vq Vfb inv
+
+* block symbol definitions
+.subckt ideal_clocked_comparator Vinm Vinp Vout VDD Clock
+E1 diff 0 Vinp Vinm 1
+S3 sample diff tp Clock switch
+S4 hold N001 Clock tp switch
+C1 sample 0 100p
+C2 hold 0 100p
+Etp tp 0 Vdd 0 0.5
+E2 N001 0 sample 0 1
+B1 Vout 0 V=v(hold)>0?v(vdd):0
+.model switch SW
+.ic v(hold)=1 v(sample)=1
+.ends ideal_clocked_comparator
+
+.subckt op_amp Vinm Vinp Out
+G1 0 Out Vinp Vinm 1000
+R1 Out 0 1
+.ends op_amp
+
+.subckt inv Vdd Vss IN OUT
+B1 Out 0 V=v(in)>v(vdd)/2?v(vss):v(vdd)
+.ends inv
+
+* Nonoverlapping clocks
+* 10 periods for a better FFT
+* Switch control
+.model switch sw ron=.1
+.tran 40m uic
+.options plotwinsize=0
+.param VDD=3.0
+.param Vcm=VDD/2.0
+.param Voff=Vcm
+.param Vamp=1.4
+.param freq=80
+.param Cs1=0.25p Ci1=1p
+.save v(vx1) v(phi1) v(phi2) v(vq) v(vd) v(vfb) v(vin)
+* Save only node voltages of interest
+.backanno
+.end
