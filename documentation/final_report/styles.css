@@ -4,7 +4,6 @@ figcaption {
     text-align: center;
 }
 
-/*custom command to justify text */
-.justify {
+main {
     text-align: justify;
-}
+  }
