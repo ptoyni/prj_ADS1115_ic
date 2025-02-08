@@ -10,7 +10,12 @@
 - (perhaps stability (e.g. pole-zero plots))
 
 ### Miko
-
+- idealized spice model
+  - modeling errors
+- Clock/Phase generator
+  - gate realizations
+  - gate delay control
+- digital section theory
 
 ### Priyanka
 
