@@ -29,18 +29,46 @@ The digital filtering is then responsible to transform the discrete signal, whic
 
 The key advantage that Delta-Sigma Modulation brings to the table is "noise shaping". This is enabled by the feedback structure that is given in our modulator system.
 
-For that, let's observe the following block diagram.
-
-[add diagram and corresponding elaboration (for discrete-time domain would be better)]
-
-### Behavioural Analysis using MATLAB
+For that, let's observe the following block diagram of a first order model.
 
 ![System Overview of the 1st order loopfilter](figures/theory/Simple_1stOrder_Mod_sys.png){#fig-loopfilter_sys_1st_order}
 
+It showcases a simple I/O behavioural model of a system that is inherently representative of what a Delta-Sigma modulator is. 
 
-![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#fig-opamp_sc_integrator}
+'u' is our input signal, in case of an ADC application it should therefore denote our "analog input", which we will assume to be handled in a discrete fashion. 'v' denotes the output of our feedback system, which should contain sufficient information about our original input (more on the specific extraction later).
+
+The system contains the so called "loopfilter", the elemental block for the desireed shaping process. We also include an additive error, representing the error in our output due to quantization. The feedback path includes a unit delay to indicate that past output samples will impact the current computation of the input.
+
+Using the markings $*_1$ and $*_2$, we can derive the transfer behaviour of our system as follows:
+
+\begin{align}
+  v &= e + *_2\,;\quad *_2 = (\frac{1}{1-z^{-1}}) \, *_1\,; \quad *_1 = u - v\,z^{-1} \\
+  \Rightarrow& *_2 = (\frac{1}{1-z^{-1}})\, (u-v\,z^{-1})\,; v = e + (\frac{1}{1-z^{-1}})\,(u-v\,z^{-1})\\
+  \Leftrightarrow&\, v = \frac{u}{1-z^{-1}} - \frac{v\,z^{-1}}{1-z^{-1}} + e \\
+  \Leftrightarrow&\, v(1-z^{1}) = u - v\,z^{-1} + e(1-z^{-1}) \\
+  \Leftrightarrow&\, v \cancel{-v\,z^{-1}} \cancel{+ v\,z^{-1}} = u + e(1-z^{-1})
+\end{align}
+
+This shows the dependency of the output v on the separate terms for our input and the quantization error. We can denote these functions of $z$ as our transfer functions for either the signal ($STF(z) = 1$) or our quantization "noise" ($NTF(z) = 1-z^{-1}$)
+
+\begin{align}
+  v = STF(z)\,u + NTF(z)\,e
+\end{align}
 
 
+<font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font>
+
+
+### Behavioural Analysis using MATLAB
+
+
+![Utilized 2nd-Order Model in Simulink (CIFB)](figures/theory/simulink_2ndOrder_model.PNG){#fig-simulink_MOD2}
+
+
+![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#fig-matlab_MOD2_IO_plot}
+
+
+![I/O behaviour from MATLAB simulation model](figures/theory/spectralNTF_MOD2_matlab.svg){#fig-matlab_MOD2_NTF}
 
 
 

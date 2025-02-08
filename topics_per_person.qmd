@@ -9,6 +9,9 @@
 - general I/O behaviour (analog to PWM (to digital output via filter))
 - (perhaps stability (e.g. pole-zero plots))
 
+- comparator elaboration (during IC section)
+
+
 ### Miko
 - idealized spice model
   - modeling errors

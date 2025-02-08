@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-02-07">
+<meta name="dcterms.date" content="2025-02-08">
 
 <title>theory</title>
 <style>
@@ -79,7 +79,22 @@ window.Quarto = {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="5">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#theory-and-charactersitics-of-delta-sigma-modulators" id="toc-theory-and-charactersitics-of-delta-sigma-modulators" class="nav-link active" data-scroll-target="#theory-and-charactersitics-of-delta-sigma-modulators"><span class="header-section-number">1</span> Theory and Charactersitics of Delta-Sigma Modulators</a>
+  <ul>
+  <li><a href="#top-level-overview" id="toc-top-level-overview" class="nav-link" data-scroll-target="#top-level-overview"><span class="header-section-number">1.1</span> Top-Level Overview</a></li>
+  <li><a href="#system-overview-of-deltasigma-modulators" id="toc-system-overview-of-deltasigma-modulators" class="nav-link" data-scroll-target="#system-overview-of-deltasigma-modulators"><span class="header-section-number">1.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</a>
+  <ul>
+  <li><a href="#oversampling-circuits" id="toc-oversampling-circuits" class="nav-link" data-scroll-target="#oversampling-circuits"><span class="header-section-number">1.2.1</span> Oversampling circuits</a></li>
+  <li><a href="#principle-of-noise-shaping" id="toc-principle-of-noise-shaping" class="nav-link" data-scroll-target="#principle-of-noise-shaping"><span class="header-section-number">1.2.2</span> Principle of Noise Shaping</a></li>
+  <li><a href="#behavioural-analysis-using-matlab" id="toc-behavioural-analysis-using-matlab" class="nav-link" data-scroll-target="#behavioural-analysis-using-matlab"><span class="header-section-number">1.2.3</span> Behavioural Analysis using MATLAB</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -87,7 +102,6 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Theory and Charactersitics of Delta-Sigma Modulators</h1>
 </div>
 
 
@@ -126,7 +140,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-02-07</p>
+      <p class="date">2025-02-08</p>
     </div>
   </div>
   
@@ -138,9 +152,10 @@ window.Quarto = {
 </header>
 
 
-<div class="justify">
-<section id="top-level-overview" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="top-level-overview"><span class="header-section-number">1</span> Top-Level Overview</h2>
+<section id="theory-and-charactersitics-of-delta-sigma-modulators" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Theory and Charactersitics of Delta-Sigma Modulators</h1>
+<section id="top-level-overview" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="top-level-overview"><span class="header-section-number">1.1</span> Top-Level Overview</h2>
 <p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilizes the principles of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.</p>
 <p>The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.</p>
 <div class="cell" data-layout-align="default">
@@ -162,39 +177,77 @@ window.Quarto = {
 <p>The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).</p>
 <p>The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing “moving-average filtering”.</p>
 </section>
-<section id="system-overview-of-deltasigma-modulators" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="system-overview-of-deltasigma-modulators"><span class="header-section-number">2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</h2>
-<section id="oversampling-circuits" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">2.1</span> Oversampling circuits</h3>
+<section id="system-overview-of-deltasigma-modulators" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="system-overview-of-deltasigma-modulators"><span class="header-section-number">1.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</h2>
+<section id="oversampling-circuits" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">1.2.1</span> Oversampling circuits</h3>
 </section>
-<section id="principle-of-noise-shaping" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="principle-of-noise-shaping"><span class="header-section-number">2.2</span> Principle of Noise Shaping</h3>
+<section id="principle-of-noise-shaping" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="principle-of-noise-shaping"><span class="header-section-number">1.2.2</span> Principle of Noise Shaping</h3>
 <p>The key advantage that Delta-Sigma Modulation brings to the table is “noise shaping”. This is enabled by the feedback structure that is given in our modulator system.</p>
-<p>For that, let’s observe the following block diagram.</p>
-<p>[add diagram and corresponding elaboration (for discrete-time domain would be better)]</p>
-</section>
-<section id="behavioural-analysis-using-matlab" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="behavioural-analysis-using-matlab"><span class="header-section-number">2.3</span> Behavioural Analysis using MATLAB</h3>
-<div id="fig_loopfilter_sys_1st_order" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/theory/Simple_1stOrder_Mod_sys.png" class="img-fluid figure-img"></p>
-<figcaption>System Overview of the 1st order loopfilter</figcaption>
+<p>For that, let’s observe the following block diagram of a first order model.</p>
+<div id="fig-loopfilter_sys_1st_order" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loopfilter_sys_1st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/Simple_1stOrder_Mod_sys.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loopfilter_sys_1st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: System Overview of the 1st order loopfilter
+</figcaption>
 </figure>
 </div>
-<div id="opamp_sc_integrator" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/theory/2nd_order_behav_output.svg" class="img-fluid figure-img"></p>
-<figcaption>I/O behaviour from MATLAB simulation model</figcaption>
+<p>It showcases a simple I/O behavioural model of a system that is inherently representative of what a Delta-Sigma modulator is.</p>
+<p>‘u’ is our input signal, in case of an ADC application it should therefore denote our “analog input”, which we will assume to be handled in a discrete fashion. ‘v’ denotes the output of our feedback system, which should contain sufficient information about our original input (more on the specific extraction later).</p>
+<p>The system contains the so called “loopfilter”, the elemental block for the desireed shaping process. We also include an additive error, representing the error in our output due to quantization. The feedback path includes a unit delay to indicate that past output samples will impact the current computation of the input.</p>
+<p>Using the markings <span class="math inline">\(*_1\)</span> and <span class="math inline">\(*_2\)</span>, we can derive the transfer behaviour of our system as follows:</p>
+<p><span class="math display">\[\begin{align}
+  v &amp;= e + *_2\,;\quad *_2 = (\frac{1}{1-z^{-1}}) \, *_1\,; \quad *_1 = u - v\,z^{-1} \\
+  \Rightarrow&amp; *_2 = (\frac{1}{1-z^{-1}})\, (u-v\,z^{-1})\,; v = e + (\frac{1}{1-z^{-1}})\,(u-v\,z^{-1})\\
+  \Leftrightarrow&amp;\, v = \frac{u}{1-z^{-1}} - \frac{v\,z^{-1}}{1-z^{-1}} + e \\
+  \Leftrightarrow&amp;\, v(1-z^{1}) = u - v\,z^{-1} + e(1-z^{-1}) \\
+  \Leftrightarrow&amp;\, v \cancel{-v\,z^{-1}} \cancel{+ v\,z^{-1}} = u + e(1-z^{-1})
+\end{align}\]</span></p>
+<p>This shows the dependency of the output v on the separate terms for our input and the quantization error. We can denote these functions of <span class="math inline">\(z\)</span> as our transfer functions for either the signal (<span class="math inline">\(STF(z) = 1\)</span>) or our quantization “noise” (<span class="math inline">\(NTF(z) = 1-z^{-1}\)</span>)</p>
+<p><span class="math display">\[\begin{align}
+  v = STF(z)\,u + NTF(z)\,e
+\end{align}\]</span></p>
+<p><font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font></p>
+</section>
+<section id="behavioural-analysis-using-matlab" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="behavioural-analysis-using-matlab"><span class="header-section-number">1.2.3</span> Behavioural Analysis using MATLAB</h3>
+<div id="fig-simulink_MOD2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simulink_MOD2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/simulink_2ndOrder_model.PNG" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simulink_MOD2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Utilized 2nd-Order Model in Simulink (CIFB)
+</figcaption>
 </figure>
 </div>
-<pre class="{latex}"><code>\begin{tikzpicture}
- \draw (0,0) circle (1cm);
- %\pause
- \draw (0,0) circle (2cm);
-\end{tikzpicture}</code></pre>
-</section>
-</section>
+<div id="fig-matlab_MOD2_IO_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-matlab_MOD2_IO_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/2nd_order_behav_output.svg" class="img-fluid figure-img">
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_IO_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: I/O behaviour from MATLAB simulation model
+</figcaption>
+</figure>
+</div>
+<div id="fig-matlab_MOD2_NTF" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-matlab_MOD2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/spectralNTF_MOD2_matlab.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: I/O behaviour from MATLAB simulation model
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
 
 </main>
 <!-- /main column -->

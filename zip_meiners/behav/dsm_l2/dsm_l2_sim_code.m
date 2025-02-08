@@ -101,10 +101,11 @@ sqdBFS(isinf(sqdBFS)) = -150;
 % Generate the magnitude plot with annotation
 fig4 = figure(4);
 set(gca, 'fontsize', 14);
-plot(f, sqdBFS, 'linewidth', 2);
+plot(f, sqdBFS, 'linewidth', 1.5);
 axis([0 0.06 -150 0]);
-xlabel('Frequency f/fs')
+xlabel('Normalized Frequency f/fs')
 ylabel('DFT Magnitude in dBFS')
+title("Spectral NTF analysis, related to lec. 3 slides")
 grid;
 
 %% Spectral analysis, delsig toolbox
@@ -117,7 +118,8 @@ plot(f, dbv(sqFS(1:end/2)));
 axis([0 0.06 -150 0]);
 grid on;
 ylabel('dBFS');
-xlabel('f/fs')
+xlabel('f/fs');
+title("Spectral Analysis, utilizing delsig toolbox")
 
 
 %% Windowed plot
