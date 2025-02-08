@@ -11,11 +11,10 @@ Lastly it also utilizes a d-flip-flop for the "digitized" output signal(-s), to 
 
 ### Comparator Stage
 
-The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called "StrongArm" architecture.
-It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switched. 
-@strongarm_circuit.
+The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called "StrongArm" architecture, depicted in @fig-strongarm_circuit.
+It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches. 
 
-![Comparator, realized through inverter based architecture (placeholder)](figures/comp/comp_architecture.svg){#strongarm_circuit}
+![Comparator, realized through inverter based architecture](figures/comp/comp_architecture.svg){#fig-strongarm_circuit}
 
 (to be cited:
 
@@ -46,6 +45,9 @@ After the StrongArm comparator, as mentioned previously, a latching circuit is i
 
 
 ```{python}
+#| label: fig-comp_plot
+#| fig-cap: "Waveforms of comparator simulations"
+
 import numpy as np
 import matplotlib.pyplot as plt
 import ltspice as lt

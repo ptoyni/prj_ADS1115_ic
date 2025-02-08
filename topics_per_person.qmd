@@ -1,0 +1,18 @@
+# topics the members want to cover during the presentation
+
+
+### Lars
+- compare MOD1 and MOD2
+- elaborate on oversampling ADCs (vs. Nyquist principle)
+- Loopfilter functionality
+  - Noise shaping/ NTF (theory and MATLAB relationships)
+- general I/O behaviour (analog to PWM (to digital output via filter))
+- (perhaps stability (e.g. pole-zero plots))
+
+### Miko
+
+
+### Priyanka
+
+
+### Aftab
