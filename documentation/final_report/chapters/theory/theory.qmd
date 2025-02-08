@@ -40,14 +40,6 @@ For that, let's observe the following block diagram.
 
 ![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#fig-opamp_sc_integrator}
 
-```{latex}
-\begin{tikzpicture}
- \draw (0,0) circle (1cm);
- %\pause
- \draw (0,0) circle (2cm);
-\end{tikzpicture}
-```
-
 
 
 

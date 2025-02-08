@@ -46,7 +46,8 @@ After the StrongArm comparator, as mentioned previously, a latching circuit is i
 
 ```{python}
 #| label: fig-comp_plot
-#| fig-cap: "Waveforms of comparator simulations"
+#| fig-cap: Waveworms of Comparator Subsystem
+
 
 import numpy as np
 import matplotlib.pyplot as plt

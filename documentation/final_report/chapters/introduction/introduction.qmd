@@ -10,15 +10,15 @@ The considered system of interest for this semester is a classical meassurement 
 
 The specific board-level components that are considered for this signal-chain are the ADXL335 accelerometer, the ADS1115 ADC and an ESP8266 microcontroller.
 
-![Concerned Top-Level Measurement System](figures/introduction/toplvl_sys_overview.png){#fig_toplvl_view}
+![Concerned Top-Level Measurement System](figures/introduction/toplvl_sys_overview.png){#fig-toplvl_view}
 
 The mentioned ICs are given as evaluation- & breakout boards as part of the lab inventory.
 
-![ADXL335 Functional Block Diagram [datasheet]](figures/introduction/ADXL335.PNG){#fig_ADXL_block}
+![ADXL335 Functional Block Diagram [datasheet]](figures/introduction/ADXL335.PNG){#fig-ADXL_block}
 
-![ADS1115 Functional Block Diagram [datasheet]](figures/introduction/ADS1115.PNG){#fig_ADS_block}
+![ADS1115 Functional Block Diagram [datasheet]](figures/introduction/ADS1115.PNG){#fig-ADS_block}
 
-![ESP8266 Breakoutboard Pinout](figures/introduction/ESP8266_breakout.PNG){#fig_ESP8266}
+![ESP8266 Breakoutboard Pinout](figures/introduction/ESP8266_breakout.PNG){#fig-ESP8266}
 
 
 ## General Overview of given ADC
