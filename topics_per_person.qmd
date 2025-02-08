@@ -18,6 +18,9 @@
 - digital section theory
 
 ### Priyanka
-
+- Working of switch cap
+- working of 5t and telescopic ota
+- design procedure (capactitor sizing, ota sizing, slew currents, settling time, noise and offset, swing limits)
+- real circuits (5t-ota, telescopic ota, switched cap, **full real idsm**)
 
 ### Aftab
