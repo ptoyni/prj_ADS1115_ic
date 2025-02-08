@@ -4,6 +4,7 @@ figcaption {
     text-align: center;
 }
 
+/*Justify all text in main segment of html output*/
 main {
     text-align: justify;
-  }
+}

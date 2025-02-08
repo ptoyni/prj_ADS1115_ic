@@ -5,25 +5,25 @@
 ## Switched Capacitor Integrator as Loop Filter 
 The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
 
-A classic implementation of realizing an active integrator would be with the following opamp circuit in figure @opamp_integrator.
+A classic implementation of realizing an active integrator would be with the following opamp circuit in figure @fig-opamp_integrator.
 
-![Simple opamp based integrator](figures/theory/Integrator_Circuit.svg){#opamp_integrator}
+![Simple opamp based integrator](figures/theory/Integrator_Circuit.svg){#fig-opamp_integrator}
 
 (explain basic principle of shown integrator circuit)
 
 There is however the inconvinience that the resistor on the input is generally a lossy and potentially noisy element for our system.
 
-Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure @opamp_sc_integrator, which leads to a switched-capacitor integrator. 
+Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure @fig-opamp_sc_integrator, which leads to a switched-capacitor integrator. 
   
-![Opamp based switched capacitor integrator](figures/theory/SC_Integrator_Circuit.svg){#opamp_sc_integrator}
+![Opamp based switched capacitor integrator](figures/theory/SC_Integrator_Circuit.svg){#fig-opamp_sc_integrator}
 
 The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit's functionality. 
 
-To derive the system behaviour of this circuitry, let's consider the two phases of operation, given be the switching phases, depicted in Figures @phase1_integrator and @phase2_integrator.
+To derive the system behaviour of this circuitry, let's consider the two phases of operation, given be the switching phases, depicted in Figures @fig-phase1_integrator and @fig-phase2_integrator.
 
-![Integrator state during phase 1](figures/theory/sc_integrator_ph1.PNG){#phase1_integrator}
+![Integrator state during phase 1](figures/theory/sc_integrator_ph1.PNG){#fig-phase1_integrator}
 
-![Integrator state during phase 2](figures/theory/sc_integrator_ph2.PNG){#phase2_integrator}
+![Integrator state during phase 2](figures/theory/sc_integrator_ph2.PNG){#fig-phase2_integrator}
 
 The first phase allows for the capacitor $C_1$ to be charged from the input, leading to the charge accumulation $q_1[1]$, during which the integrating capacitor $C_2$ holds it's previous charge ($q_2[n]$). Due to the relation $V = \frac{Q}{C}$, the output voltage will be equal to the ratio of that charge $q_2[n]$ to the capacitance $C_2$.
 
@@ -53,7 +53,7 @@ Utilizing the aforementions relation between voltage, charge and capacitance, we
 
 The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain ($C_1 = C_2$).
 
-The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure @fig_loopfilter_sys_1st_order.
+The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure @fig-loopfilter_sys_1st_order.
 
 ## Ideal system model in LTSpice
 The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components.\

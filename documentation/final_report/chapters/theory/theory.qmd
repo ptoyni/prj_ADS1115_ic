@@ -35,10 +35,10 @@ For that, let's observe the following block diagram.
 
 ### Behavioural Analysis using MATLAB
 
-![System Overview of the 1st order loopfilter](figures/theory/Simple_1stOrder_Mod_sys.png){#fig_loopfilter_sys_1st_order}
+![System Overview of the 1st order loopfilter](figures/theory/Simple_1stOrder_Mod_sys.png){#fig-loopfilter_sys_1st_order}
 
 
-![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#opamp_sc_integrator}
+![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#fig-opamp_sc_integrator}
 
 ```{latex}
 \begin{tikzpicture}
