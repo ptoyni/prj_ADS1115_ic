@@ -60,31 +60,31 @@ N 1570 520 2560 520 {lab=p2}
 N 1360 -60 1810 -60 {lab=#net11}
 N 1810 -30 1900 -30 {lab=#net11}
 N 1360 440 1810 440 {lab=#net12}
-C {nand/nand_gate.sym} 330 30 0 0 {name=x1}
-C {inverter/better_inv.sym} -170 50 0 0 {name=x2}
-C {inverter/better_inv.sym} 60 50 0 0 {name=x3}
-C {nand/nand_gate.sym} 330 350 0 0 {name=x4}
-C {inverter/better_inv.sym} 540 80 0 0 {name=x5}
-C {inverter/better_inv.sym} 770 80 0 0 {name=x6}
-C {inverter/better_inv.sym} 970 80 0 0 {name=x7}
-C {inverter/better_inv.sym} 1200 80 0 0 {name=x8}
-C {inverter/better_inv.sym} 540 400 0 0 {name=x9}
-C {inverter/better_inv.sym} 770 400 0 0 {name=x10}
 C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 970 400 0 0 {name=x11}
-C {inverter/better_inv.sym} 1200 400 0 0 {name=x12}
-C {inverter/better_inv.sym} 1400 80 0 0 {name=x13}
-C {inverter/better_inv.sym} 1630 80 0 0 {name=x14}
-C {inverter/better_inv.sym} 1400 400 0 0 {name=x15}
-C {inverter/better_inv.sym} 1630 400 0 0 {name=x16}
-C {nand/nand_gate.sym} 1920 0 0 0 {name=x17}
-C {nand/nand_gate.sym} 1920 380 0 0 {name=x18}
-C {inverter/better_inv.sym} 2130 430 0 0 {name=x19}
-C {inverter/better_inv.sym} 2360 430 0 0 {name=x20}
-C {inverter/better_inv.sym} 2120 50 0 0 {name=x21}
-C {inverter/better_inv.sym} 2350 50 0 0 {name=x22}
 C {ipin.sym} -240 0 0 0 {name=p1 lab=clk}
 C {opin.sym} 2560 -140 0 0 {name=p2 lab=p1}
 C {opin.sym} 2560 0 0 0 {name=p4 lab=p1d
 }
 C {opin.sym} 2560 380 0 0 {name=p5 lab=p2d}
 C {opin.sym} 2560 520 0 0 {name=p6 lab=p2}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} -170 50 0 0 {name=x23}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/nand/nand_gate.sym} 330 30 0 0 {name=x24}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/nand/nand_gate.sym} 330 350 0 0 {name=x1}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/nand/nand_gate.sym} 1920 380 0 0 {name=x4}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/nand/nand_gate.sym} 1920 0 0 0 {name=x17}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 60 50 0 0 {name=x2}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 540 80 0 0 {name=x3}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 770 80 0 0 {name=x5}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 970 80 0 0 {name=x6}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 1200 80 0 0 {name=x7}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 1400 80 0 0 {name=x8}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 1630 80 0 0 {name=x9}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 2120 50 0 0 {name=x10}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 2350 50 0 0 {name=x12}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 2360 430 0 0 {name=x13}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 2130 430 0 0 {name=x14}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 1630 400 0 0 {name=x15}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 1400 400 0 0 {name=x16}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 1200 400 0 0 {name=x18}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 770 400 0 0 {name=x19}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/inverter/better_inv.sym} 540 400 0 0 {name=x20}

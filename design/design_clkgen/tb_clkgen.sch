@@ -102,4 +102,4 @@ C {devices/launcher.sym} 320 -320 0 0 {name=h1
 descr="load waves Ctrl + left click" 
 tclcommand="xschem raw_read $netlist_dir/tb_clkgen.raw tran"
 }
-C {clkgen.sym} 370 -200 0 0 {name=x2}
+C {/foss/designs/prj_ADS1115_ic/design/design_clkgen/clkgen.sym} 370 -200 0 0 {name=x1}
