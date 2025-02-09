@@ -1,8 +1,8 @@
 %% Example Modulator System
 % "Understanding Delta-Sigma Data Converters", Schreier, 2005, Ch. 9
 clc
-clearvars
-clear
+%clearvars
+%clear
 
 %% Calibration of test system
 L = 2;                % Order of modulator
@@ -60,23 +60,23 @@ x = simout(:,3)'; % prime to adapt dimension
 k = (v*y')/(y*y');
 
 %% Time domain plot
-close; 
+%close; 
 %set(gca, 'fontsize', 12);
-fig1 = figure(1);
+fig12 = figure(11);
     stairs(t, v, 'LineWidth', 1.5); hold on;
     plot(t, u, 'LineWidth', 2); hold off;
     axis([ min(t) max(t)/9 1.1*min(v) 1.1*max(v) ]);
     xlabel('Time t/T'); ylabel('Amplitude');
-    legend('v: input','u: PWM output');
+    legend('v: PWM output','u: input');
     title('2nd Order \Sigma\Delta, Input to Output');
-fig2 = figure(2);
+fig22 = figure(12);
     plot(t, y, 'LineWidth', 1, 'Color', 'k'); hold on;
     plot(t, x, 'LineWidth', 1, 'Color', 'r'); hold off;
     axis([ min(t) max(t)/9 1.1*min(v) 1.1*max(v) ]);
     xlabel('Time t/T'); ylabel('Amplitude');
     legend('y: second stage','x: first stage');
     title('2nd Order \Sigma\Delta, Different Integrator Outputs');
-fig3 = figure(3);
+fig32 = figure(13);
     plot(t, y, 'LineWidth', 1, 'Color', 'k'); hold on;
     plot(t, v, 'LineWidth', 1, 'Color', 'r'); hold off;
     axis([ min(t) max(t)/9 1.1*min(v) 1.1*max(v) ]);
@@ -99,7 +99,7 @@ sqdBFS = 20*log10(sq_hlf);
 sqdBFS(isinf(sqdBFS)) = -150;
 
 % Generate the magnitude plot with annotation
-fig4 = figure(4);
+fig42 = figure(14);
 set(gca, 'fontsize', 14);
 plot(f, sqdBFS, 'linewidth', 1.5);
 axis([0 0.06 -150 0]);
@@ -108,12 +108,13 @@ ylabel('DFT Magnitude in dBFS')
 title("Spectral NTF analysis, related to lec. 3 slides")
 grid;
 
+save("./data/dat_spectral_analysis2.mat", "f", "sqdBFS")
 %% Spectral analysis, delsig toolbox
 
 % Normalize magnitudes to full-scale (FS=nLev-1=1) 
 sqFS = sq/(N/2);
 
-fig5 = figure(5);
+fig52 = figure(15);
 plot(f, dbv(sqFS(1:end/2)));
 axis([0 0.06 -150 0]);
 grid on;
@@ -125,7 +126,7 @@ title("Spectral Analysis, utilizing delsig toolbox")
 %% Windowed plot
 specHW = fft(v.*ds_hann(N))/(N/4);
 
-fig6 = figure(6);
+fig62 = figure(16);
 plot(f, dbv(specHW(1:end/2)));
 axis([0 0.06 -150 0]);
 grid on;

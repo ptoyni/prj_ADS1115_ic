@@ -24,20 +24,23 @@ The digital filtering is then responsible to transform the discrete signal, whic
 
 ### Oversampling circuits
 
+Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth $f_B$, so that the input can be reconstructed reliably afterwards (avoiding aliasing). These converters operate in a way that input samples 
 
-### Principle of Noise Shaping
+<font color="red">[schreier]</font>
+
+### Principle of Noise Shaping (1st-Order)
 
 The key advantage that Delta-Sigma Modulation brings to the table is "noise shaping". This is enabled by the feedback structure that is given in our modulator system.
 
 For that, let's observe the following block diagram of a first order model.
 
-![System Overview of the 1st order loopfilter](figures/theory/Simple_1stOrder_Mod_sys.png){#fig-loopfilter_sys_1st_order}
+![Linear Model of the 1st-Order Modulator](figures/theory/Simple_1stOrder_Mod_sys.png){#fig-loopfilter_sys_1st_order}
 
 It showcases a simple I/O behavioural model of a system that is inherently representative of what a Delta-Sigma modulator is. 
 
 'u' is our input signal, in case of an ADC application it should therefore denote our "analog input", which we will assume to be handled in a discrete fashion. 'v' denotes the output of our feedback system, which should contain sufficient information about our original input (more on the specific extraction later).
 
-The system contains the so called "loopfilter", the elemental block for the desireed shaping process. We also include an additive error, representing the error in our output due to quantization. The feedback path includes a unit delay to indicate that past output samples will impact the current computation of the input.
+The system contains the so called "loopfilter", the elemental block for the desired shaping process. We also include an additive error, representing the error in our output due to quantization. The feedback path includes a unit delay to indicate that past output samples will impact the current computation of the input.
 
 Using the markings $*_1$ and $*_2$, we can derive the transfer behaviour of our system as follows:
 
@@ -55,20 +58,81 @@ This shows the dependency of the output v on the separate terms for our input an
   v = STF(z)\,u + NTF(z)\,e
 \end{align}
 
+The Noiseshaping is now privided due to the given NTF, which will apply a high-pass characteristic onto the internal noise. 
+As a first general validation of that, if we check over a normalized frequency range of $\omega = [0, \pi]$ we derive for $z = e^{j\omega}$ at either z = e^{j\cdot 0} = 1 or z = e^{j\cdot \pi} = -1. Plugging that into the proposed NTF will lead to:
+
+\begin{align}
+  NTF(z) &= 1-z^{-1} \hat{=} 1-\frac{1}{e^{j\omega}} = 0\,; \quad \text{for}\ \omega \rightarrow 0  \\
+  NTF(z) &= 1-z^{-1} \hat{=} 1-\frac{1}{e^{j\omega}} = 2\,; \quad \text{for}\ \omega \rightarrow \pi  \\
+
+\end{align}
+
 
 <font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font>
 
+### 2nd-Order Modulator
 
-### Behavioural Analysis using MATLAB
+A second order Modulator can be realized by simply exchanging the quantizer of the first order system with yet another instance of the first order system, thereby reducing the in-band quantization noise.
+The Blockdiagram will end-up like in @fig-loopfilter_sys_2st_order.
+
+![Linear Model of the 2nd-Order Modulator](figures/theory/Simple_2nd_order_Mod_sys.png){#fig-loopfilter_sys_2st_order}
+
+Regarding the noise shaping we will ultimately end up with $NTF_2(z) = (1-z^{-1})^2$, so the square of the previous NTF.
+From that we can
+
+| Benefits of $2^{nd}$-Order | Downsides of $2^{nd}$-Order | 
+|------|------|
+| Better Loopfilter Gain Tolerance  | Added complexity due to extra circuitry  |
+| Superior SQNR/OSR trade-off    |  Reduced stability insurance (more limited input range)  |
+
+: Considerations between MOD1 and MOD2 {#tbl-2nd_vs_1st}
+
+See @tbl-2nd_vs_1st.
+
+### Behavioural Analysis/ Confirmation using MATLAB
+
+<font color="red">[add table with model specs.]</font>
+
+L = 1;                % Order of modulator
+form = 'CIFB';        % Cascade of integrator feedback
+opt = 0;              % No optimisation
+nLev = 2;             % Quantizer level
+fs = 220e3;           % Sampling frequency
+Ts = 1/fs;            % Sampling time
+M = 512;              % OSR
+N = 16*M;             % Simulation length (output samples), FFT points
+fB = fs/2/M;          % Bandwidth
+cycles = 9;           % Number of sinusoids
+fx = cycles * fs/N;   % Test tone
+A = 0.8;              % Signal amplitude
+t = Ts * [0:N-1];
+u = A * sin(2 * pi * fx/fs * [0:N-1]);
+
+L = 2;                % Order of modulator
+form = 'CIFB';        % Cascade of integrator feedback
+opt = 0;              % No optimisation
+nLev = 2;             % Quantizer level
+fs = 220e3;           % Sampling frequency
+Ts = 1/fs;            % Sampling time
+M = 512;              % OSR
+N = 16*M;             % Simulation length (output samples), FFT points
+fB = fs/(2*M);          % Bandwidth
+cycles = 9;           % Number of sinusoids
+fx = cycles * fs/N;   % Test tone
+A = 0.8;              % Signal amplitude
+t = Ts * [0:N-1];
+u = A * sin(2 * pi * fx/fs * [0:N-1]);
+
+To validate some of the behavioural characteristics, given by the established  theoretical concepts, the following models for the 1st- and 2nd order modulators were used within MATLAB Simulink. We will mainly focus on the results from the 2nd-order model to keep this section more concise
+
+![Utilized 2nd-Order Model in Simulink (CIFB)](figures/theory/simulink_2ndOrd_model.PNG){#fig-simulink_MOD2}
 
 
-![Utilized 2nd-Order Model in Simulink (CIFB)](figures/theory/simulink_2ndOrder_model.PNG){#fig-simulink_MOD2}
+![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.png){#fig-matlab_MOD2_IO_plot}
 
+![Pole-Zero Plot from the NTF, synthesized by MATLAB](figures/theory/2nd_order_pz_plot.png){#fig-matlab_MOD2_pz_plot}
 
-![I/O behaviour from MATLAB simulation model](figures/theory/2nd_order_behav_output.svg){#fig-matlab_MOD2_IO_plot}
-
-
-![I/O behaviour from MATLAB simulation model](figures/theory/spectralNTF_MOD2_matlab.svg){#fig-matlab_MOD2_NTF}
+![Spectral Analysis from Models for L=1 & L=2](figures/theory/spectral_analysis_L1_and_L2.svg){#fig-matlab_MOD1_2_NTF}
 
 
 

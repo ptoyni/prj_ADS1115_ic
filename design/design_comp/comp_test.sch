@@ -15,12 +15,8 @@ N -210 -540 -210 -450 {
 lab=VDD}
 N -390 -540 -390 -450 {
 lab=VDD}
-N -390 -290 -390 -250 {
-lab=d2m}
 N -390 -190 -390 -150 {
-lab=d1m}
-N -350 -220 -140 -220 {
-lab=clk}
+lab=#net1}
 N -140 -450 -140 -220 {
 lab=clk}
 N -170 -450 -140 -450 {
@@ -38,11 +34,7 @@ lab=VDD}
 N -700 -540 -700 -450 {
 lab=VDD}
 N -700 -220 -630 -220 {
-lab=VSS}
-N -700 -290 -700 -250 {
-lab=d2p}
-N -700 -190 -700 -150 {
-lab=d1p}
+lab=VDD}
 N -950 -220 -740 -220 {
 lab=clk}
 N -950 -450 -950 -220 {
@@ -117,15 +109,15 @@ N -870 -120 -740 -120 {lab=vin_p}
 N -990 -390 -880 -390 {lab=outn}
 N -790 -320 -700 -320 {lab=VSS}
 N -470 -220 -390 -220 {lab=VSS}
-C {devices/lab_wire.sym} -470 -220 0 0 {name=p1 sig_type=std_logic lab=VSS}
+N -700 -190 -700 -150 {lab=#net2}
+N -700 -290 -700 -250 {lab=#net3}
+N -350 -220 -140 -220 {lab=clk}
+N -390 -290 -390 -250 {lab=#net4}
+C {devices/lab_wire.sym} -460 -220 0 0 {name=p1 sig_type=std_logic lab=VSS}
 C {devices/lab_wire.sym} -630 -220 0 1 {name=p6 sig_type=std_logic lab=VSS}
 C {devices/ipin.sym} -1030 -510 0 0 {name=p11 lab=clk}
 C {devices/iopin.sym} -840 -50 2 0 {name=p8 lab=VSS}
 C {devices/iopin.sym} -1030 -540 0 1 {name=p13 lab=VDD}
-C {devices/lab_pin.sym} -700 -170 0 0 {name=p14 sig_type=std_logic lab=d1p}
-C {devices/lab_pin.sym} -390 -170 0 0 {name=p15 sig_type=std_logic lab=d1m}
-C {devices/lab_pin.sym} -700 -270 0 0 {name=p16 sig_type=std_logic lab=d2p}
-C {devices/lab_pin.sym} -390 -270 0 0 {name=p17 sig_type=std_logic lab=d2m}
 C {devices/ipin.sym} -290 -120 2 0 {name=p24 lab=vin_n}
 C {devices/ipin.sym} -870 -120 0 0 {name=p29 lab=vin_p}
 C {opin.sym} -990 -390 0 1 {name=p31 lab=outn
@@ -179,22 +171,6 @@ m=1
 model=sg13_lv_nmos
 spiceprefix=X
 }
-C {sg13g2_pr/sg13_lv_nmos.sym} -370 -220 2 0 {name=M2n
-l=Lnmos
-w=Wnmos
-ng=1
-m=1
-model=sg13_lv_nmos
-spiceprefix=X
-}
-C {sg13g2_pr/sg13_lv_nmos.sym} -720 -220 2 1 {name=M2p
-l=Lnmos
-w=Wnmos
-ng=1
-m=1
-model=sg13_lv_nmos
-spiceprefix=X
-}
 C {sg13g2_pr/sg13_lv_nmos.sym} -370 -120 2 0 {name=M1n
 l=Lnmos2
 w=Wnmos
@@ -213,3 +189,19 @@ spiceprefix=X
 }
 C {devices/lab_wire.sym} -310 -320 0 1 {name=p2 sig_type=std_logic lab=VSS}
 C {devices/lab_wire.sym} -790 -320 0 0 {name=p3 sig_type=std_logic lab=VSS}
+C {sg13g2_pr/sg13_lv_nmos.sym} -370 -220 2 0 {name=M1
+l=Lnmos
+w=Wnmos
+ng=1
+m=1
+model=sg13_lv_nmos
+spiceprefix=X
+}
+C {sg13g2_pr/sg13_lv_nmos.sym} -720 -220 2 1 {name=M2
+l=Lnmos
+w=Wnmos
+ng=1
+m=1
+model=sg13_lv_nmos
+spiceprefix=X
+}

@@ -68,14 +68,15 @@ set(gca, 'fontsize', 12);
 hold on;
 axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
 stairs(t, v, 'LineWidth', 1.5);
+plot(t, y, 'LineWidth', 1);
 plot(t, u, 'LineWidth', 2);
 xlabel('Time t/T');
 ylabel('Amplitude');
-legend('v', 'u');
+legend('v', 'y', 'u');
 title('1st Order \Sigma\Delta');
 hold off;
 
-save("./data/dat_time_domain_plot.mat", "t", "u", "v")
+save("./data/dat_time_domain_plot.mat", "t", "u", "v", "y")
 %% Spectral analysis, Lec. 4 - ADC Metrics
 sq = abs(fft(v));
 
