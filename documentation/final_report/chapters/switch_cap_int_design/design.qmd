@@ -1,6 +1,6 @@
 # Switch Capacitor Design
 
-We are using "CIFB" topology to realize our design.
+We are using "CIFB" topology also known as Cascade of integrators, feedback form to realize our design.
 
 ![Second-Order CIFB modulator](figures/switch_cap/_coeff.svg){#fig-SIMPLE_SH}
 
@@ -8,7 +8,7 @@ Functions of $\Sigma \Delta$ toolbox in MATLAB enables us to realize the NTF fun
 
 ## Capacitor Sizing
 
-In the first stage capacitance ratio ccan be computed as follows:
+As mentioned above, the coefficients translate into capacitor ratios. In the first stage capacitance ratio can be computed as follows:
 
 $$ 
 a_1 = \frac{C_1 V_\text{ref}}{C_2} = \frac{C_1 V_\text{dd}}{C_2}
@@ -36,9 +36,14 @@ Since, due to oversampling ratio is high, the in-band thermal noise of the secon
 
 ## OTA Sizing
 
-For integrator, we first implemented 5 transistor OTA. Using components available in IHP Microelectronics SG13G2 technology. First of all, we need to run the technology sweep to get the response of the OTA at various $V_{gs}$ and $V_{ds}$ values. Then we can use the sweep data to get the optimal graphs.
+For integrator, we first implemented 5 transistor OTA. Using components available in IHP Microelectronics SG13G2 technology. First of all, we need to run the technology sweep to get the response of the OTA at various $V_{gs}$ and $V_{ds}$ values. Then we can use the sweep data to get the optimal graphs in MATLAB.
 
-<font color ="red"> ADD TECHSWEEP SCREENSHOT and ota diagram </font>
+![Testsweep for LV NMOS g_m/I_d Characterisation](figures/switch_cap/techsweep_nmos.svg){#fig-Nmos_sweep}
+
+We have a similar tesbench for LV_PMOS which to depict their behaviour. We would use the data provided by these sweep to realize the sizing of OTA discussed below @fig-basic_ota 
+
+![5 Transistor OTA Design](figures/switch_cap/techsweep_nmos.svg){#fig-basic_ota}
+
 
 ### Choosing $I_{d}$ and $g_{m}$
 
