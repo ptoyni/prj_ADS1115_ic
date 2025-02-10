@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.6.37" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+<meta name="author" content="Miko Kranich" />
+<meta name="author" content="Lars Nickisch" />
+<meta name="author" content="Priyanka Toyni" />
+<meta name="author" content="Aftab Nagarji" />
+<meta name="dcterms.date" content="2025-02-10" />
+
+<title>Design of an Analog-Digital-Converter the Delta-Sigma way</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script  src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script  src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link  href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <div id="quarto-toc-target"></div>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default toc-left">
+  <div class="quarto-title-banner">
+    <div class="quarto-title column-body">
+      <h1 class="title">Design of an Analog-Digital-Converter the Delta-Sigma way</h1>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+            <div class="quarto-title-meta-author">
+          <div class="quarto-title-meta-heading">Authors</div>
+          <div class="quarto-title-meta-heading">Affiliation</div>
+          
+                <div class="quarto-title-meta-contents">
+            <p class="author">Miko Kranich <a href="mailto:mkranich@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        Hochschule Bremen
+                      </p>
+                  </div>
+                      <div class="quarto-title-meta-contents">
+            <p class="author">Lars Nickisch <a href="mailto:lnickisch@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+                      <div class="quarto-title-meta-contents">
+            <p class="author">Priyanka Toyni <a href="mailto:ptoyni@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+                      <div class="quarto-title-meta-contents">
+            <p class="author">Aftab Nagarji <a href="mailto:anagarji@stud.hs-bremen.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+                    </div>
+        
+        <div class="quarto-title-meta">
+
+                      
+                <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">2025-02-10</p>
+            </div>
+          </div>
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      </div>
+    </div>
+
+
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header>
+
+  
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#very-important-please-read" id="toc-very-important-please-read"><span class="header-section-number">1</span> VERY IMPORTANT, PLEASE READ</a></li>
+  <li><a href="#introduction" id="toc-introduction"><span class="header-section-number">2</span> Introduction</a>
+  <ul>
+  <li><a href="#top-level-overview-of-considered-system" id="toc-top-level-overview-of-considered-system"><span class="header-section-number">2.1</span> Top-Level Overview of Considered System</a></li>
+  <li><a href="#general-overview-of-given-adc" id="toc-general-overview-of-given-adc"><span class="header-section-number">2.2</span> General Overview of given ADC</a></li>
+  </ul></li>
+  <li><a href="#theory-and-charactersitics-of-delta-sigma-modulators" id="toc-theory-and-charactersitics-of-delta-sigma-modulators"><span class="header-section-number">3</span> Theory and Charactersitics of Delta-Sigma Modulators</a>
+  <ul>
+  <li><a href="#top-level-overview" id="toc-top-level-overview"><span class="header-section-number">3.1</span> Top-Level Overview</a></li>
+  <li><a href="#system-overview-of-deltasigma-modulators" id="toc-system-overview-of-deltasigma-modulators"><span class="header-section-number">3.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</a>
+  <ul>
+  <li><a href="#oversampling-circuits" id="toc-oversampling-circuits"><span class="header-section-number">3.2.1</span> Oversampling circuits</a></li>
+  <li><a href="#principle-of-noise-shaping" id="toc-principle-of-noise-shaping"><span class="header-section-number">3.2.2</span> Principle of Noise Shaping</a></li>
+  <li><a href="#behavioural-analysis-using-matlab" id="toc-behavioural-analysis-using-matlab"><span class="header-section-number">3.2.3</span> Behavioural Analysis using MATLAB</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#basic-behaviour-on-circuit-level" id="toc-basic-behaviour-on-circuit-level"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</a>
+  <ul>
+  <li><a href="#non-idealities" id="toc-non-idealities"><span class="header-section-number">4.1</span> Non-Idealities</a></li>
+  <li><a href="#switched-capacitor-integrator" id="toc-switched-capacitor-integrator"><span class="header-section-number">4.2</span> Switched Capacitor Integrator</a></li>
+  <li><a href="#ideal-system-model-in-ltspice" id="toc-ideal-system-model-in-ltspice"><span class="header-section-number">4.3</span> Ideal system model in LTSpice</a></li>
+  </ul></li>
+  <li><a href="#design-proposals" id="toc-design-proposals"><span class="header-section-number">5</span> Design Proposals</a>
+  <ul>
+  <li><a href="#clock-phase-generation" id="toc-clock-phase-generation"><span class="header-section-number">5.1</span> Clock-Phase generation</a></li>
+  <li><a href="#comparator-design" id="toc-comparator-design"><span class="header-section-number">5.2</span> Comparator Design</a>
+  <ul>
+  <li><a href="#model--architecture-elaboration" id="toc-model--architecture-elaboration"><span class="header-section-number">5.2.1</span> Model-/ Architecture elaboration</a></li>
+  <li><a href="#comparator-stage" id="toc-comparator-stage"><span class="header-section-number">5.2.2</span> Comparator Stage</a></li>
+  <li><a href="#latching-circuit" id="toc-latching-circuit"><span class="header-section-number">5.2.3</span> Latching Circuit</a></li>
+  <li><a href="#implementation" id="toc-implementation"><span class="header-section-number">5.2.4</span> Implementation</a></li>
+  <li><a href="#validation" id="toc-validation"><span class="header-section-number">5.2.5</span> Validation</a></li>
+  </ul></li>
+  <li><a href="#digital-output-filtering" id="toc-digital-output-filtering"><span class="header-section-number">5.3</span> Digital Output Filtering</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references"><span class="header-section-number">6</span> References</a></li>
+  </ul>
+</nav>
+<section id="very-important-please-read" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> VERY IMPORTANT, PLEASE READ</h1>
+<p>To get the quarto output to behave properly, some steps have to be taken.</p>
+<ol type="1">
+<li><p>When parsing data from .raw files, the toolbox will throw a warning. To prevent this, right click on “l.parse()” -&gt; “Go to definition”. There, you comment out line 197 and the warning is gone.</p></li>
+<li><p>Whenever referencing to a figure, some data file, etc. and you compile the whole document (“report_grp4.qmd”) the paths specified have to be relative to the main document, otherwise quarto won’t find the specified file</p></li>
+<li><p>If you need help with importing .raw files using python, please look at my version in chapters/clock_gen/clock_gen.qmd</p></li>
+</ol>
+</section>
+<section id="introduction" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
+<p>Since more and more manufacturers are ending their production of integrated circuit solutions, the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course “Concept Engineering Mixed-Technology Systems”, held by Professor Meiners at Hochschule Bremen, are tasked with the development of an Analog-Digital-Converter, roughly modeled in a way to replace the ADS1115 by Texas Instruments within a specified measurement system-chain.</p>
+<p>In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of <span class="math inline">\(\Sigma \Delta\)</span> ADC’s, an exploration of it’s basic behavioural characteristics via system analysis, deriving basic and idealized circuits to match the behaviour, and lastly a detailed step-by-step design using SPICE simulations within the xschem design environment, where solutions on IC-level will be proposed.</p>
+<section id="top-level-overview-of-considered-system" class="level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Top-Level Overview of Considered System</h2>
+<p>The considered system of interest for this semester is a classical meassurement system, consisting of an accelerometer as our analog data source, an ADC to convert said analog data to the digital domain, which can then be handled by a microcontroller as our processing unit.</p>
+<p>The specific board-level components that are considered for this signal-chain are the ADXL335 accelerometer, the ADS1115 ADC and an ESP8266 microcontroller.</p>
+<div id="fig-toplvl_view" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-toplvl_view-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/introduction/toplvl_sys_overview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure 1: Concerned Top-Level Measurement System"><img src="figures/introduction/toplvl_sys_overview.png" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-toplvl_view-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: Concerned Top-Level Measurement System
+</figcaption>
+</figure>
+</div>
+<p>The mentioned ICs are given as evaluation- &amp; breakout boards as part of the lab inventory.</p>
+<div id="fig-ADXL_block" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-ADXL_block-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/introduction/ADXL335.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure 2: ADXL335 Functional Block Diagram [datasheet]"><img src="figures/introduction/ADXL335.PNG" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ADXL_block-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2: ADXL335 Functional Block Diagram [datasheet]
+</figcaption>
+</figure>
+</div>
+<div id="fig-ADS_block" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-ADS_block-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/introduction/ADS1115.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure 3: ADS1115 Functional Block Diagram [datasheet]"><img src="figures/introduction/ADS1115.PNG" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ADS_block-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 3: ADS1115 Functional Block Diagram [datasheet]
+</figcaption>
+</figure>
+</div>
+<div id="fig-ESP8266" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-ESP8266-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/introduction/ESP8266_breakout.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure 4: ESP8266 Breakoutboard Pinout"><img src="figures/introduction/ESP8266_breakout.PNG" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ESP8266-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 4: ESP8266 Breakoutboard Pinout
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="general-overview-of-given-adc" class="level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> General Overview of given ADC</h2>
+<p>Figure <a href="#fig-adc_overview" class="quarto-xref">Figure 5</a> shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.</p>
+<div id="fig-adc_overview" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-adc_overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/introduction/BlockDiagramm_ADS1115.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure 5: Block diagram internal structure ADS1115"><img src="figures/introduction/BlockDiagramm_ADS1115.svg" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-adc_overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 5: Block diagram internal structure ADS1115
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="theory-and-charactersitics-of-delta-sigma-modulators" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Theory and Charactersitics of Delta-Sigma Modulators</h1>
+<section id="top-level-overview" class="level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Top-Level Overview</h2>
+<p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilizes the principles of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.</p>
+<p>The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Anti-Alias Filtering] --&gt; B[Sampling]
+  B --&gt; C[Quantization]
+  C --&gt; D[Digital Filtering]
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+<p>Anti-Aliasing measures have to be considered to ensure a “clean” input signal to the modulator system, without unwanted parasitic components.</p>
+<p>The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).</p>
+<p>The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing “moving-average filtering”.</p>
+</section>
+<section id="system-overview-of-deltasigma-modulators" class="level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</h2>
+<section id="oversampling-circuits" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Oversampling circuits</h3>
+</section>
+<section id="principle-of-noise-shaping" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Principle of Noise Shaping</h3>
+<p>The key advantage that Delta-Sigma Modulation brings to the table is “noise shaping”. This is enabled by the feedback structure that is given in our modulator system.</p>
+<p>For that, let’s observe the following block diagram of a first order model.</p>
+<div id="fig-loopfilter_sys_1st_order" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-loopfilter_sys_1st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/theory/Simple_1stOrder_Mod_sys.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure 6: System Overview of the 1st order loopfilter"><img src="figures/theory/Simple_1stOrder_Mod_sys.png" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loopfilter_sys_1st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 6: System Overview of the 1st order loopfilter
+</figcaption>
+</figure>
+</div>
+<p>It showcases a simple I/O behavioural model of a system that is inherently representative of what a Delta-Sigma modulator is.</p>
+<p>‘u’ is our input signal, in case of an ADC application it should therefore denote our “analog input”, which we will assume to be handled in a discrete fashion. ‘v’ denotes the output of our feedback system, which should contain sufficient information about our original input (more on the specific extraction later).</p>
+<p>The system contains the so called “loopfilter”, the elemental block for the desireed shaping process. We also include an additive error, representing the error in our output due to quantization. The feedback path includes a unit delay to indicate that past output samples will impact the current computation of the input.</p>
+<p>Using the markings <span class="math inline">\(*_1\)</span> and <span class="math inline">\(*_2\)</span>, we can derive the transfer behaviour of our system as follows:</p>
+<p><span class="math display">\[\begin{align}
+  v &amp;= e + *_2\,;\quad *_2 = (\frac{1}{1-z^{-1}}) \, *_1\,; \quad *_1 = u - v\,z^{-1} \\
+  \Rightarrow&amp; *_2 = (\frac{1}{1-z^{-1}})\, (u-v\,z^{-1})\,; v = e + (\frac{1}{1-z^{-1}})\,(u-v\,z^{-1})\\
+  \Leftrightarrow&amp;\, v = \frac{u}{1-z^{-1}} - \frac{v\,z^{-1}}{1-z^{-1}} + e \\
+  \Leftrightarrow&amp;\, v(1-z^{1}) = u - v\,z^{-1} + e(1-z^{-1}) \\
+  \Leftrightarrow&amp;\, v \cancel{-v\,z^{-1}} \cancel{+ v\,z^{-1}} = u + e(1-z^{-1})
+\end{align}\]</span></p>
+<p>This shows the dependency of the output v on the separate terms for our input and the quantization error. We can denote these functions of <span class="math inline">\(z\)</span> as our transfer functions for either the signal (<span class="math inline">\(STF(z) = 1\)</span>) or our quantization “noise” (<span class="math inline">\(NTF(z) = 1-z^{-1}\)</span>)</p>
+<p><span class="math display">\[\begin{align}
+  v = STF(z)\,u + NTF(z)\,e
+\end{align}\]</span></p>
+<p><font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font></p>
+</section>
+<section id="behavioural-analysis-using-matlab" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> Behavioural Analysis using MATLAB</h3>
+<div id="fig-simulink_MOD2" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-simulink_MOD2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/theory/simulink_2ndOrder_model.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure 7: Utilized 2nd-Order Model in Simulink (CIFB)"><img src="figures/theory/simulink_2ndOrder_model.PNG" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simulink_MOD2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 7: Utilized 2nd-Order Model in Simulink (CIFB)
+</figcaption>
+</figure>
+</div>
+<div id="fig-matlab_MOD2_IO_plot" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-matlab_MOD2_IO_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/theory/2nd_order_behav_output.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure 8: I/O behaviour from MATLAB simulation model"><img src="figures/theory/2nd_order_behav_output.svg" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_IO_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 8: I/O behaviour from MATLAB simulation model
+</figcaption>
+</figure>
+</div>
+<div id="fig-matlab_MOD2_NTF" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-matlab_MOD2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/theory/spectralNTF_MOD2_matlab.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure 9: I/O behaviour from MATLAB simulation model"><img src="figures/theory/spectralNTF_MOD2_matlab.svg" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 9: I/O behaviour from MATLAB simulation model
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="basic-behaviour-on-circuit-level" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</h1>
+<p>In this section, we will deal with realization of our Delta-Sigma Modulator on the circuit level for given specifications. We will consider the basic behaviour of the circuit, and implement them.</p>
+<p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
+<p>First of all, let’s see conceptually simplest Sample and Hold <strong>(S/H)</strong> consists of a Switch and Capacitor in <a href="#fig-SIMPLE_SH" class="quarto-xref">Figure 10</a>.</p>
+<div id="fig-SIMPLE_SH" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/switch_cap/_basic_sh.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure 10: Simple Sample and Hold"><img src="figures/switch_cap/_basic_sh.svg" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 10: Simple Sample and Hold
+</figcaption>
+</figure>
+</div>
+<p>If the Switch is closed, the Capacitor will charge up to the input voltage which denotes to track phase. When Switch is opened, the Capacitor will hold the input voltage which denotes to hold phase, such circuits are also known as <strong>Track and Hold</strong> circuits.</p>
+<section id="non-idealities" class="level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Non-Idealities</h2>
+<p>Unlike ideal Switches, real switches have some “On-Resistance <strong>Ron</strong>” which is some function of input. 1/RonC is the bandwidth during the tracking phase. The signal is being stored in Capacitor in terms of charge, smaller the Capacitor more the tendency of getting disturbed or leakage.</p>
+<p>Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage $$ in series with resistance. Ouput Noise is present for all frequencies also known as <strong>Whilte Noise</strong> and is given as</p>
+<p><span class="math display">\[
+V_\mathrm{n}^2 = \frac{k T}{C}
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is Boltzmann’s constant, <span class="math inline">\(T\)</span> is temperature in Kelvin.</p>
+<p>Candidate for switch in circuit is MOSFET. Above were the non-idealities present if switch is ON. Even if switch is OFF its far from being ideal. Ideally, it should be open circuit but there is some <span class="math inline">\(C_{OFF}\)</span> present.</p>
+<p>More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to <strong>Charge Injection</strong>. Injected Charge is Non-Linear function of Vin. Due to these reasons we are using <strong>Bottom Plate Switching</strong>.</p>
+</section>
+<section id="switched-capacitor-integrator" class="level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Switched Capacitor Integrator</h2>
+<p>A classic implementation of realizing an active integrator would be with the opamp circuit using a switch capacitor. However, in IC level implementation we use OTA instead of OpAMP as output resistance of OTA is infinte which benefits us heavily. H(z) enables us to realize any Discrete Time Transfer Function. There are two types of integrators:</p>
+<ul>
+<li><strong>Delay Free Integrator</strong>: This form of integrator include the current sample of the input signal as well. Its transfer function is given as:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+  \frac{H(z)} = \frac{1}{1-z^{-1}}
+\end{align}\]</span></p>
+<ul>
+<li><strong>Delayed Integrator</strong>: This form of integrator does not include the current sample of the input signal. Its transfer function is given as:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+  \frac{H(z)} = \frac{z^{-1}}{1-z^{-1}}
+\end{align}\]</span></p>
+<p>We will be usinf the second form of integrator in our system.</p>
+<p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <a href="#fig-opamp_sc_integrator" class="quarto-xref">Figure 11</a>, which leads to a switched-capacitor integrator.</p>
+<div id="fig-opamp_sc_integrator" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-opamp_sc_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/theory/SC_Integrator_Circuit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure 11: Opamp based switched capacitor integrator"><img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-opamp_sc_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 11: Opamp based switched capacitor integrator
+</figcaption>
+</figure>
+</div>
+<p>The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit’s functionality.</p>
+<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases, depicted in Figures <a href="#fig-phase1_integrator" class="quarto-xref">Figure 12</a> and <a href="#fig-phase2_integrator" class="quarto-xref">Figure 13</a>.</p>
+<div id="fig-phase1_integrator" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-phase1_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/theory/sc_integrator_ph1.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure 12: Integrator state during phase 1"><img src="figures/theory/sc_integrator_ph1.PNG" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase1_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 12: Integrator state during phase 1
+</figcaption>
+</figure>
+</div>
+<div id="fig-phase2_integrator" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-phase2_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/theory/sc_integrator_ph2.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure 13: Integrator state during phase 2"><img src="figures/theory/sc_integrator_ph2.PNG" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase2_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 13: Integrator state during phase 2
+</figcaption>
+</figure>
+</div>
+<p>The first phase allows for the capacitor <span class="math inline">\(C_1\)</span> to be charged from the input, leading to the charge accumulation <span class="math inline">\(q_1[1]\)</span>, during which the integrating capacitor <span class="math inline">\(C_2\)</span> holds it’s previous charge (<span class="math inline">\(q_2[n]\)</span>). Due to the relation <span class="math inline">\(V = \frac{Q}{C}\)</span>, the output voltage will be equal to the ratio of that charge <span class="math inline">\(q_2[n]\)</span> to the capacitance <span class="math inline">\(C_2\)</span>.</p>
+<p>The second phase will than result in the charge of <span class="math inline">\(C_1\)</span> to accumulate in <span class="math inline">\(C_2\)</span>, due to the opamps input behaviour related to it’s “virtual ground”. C2 will therefore have the sum of charges, leading to</p>
+<p><span class="math display">\[\begin{align}\label{sc_charge_ph2}
+  q_2[n+1] = q_2 + q_1.
+\end{align}\]</span></p>
+<p>After applying the <span class="math inline">\(z\)</span>-transform, the result is</p>
+<p><span class="math display">\[\begin{align}
+  Q_2(z) = Q_2(z)\,z^{-1} + Q_1(z)\,z^{-1}
+\end{align}\]</span></p>
+<p>which in turn can be rearranged to get</p>
+<p><span class="math display">\[\begin{align}
+  \frac{Q_2(z)}{Q_1(z)} = \frac{z^{-1}}{1-z^{-1}}
+\end{align}\]</span></p>
+<p>Utilizing the aforementions relation between voltage, charge and capacitance, we can derive the voltage I/O behaviour (transfer function) to be the following</p>
+<p><span class="math display">\[\begin{align}
+  \frac{V_{out}}{V_{in}} = \frac{z^{-1}}{1-z^{-1}} \frac{C1}{C2} = H_v(z)
+\end{align}\]</span></p>
+<p>The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain (<span class="math inline">\(C_1 = C_2\)</span>).</p>
+<p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in <a href="#fig-loopfilter_sys_1st_order" class="quarto-xref">Figure 6</a>.</p>
+</section>
+<section id="ideal-system-model-in-ltspice" class="level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> Ideal system model in LTSpice</h2>
+<p>The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components.<br />
+For the switched capacitor input stage, ideal switches were used. These switches activate when the difference on the two input terminals is greater than zero. The non-overlap in the phases can be controlled by setting the voltage sources modeling the phase generator appropriately. The OTA is modeled by a simple voltage controlled current source with a resistor in parallel. This roughly follows the small signal representation of an OTA. Following the OTA is a comparator consisting of an input difference amplifier which compares the output of the OTA to a constant voltage of <span class="math inline">\(V_{DD}/2\)</span>. The latching is done by two ideal switches with oppositely connected supply terminals. The output is then amplified by comparing the current output voltage level to 0V and setting a voltage source to <span class="math inline">\(V_{SS}\)</span> or <span class="math inline">\(V_{DD}\)</span> accordingly.</p>
+</section>
+</section>
+<section id="design-proposals" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Design Proposals</h1>
+<p>This chapter shall highlight our attempts at realizing the desired subsystems of the <span class="math inline">\(\Delta\Sigma\)</span> modulator on transistor level, utilizing the 130 nm technology offered from the IHP’s sg13g2 BiCMOS PDK for open source usage.</p>
+<p>The following subchapters will elaborate on the separate subcircuits, briefly explain the workings of the circuits before going over the achieved simulation results. Xschem was used as the schematic capture EDA tool, while the testbench-driven simulations utilize ngspice.</p>
+<section id="clock-phase-generation" class="level2" data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> Clock-Phase generation</h2>
+<p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure 14</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
+<div id="fig-phase_gen" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-phase_gen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/clk_gen/schem_clock_generation.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure 14: Basic structure for delayed clock phase generation"><img src="figures/clk_gen/schem_clock_generation.svg" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase_gen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 14: Basic structure for delayed clock phase generation
+</figcaption>
+</figure>
+</div>
+<p>By changing the capacitance of the marked inverters the actual delay between <span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_{id}\)</span> can be controlled. It is worth noting however, that the capacitive load <span class="math inline">\(C_L\)</span> experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure <a href="#fig-delay_norm" class="quarto-xref">Figure 15</a></p>
+<div id="cell-fig-delay_norm" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>[Warning] Variable data type is detected as double precision.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-delay_norm" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="report_grp4_files/figure-html/fig-delay_norm-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure 15: Delayed clock signals"><img src="report_grp4_files/figure-html/fig-delay_norm-output-2.png" width="602" height="449" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 15: Delayed clock signals
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure <a href="#fig-delay_norm" class="quarto-xref">Figure 15</a> shows the normal delay between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_{1d}\)</span> as well as the non-overlap with <span class="math inline">\(\phi_2\)</span>. The structure used for clock generation was modeled after the circuit provided by Boris Murman <span class="citation" data-cites="murmann">[@murmann]</span>. In this, they used the <em>sg13g2</em> standard cells for the NAND gates and inverters which are not built from single transistors and hence their capacitance can not be changed. <font color="red">This however does not affect the circuits ability to generate the needed delays and non-overlaps. Creating the gates from transistors, and in turn the whole structure, does show the same behaviour. TO BE CONFIRMED WITH ACUTAL SC/ADC FOLLOWING</font>. We thus continue to use the version with gate parameters controllable through the transistors. <font color="red">WHY WAS THIS DECISION MADE?</font></p>
+<p>The circuits used for the gates are depicted in figures <a href="#fig-inv" class="quarto-xref">Figure 16 (a)</a> and <a href="#fig-nand" class="quarto-xref">Figure 16 (b)</a> for the inverters and NAND gates respectively.</p>
+<div id="fig-gates" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-gates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-gates" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-inv" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-inv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/clk_gen/inverter.svg" class="lightbox" data-gallery="fig-gates" title="Figure 16 (a): Inverter"><img src="figures/clk_gen/inverter.svg" class="img-fluid" data-ref-parent="fig-gates" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-inv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Inverter
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-gates" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-nand" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-nand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/clk_gen/nand_gate.svg" class="lightbox" data-gallery="fig-gates" title="Figure 16 (b): NAND Gate"><img src="figures/clk_gen/nand_gate.svg" class="img-fluid" data-ref-parent="fig-gates" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-nand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) NAND Gate
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 16: Gates used for clock generating structures
+</figcaption>
+</figure>
+</div>
+<p>The cascading of two CMOS inverters in figure <a href="#fig-inv" class="quarto-xref">Figure 16 (a)</a> is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font></p>
+</section>
+<section id="comparator-design" class="level2" data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span> Comparator Design</h2>
+<p>As the output stage of the modulator subsystem of the desired <span class="math inline">\(\Delta\Sigma\)</span> modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal. A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either “high” or “low”, which will do fine to give us the PWM signal at the output.</p>
+<section id="model--architecture-elaboration" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1"><span class="header-section-number">5.2.1</span> Model-/ Architecture elaboration</h3>
+<p>The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide. Lastly it also utilizes a d-flip-flop for the “digitized” output signal(-s), to be fed back to the loopfilter structures.</p>
+</section>
+<section id="comparator-stage" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2"><span class="header-section-number">5.2.2</span> Comparator Stage</h3>
+<p>The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure 17</a>. It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches.</p>
+<div id="fig-strongarm_circuit" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/comp/comp_architecture.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Figure 17: Comparator, realized through inverter based architecture"><img src="figures/comp/comp_architecture.svg" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 17: Comparator, realized through inverter based architecture
+</figcaption>
+</figure>
+</div>
+<p>(to be cited:</p>
+<ul>
+<li>Low Voltage, Low Power, Inverter-Based Switched-Capacitor Delta-Sigma Modulator</li>
+<li>Murmann lectures (e.g. 6) )</li>
+</ul>
+<p>This circuits behaviour is fundamentally tied to the clock states, leading to either the so called “precharge” phase during low clock levels, or the “amplification” phase during an active clock phase.</p>
+<p>During low clock phases the pmos transistors, directly tied to the supply rail, open up and therefore pull both the output nodes to <span class="math inline">\(V_{DD}\)</span>.</p>
+<p>During high clock phases the nmos transistors start to conduct and allow for current to flow to the shared source contact of the input differential pair, so to <span class="math inline">\(V_{SS}\)</span></p>
+<p>[tbd]</p>
+</section>
+<section id="latching-circuit" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3"><span class="header-section-number">5.2.3</span> Latching Circuit</h3>
+<p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.</p>
+</section>
+<section id="implementation" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4"><span class="header-section-number">5.2.4</span> Implementation</h3>
+<p>[xschem circuit to be placed here]</p>
+</section>
+<section id="validation" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5"><span class="header-section-number">5.2.5</span> Validation</h3>
+<p>[some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]</p>
+<div class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>[Warning] Variable data type is detected as double precision.</code></pre>
+</div>
+<div id="fig-comp_plot" class="cell quarto-float quarto-figure quarto-figure-center" data-execution_count="2">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display">
+<div id="fig-comp_plot-1" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-comp_plot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="report_grp4_files/figure-html/fig-comp_plot-output-2.png" class="lightbox" data-gallery="fig-comp_plot" title="Figure 18 (a): Waveworms of Comparator Subsystem"><img src="report_grp4_files/figure-html/fig-comp_plot-output-2.png" data-ref-parent="fig-comp_plot" width="589" height="449" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comp_plot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Waveworms of Comparator Subsystem
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-comp_plot-2" class="quarto-float quarto-figure quarto-figure-center" width="589" height="449">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-comp_plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="report_grp4_files/figure-html/fig-comp_plot-output-3.png" class="lightbox" data-gallery="fig-comp_plot" title="Figure 18 (b): "><img src="report_grp4_files/figure-html/fig-comp_plot-output-3.png" id="fig-comp_plot-2" data-ref-parent="fig-comp_plot" width="589" height="449" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comp_plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 18
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="digital-output-filtering" class="level2" data-number="5.3">
+<h2 data-number="5.3"><span class="header-section-number">5.3</span> Digital Output Filtering</h2>
+<p>The topic of digital filtering and decimation after the actual modulator stage could not be explored extensively during this semester. We do however want to briefly describe that subsystem from a conceptual perspective.</p>
+</section>
+</section>
+<section id="references" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
+</section>
+
+</main>
+<!-- /main column -->
+<script id = "quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+</body>
+
+</html>

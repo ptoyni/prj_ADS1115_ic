@@ -1,17 +1,50 @@
 # Basic Behaviour on Circuit Level
 
-(to be cited: Schreier) 
+In this section, we will deal with realization of our Delta-Sigma Modulator on the circuit level for given specifications. We will consider the basic behaviour of the circuit, and implement them. 
 
-## Switched Capacitor Integrator as Loop Filter 
 The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
 
-A classic implementation of realizing an active integrator would be with the following opamp circuit in figure @fig-opamp_integrator.
+First of all, let's see conceptually simplest Sample and Hold **(S/H)** consists of a Switch and Capacitor in @fig-SIMPLE_SH.
 
-![Simple opamp based integrator](figures/theory/Integrator_Circuit.svg){#fig-opamp_integrator}
+![Simple Sample and Hold](figures/switch_cap/_basic_sh.svg){#fig-SIMPLE_SH}
 
-(explain basic principle of shown integrator circuit)
 
-There is however the inconvinience that the resistor on the input is generally a lossy and potentially noisy element for our system.
+If the Switch is closed, the Capacitor will charge up to the input voltage which denotes to track phase. When Switch is opened, the Capacitor will hold the input voltage which denotes to hold phase, such circuits are also known as **Track and Hold** circuits.
+
+## Non-Idealities
+
+Unlike ideal Switches, real switches have some "On-Resistance **Ron**" which is some function of input. 1/RonC is the bandwidth during the tracking phase. The signal is being stored in Capacitor in terms of charge, smaller the Capacitor more the tendency of getting disturbed or leakage. 
+
+Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage $\vn $ in series with resistance. Ouput Noise is present for all frequencies also known as **Whilte Noise** and is given as 
+
+$$
+V_\mathrm{n}^2 = \frac{k T}{C} 
+$$
+
+where $k$ is Boltzmann's constant, $T$ is temperature in Kelvin.
+
+Candidate for switch in circuit is MOSFET. Above were the non-idealities present if switch is ON. Even if switch is OFF its far from being ideal. Ideally, it should be open circuit but there is some $C_{OFF}$ present. 
+
+More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to **Charge Injection**. Injected Charge is Non-Linear function of Vin. Due to these reasons we are using **Bottom Plate Switching**. 
+
+
+## Switched Capacitor Integrator
+
+A classic implementation of realizing an active integrator would be with the opamp circuit using a switch capacitor. However, in IC level implementation we use OTA instead of OpAMP as output resistance of OTA is infinte which benefits us heavily. H(z) enables us to realize any Discrete Time Transfer Function. There are two types of integrators:
+
+- **Delay Free Integrator**: This form of integrator include the current sample of the input signal as well. Its transfer function is given as: 
+
+\begin{align}
+  {H(z)} = \frac{1}{1-z^{-1}}
+\end{align}
+
+- **Delayed Integrator**: This form of integrator does not include the current sample of the input signal. Its transfer function is given as:
+
+\begin{align}
+  {H(z)} = \frac{z^{-1}}{1-z^{-1}}
+\end{align}
+
+We will be usinf the second form of integrator in our system.
 
 Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure @fig-opamp_sc_integrator, which leads to a switched-capacitor integrator. 
   
@@ -53,7 +86,7 @@ Utilizing the aforementions relation between voltage, charge and capacitance, we
 
 The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain ($C_1 = C_2$).
 
-The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure @fig-loopfilter_sys_1st_order.
+The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in @fig-loopfilter_sys_1st_order.
 
 ## Ideal system model in LTSpice
 The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components.\

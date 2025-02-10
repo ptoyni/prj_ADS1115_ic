@@ -42,4 +42,7 @@ format:
     code-fold: true
     cite-method: biblatex
     css: styles.css
+  pdf: 
+    toc: true
+    pdf-engine: xelatex
 

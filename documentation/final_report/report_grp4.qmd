@@ -16,6 +16,8 @@ The following subchapters will elaborate on the separate subcircuits, briefly ex
 
 {{< include chapters/clock_gen/clock_gen.qmd >}}
 
+{{< include chapters/switch_cap_int_design/design.qmd >}}
+
 {{< include chapters/design/comparator/comp.qmd >}}
 
 {{< include chapters/digital_filt/digital_filt.qmd >}}
