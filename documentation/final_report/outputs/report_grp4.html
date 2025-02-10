@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-02-09">
+<meta name="dcterms.date" content="2025-02-10">
 
 <title>Design of an Analog-Digital-Converter the Delta-Sigma way</title>
 <style>
@@ -130,8 +130,9 @@ window.Quarto = {
   <ul>
   <li><a href="#oversampling-circuits" id="toc-oversampling-circuits" class="nav-link" data-scroll-target="#oversampling-circuits"><span class="header-section-number">3.2.1</span> Oversampling circuits</a></li>
   <li><a href="#principle-of-noise-shaping-1st-order" id="toc-principle-of-noise-shaping-1st-order" class="nav-link" data-scroll-target="#principle-of-noise-shaping-1st-order"><span class="header-section-number">3.2.2</span> Principle of Noise Shaping (1st-Order)</a></li>
-  <li><a href="#nd-order-modulator" id="toc-nd-order-modulator" class="nav-link" data-scroll-target="#nd-order-modulator"><span class="header-section-number">3.2.3</span> 2nd-Order Modulator</a></li>
-  <li><a href="#behavioural-analysis-confirmation-using-matlab" id="toc-behavioural-analysis-confirmation-using-matlab" class="nav-link" data-scroll-target="#behavioural-analysis-confirmation-using-matlab"><span class="header-section-number">3.2.4</span> Behavioural Analysis/ Confirmation using MATLAB</a></li>
+  <li><a href="#sqnr-and-enob" id="toc-sqnr-and-enob" class="nav-link" data-scroll-target="#sqnr-and-enob"><span class="header-section-number">3.2.3</span> SQNR and ENOB</a></li>
+  <li><a href="#nd-order-modulator" id="toc-nd-order-modulator" class="nav-link" data-scroll-target="#nd-order-modulator"><span class="header-section-number">3.2.4</span> 2nd-Order Modulator</a></li>
+  <li><a href="#behavioural-analysis-confirmation-using-matlab" id="toc-behavioural-analysis-confirmation-using-matlab" class="nav-link" data-scroll-target="#behavioural-analysis-confirmation-using-matlab"><span class="header-section-number">3.2.5</span> Behavioural Analysis/ Confirmation using MATLAB</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#basic-behaviour-on-circuit-level" id="toc-basic-behaviour-on-circuit-level" class="nav-link" data-scroll-target="#basic-behaviour-on-circuit-level"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</a>
@@ -201,7 +202,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-02-09</p>
+      <p class="date">2025-02-10</p>
     </div>
   </div>
   
@@ -318,6 +319,24 @@ Figure&nbsp;5: Block diagram internal structure ADS1115
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">3.2.1</span> Oversampling circuits</h3>
 <p>Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth <span class="math inline">\(f_B\)</span>, so that the input can be reconstructed reliably afterwards (avoiding aliasing). These converters operate in a way that input samples</p>
 <p><font color="red">[schreier]</font></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Nyquist Converters</th>
+<th>Oversampling Converters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="principle-of-noise-shaping-1st-order" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="principle-of-noise-shaping-1st-order"><span class="header-section-number">3.2.2</span> Principle of Noise Shaping (1st-Order)</h3>
@@ -356,8 +375,16 @@ Figure&nbsp;6: Linear Model of the 1st-Order Modulator
 \end{align}\]</span></p>
 <p><font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font></p>
 </section>
-<section id="nd-order-modulator" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="nd-order-modulator"><span class="header-section-number">3.2.3</span> 2nd-Order Modulator</h3>
+<section id="sqnr-and-enob" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="sqnr-and-enob"><span class="header-section-number">3.2.3</span> SQNR and ENOB</h3>
+<p>Having effective noise shaping will increase the Signal-to-Quantazation-Noise-Ratio (SQNR) of the system within the band of interest. The SQNR is fundamentally tied to the “effective number of bits” (ENOB) that can be converted reliably. For a sine wave input to an ideal Nyquist converter, the relation between SNR and the ENOB is given through the following equation.</p>
+<p><span class="math display">\[\begin{align}
+  SNR_{dB} = 6.02 \cdot ENOB + 1.76 \\
+  ENOB =
+\end{align}\]</span></p>
+</section>
+<section id="nd-order-modulator" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="nd-order-modulator"><span class="header-section-number">3.2.4</span> 2nd-Order Modulator</h3>
 <p>A second order Modulator can be realized by simply exchanging the quantizer of the first order system with yet another instance of the first order system, thereby reducing the in-band quantization noise. The Blockdiagram will end-up like in <a href="#fig-loopfilter_sys_2st_order" class="quarto-xref">Figure&nbsp;7</a>.</p>
 <div id="fig-loopfilter_sys_2st_order" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -403,11 +430,79 @@ Table&nbsp;1: Considerations between MOD1 and MOD2
 </div>
 <p>See <a href="#tbl-2nd_vs_1st" class="quarto-xref">Table&nbsp;1</a>.</p>
 </section>
-<section id="behavioural-analysis-confirmation-using-matlab" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="behavioural-analysis-confirmation-using-matlab"><span class="header-section-number">3.2.4</span> Behavioural Analysis/ Confirmation using MATLAB</h3>
-<p><font color="red">[add table with model specs.]</font></p>
-<p>L = 1; % Order of modulator form = ‘CIFB’; % Cascade of integrator feedback opt = 0; % No optimisation nLev = 2; % Quantizer level fs = 220e3; % Sampling frequency Ts = 1/fs; % Sampling time M = 512; % OSR N = 16<em>M; % Simulation length (output samples), FFT points fB = fs/2/M; % Bandwidth cycles = 9; % Number of sinusoids fx = cycles </em> fs/N; % Test tone A = 0.8; % Signal amplitude t = Ts * [0:N-1]; u = A * sin(2 * pi * fx/fs * [0:N-1]);</p>
-<p>L = 2; % Order of modulator form = ‘CIFB’; % Cascade of integrator feedback opt = 0; % No optimisation nLev = 2; % Quantizer level fs = 220e3; % Sampling frequency Ts = 1/fs; % Sampling time M = 512; % OSR N = 16<em>M; % Simulation length (output samples), FFT points fB = fs/(2</em>M); % Bandwidth cycles = 9; % Number of sinusoids fx = cycles * fs/N; % Test tone A = 0.8; % Signal amplitude t = Ts * [0:N-1]; u = A * sin(2 * pi * fx/fs * [0:N-1]);</p>
+<section id="behavioural-analysis-confirmation-using-matlab" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="behavioural-analysis-confirmation-using-matlab"><span class="header-section-number">3.2.5</span> Behavioural Analysis/ Confirmation using MATLAB</h3>
+<p>The behavioural analysis in MATLAB sztarts by setting some specifications for the system, which are the following:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Order of modulator</td>
+<td>L = 1 or 2 (order)</td>
+</tr>
+<tr class="even">
+<td>Cascade of integrator feedback</td>
+<td>form = ‘CIFB’;</td>
+</tr>
+<tr class="odd">
+<td>No optimisation</td>
+<td>opt = 0;</td>
+</tr>
+<tr class="even">
+<td>Quantizer level</td>
+<td>nLev = 2;</td>
+</tr>
+<tr class="odd">
+<td>Sampling frequency</td>
+<td>fs = 220e3;</td>
+</tr>
+<tr class="even">
+<td>Sampling time</td>
+<td>Ts = 1/fs;</td>
+</tr>
+<tr class="odd">
+<td>OSR</td>
+<td>M = 512;</td>
+</tr>
+<tr class="even">
+<td>Sim. length (output samples), FFT points</td>
+<td>N = 16*M;</td>
+</tr>
+<tr class="odd">
+<td>Bandwidth</td>
+<td>fB = fs/2/M;</td>
+</tr>
+<tr class="even">
+<td>Number of sinusoids</td>
+<td>cycles = 9;</td>
+</tr>
+<tr class="odd">
+<td>Test tone</td>
+<td>fx = cycles * fs/N;</td>
+</tr>
+<tr class="even">
+<td>Signal amplitude</td>
+<td>A = 0.8;</td>
+</tr>
+<tr class="odd">
+<td>Time vector</td>
+<td>t = Ts * [0:N-1];</td>
+</tr>
+<tr class="even">
+<td>Input signal</td>
+<td>u = A * sin(2 * pi * fx/fs * [0:N-1]);</td>
+</tr>
+</tbody>
+</table>
 <p>To validate some of the behavioural characteristics, given by the established theoretical concepts, the following models for the 1st- and 2nd order modulators were used within MATLAB Simulink. We will mainly focus on the results from the 2nd-order model to keep this section more concise</p>
 <div id="fig-simulink_MOD2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -678,7 +773,7 @@ Figure&nbsp;19: Comparator, realized through inverter based architecture
 <p>This circuits behaviour is fundamentally tied to the clock states, leading to either the so called “precharge” phase during low clock levels, or the “amplification” phase during an active clock phase.</p>
 <p>During low clock phases the pmos transistors, directly tied to the supply rail, open up and therefore pull both the output nodes to <span class="math inline">\(V_{DD}\)</span>, charging the internal capacitances of the structure.</p>
 <p>During high clock phases the nmos transistors (above the input nmos transistors) start to conduct and allow for current to flow to the shared source contact of the input differential pair, so to <span class="math inline">\(V_{SS}\)</span></p>
-<p>Depending on the conductivity of the MOSFETS that are fed by the input signals, one branch will “discharge” quicker. This in turn will lead to either M7 or M8 conducting again, once the applied gate voltage drops below the <span class="math inline">\(V_{DD}-V_{th}\)</span> (since they are pmos). SO, in case of <span class="math inline">\(in+ &gt; in-\)</span> the gate of M</p>
+<p>Depending on the conductivity of the MOSFETS that are fed by the input signals, one branch will “discharge” quicker. This in turn will lead to either M7 or M8 conducting again, once the applied gate voltage drops below the <span class="math inline">\(V_{DD}-V_{th}\)</span> (since they are pmos). So, in case of <span class="math inline">\(in+ &gt; in-\)</span>, the gate of M8 would reach that level faster, therefore conducting earlier and in the process pulling outp back to <span class="math inline">\(V_DD\)</span>, while this in turn ultimately negates M7 from reaching that level, leading to outn decaying further to <span class="math inline">\(V_{SS}\)</span>.</p>
 </section>
 <section id="latching-circuit" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">5.2.3</span> Latching Circuit</h3>

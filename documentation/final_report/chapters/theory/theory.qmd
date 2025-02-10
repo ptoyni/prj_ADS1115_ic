@@ -24,9 +24,28 @@ The digital filtering is then responsible to transform the discrete signal, whic
 
 ### Oversampling circuits
 
-Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth $f_B$, so that the input can be reconstructed reliably afterwards (avoiding aliasing). These converters operate in a way that input samples 
+Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth $f_B$, so that the input can be reconstructed reliably afterwards (avoiding aliasing). 
+\begin{align}
+  f_s \geq 2\cdot f_B 
+\end{align}
+
+These converters operate in a way that input samples ...
+
+Oversampling converters utilize sampling rates that are well beyond the minimum required Nyquist-rate, typically sampling at rates that are multiple powers of 2 higher.
+
+The oversampling ratio (OSR) denotes the factor by which the Nyquist rate is exceeded.
+
+\begin{align}
+  OSR = \frac{f_s}{2 \cdot f_B}
+\end{align}
 
 <font color="red">[schreier]</font>
+
+
+| Nyquist Converters | Oversampling Converters | 
+|------|------|
+|      |      |
+|      |      |
 
 ### Principle of Noise Shaping (1st-Order)
 
@@ -70,6 +89,16 @@ As a first general validation of that, if we check over a normalized frequency r
 
 <font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font>
 
+### SQNR and ENOB
+
+Having effective noise shaping will increase the Signal-to-Quantazation-Noise-Ratio (SQNR) of the system within the band of interest. The SQNR is fundamentally tied to the "effective number of bits" (ENOB) that can be converted reliably. For a sine wave input to an ideal Nyquist converter, the relation between SNR and the ENOB is given through the following equation.
+
+\begin{align}
+  SNR_{dB} = 6.02 \cdot ENOB + 1.76 
+\end{align}
+
+For oversampling circuits, the resulting SQNR of a system is tied to the applied OSR.
+
 ### 2nd-Order Modulator
 
 A second order Modulator can be realized by simply exchanging the quantizer of the first order system with yet another instance of the first order system, thereby reducing the in-band quantization noise.
@@ -91,37 +120,25 @@ See @tbl-2nd_vs_1st.
 
 ### Behavioural Analysis/ Confirmation using MATLAB
 
-<font color="red">[add table with model specs.]</font>
+The behavioural analysis in MATLAB sztarts by setting some specifications for the system, which are the following:
 
-L = 1;                % Order of modulator
-form = 'CIFB';        % Cascade of integrator feedback
-opt = 0;              % No optimisation
-nLev = 2;             % Quantizer level
-fs = 220e3;           % Sampling frequency
-Ts = 1/fs;            % Sampling time
-M = 512;              % OSR
-N = 16*M;             % Simulation length (output samples), FFT points
-fB = fs/2/M;          % Bandwidth
-cycles = 9;           % Number of sinusoids
-fx = cycles * fs/N;   % Test tone
-A = 0.8;              % Signal amplitude
-t = Ts * [0:N-1];
-u = A * sin(2 * pi * fx/fs * [0:N-1]);
+| Parameter | Value |
+|------|------|
+|  Order of modulator                            | L = 1 or 2 (order)  |                             
+|  Cascade of integrator feedback                | form = 'CIFB';                        |
+|  No optimisation                               | opt = 0;                              |
+|  Quantizer level                               | nLev = 2;                             |
+| Sampling frequency                             | fs = 220e3;                           |
+|  Sampling time                                 | Ts = 1/fs;                            |
+|  OSR                                           | M = 512;                              |
+|  Sim. length (output samples), FFT points| N = 16*M;                             |
+|  Bandwidth                                     | fB = fs/2/M;                          |
+|  Number of sinusoids                           | cycles = 9;                           |
+|  Test tone                                     | fx = cycles * fs/N;                   |
+|  Signal amplitude                              | A = 0.8;                              |
+|  Time vector                                   | t = Ts * [0:N-1];                     |
+|  Input signal                                  | u = A * sin(2 * pi * fx/fs * [0:N-1]);|
 
-L = 2;                % Order of modulator
-form = 'CIFB';        % Cascade of integrator feedback
-opt = 0;              % No optimisation
-nLev = 2;             % Quantizer level
-fs = 220e3;           % Sampling frequency
-Ts = 1/fs;            % Sampling time
-M = 512;              % OSR
-N = 16*M;             % Simulation length (output samples), FFT points
-fB = fs/(2*M);          % Bandwidth
-cycles = 9;           % Number of sinusoids
-fx = cycles * fs/N;   % Test tone
-A = 0.8;              % Signal amplitude
-t = Ts * [0:N-1];
-u = A * sin(2 * pi * fx/fs * [0:N-1]);
 
 To validate some of the behavioural characteristics, given by the established  theoretical concepts, the following models for the 1st- and 2nd order modulators were used within MATLAB Simulink. We will mainly focus on the results from the 2nd-order model to keep this section more concise
 
