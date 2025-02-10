@@ -27,9 +27,6 @@ date-format: iso
 
 bibliography: ./references.bib
 
-chapters:
-  - chapters/theory/therory.qmd
-
 format:
   html:
     toc: true
@@ -42,7 +39,9 @@ format:
     code-fold: true
     cite-method: biblatex
     css: styles.css
-  pdf: 
+  pdf:
     toc: true
-    pdf-engine: xelatex
+    css: styles.css
+    number-sections: true
+    cite-method: biblatex
 

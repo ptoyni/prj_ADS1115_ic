@@ -60,7 +60,7 @@ We thus continue to use the version with gate parameters controllable through th
 The circuits used for the gates are depicted in figures @fig-inv and @fig-nand for the inverters and NAND gates respectively.
 
 ::: {#fig-gates layout-ncol=2}
-![Inverter](figures/clk_gen/inverter.svg){#fig-inv}
+![Inverter](figures/clk_gen/inverter.svg){#fig-inv width=60%}
 
 ![NAND Gate](figures/clk_gen/nand_gate.svg){#fig-nand}
 

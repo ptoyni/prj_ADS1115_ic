@@ -1,0 +1,63 @@
+* C:\Users\mikok\OneDrive\studium\Master\ws\cems\prj_ADS1115_ic\zip_meiners\ltspice\dsm_l2\dsm_l2.asc
+Vin Vin 0 SINE({Voff} {Vamp} {freq})
+Vphi1 phi1 0 PULSE(0V {VDD} 0 100n 100n 2u 4.5u)
+VDD Vdd 0 {VDD}
+Ci1 vx1 N001 {Ci1} ic=0V
+VCM Vcm 0 {VCM}
+XX4 vx2 VCM vq VDD phi1 ideal_clocked_comparator
+XX2 N001 VCM vx1 ideal_op_amp
+Vphi2 phi2 0 PULSE(0V {VDD} 2.25u 100n 100n 2u 4.5u)
+Ci2 vx2 N002 {Ci2} ic=0V
+XX5 VDD 0 vq Vfb inv
+XX6 N002 VCM vx2 ideal_op_amp
+A§DFF vq 0 phi1 0 0 0 vd 0 DFLOP
+CS1 N004 N003 {Cs1}
+S1 N003 vin phi1 trip switch
+S2 Vfb N003 phi2 trip switch
+S3 N004 N001 phi2 trip switch
+S4 VCM N004 phi1 trip switch
+CS2 N006 N005 {Cs2}
+S5 N005 vx1 phi2 trip switch
+S6 Vfb N005 phi1 trip switch
+S7 N006 N002 phi1 trip switch
+S8 VCM N006 phi2 trip switch
+Etrip1 trip 0 Vdd 0 0.5
+
+* block symbol definitions
+.subckt ideal_clocked_comparator Vinm Vinp Vout VDD Clock
+E1 diff 0 Vinp Vinm 1
+S3 sample diff tp Clock switch
+S4 hold N001 Clock tp switch
+C1 sample 0 100p
+C2 hold 0 100p
+Etp tp 0 Vdd 0 0.5
+E2 N001 0 sample 0 1
+B1 Vout 0 V=v(hold)>0?v(vdd):0
+.model switch SW
+.ic v(hold)=1 v(sample)=1
+.ends ideal_clocked_comparator
+
+.subckt ideal_op_amp Vinm Vinp Out
+E1 Out 0 Vinp Vinm 1000Meg
+.ends ideal_op_amp
+
+.subckt inv Vdd Vss IN OUT
+B1 Out 0 V=v(in)>v(vdd)/2?v(vss):v(vdd)
+.ends inv
+
+.tran 30m uic
+.options plotwinsize=0
+.param VDD=3.0
+.param Vref=3.0
+.param Vcm=VDD/2.0
+.param Voff=Vcm
+.param Vamp=1.4
+.param freq=100
+.param Cs1=1p Ci1=6p Cs2=1p Ci2=3p
+.save v(vx1) v(vx2) v(phi1) v(phi2) v(vq) v(vd) v(vfb) v(vin)
+* Save only node voltages of interest
+.model switch sw ron=.1
+* Switch control
+* uic : suppresses initialization with DC operating point
+.backanno
+.end
