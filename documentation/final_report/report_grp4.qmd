@@ -1,5 +1,5 @@
 ---
-title: "Design of an Analog-Digital-Converter after the ADS1115"
+title: "Design of an Analog-Digital-Converter the Delta-Sigma way"
 ---
 {{< include important_notes.qmd >}}
 

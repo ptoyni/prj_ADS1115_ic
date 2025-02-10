@@ -12,7 +12,7 @@
         "\n",
         "By changing the capacitance of the marked inverters the actual delay between $\\phi_i$ and $\\phi_{id}$ can be controlled. It is worth noting however, that the capacitive load $C_L$ experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure @fig-delay_norm\n"
       ],
-      "id": "7d27ea29"
+      "id": "e22e4aa2"
     },
     {
       "cell_type": "code",
@@ -84,12 +84,9 @@
         "Gates used for clock generating structures\n",
         ":::\n",
         "\n",
-        "Since CMOS inverters \n",
-        "Cascading two CMOS inverters as shown in figure @fig-inv can be used to stabelize the output\n",
-        "\n",
         "The cascading of two CMOS inverters in figure @fig-inv is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color=\"red\">REALLY?</font>"
       ],
-      "id": "fb357bd6"
+      "id": "5f0a4fb3"
     }
   ],
   "metadata": {
