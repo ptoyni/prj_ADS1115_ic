@@ -1,14 +1,24 @@
-LTspice 24.0.12 for Windows
-Circuit: * C:\Users\nicki\Documents\Studium_ET\HSB_Master\Module_MSc\WiSe_MSc\CEMS\prj_ADS1115_ic-1\zip_meiners\ltspice\dsm_l2\dsm_l2.asc
-Start Time: Fri Feb  7 12:59:25 2025
+Circuit: * C:\Users\mikok\OneDrive\studium\Master\ws\cems\prj_ADS1115_ic\zip_meiners\ltspice\dsm_l2\dsm_l2.asc
+
 Error: unknown token in: "v(hold)>0[?]v(vdd):0"
 Error: unknown token in: "v(in)>v(vdd)/2[?]v(vss):v(vdd)"
-solver = Normal
-Maximum thread count: 8
+WARNING: Less than two connections to node VD.  This node is used by A§DFF.
+Per .tran options, skipping operating point for transient analysis.
+
+Date: Mon Feb 10 22:11:24 2025
+Total elapsed time: 10.523 seconds.
+
 tnom = 27
 temp = 27
 method = modified trap
-WARNING: Less than two connections to node vd.  This node is used by a§dff.
-Per .tran options, skipping operating point for transient analysis.
-Total elapsed time: 20.903 seconds.
+totiter = 2365184
+traniter = 2365184
+tranpoints = 1083533
+accept = 787611
+rejected = 295922
+matrix size = 35
+fillins = 15
+solver = Normal
+Matrix Compiler1: 1.75 KB object code size  0.3/0.2/[0.1]
+Matrix Compiler2: 2.35 KB object code size  0.2/0.3/[0.1]
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.37">
+<meta name="generator" content="quarto-1.6.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="report_grp4_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="report_grp4_files/libs/quarto-html/anchor.min.js"></script>
 <link href="report_grp4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="report_grp4_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="report_grp4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="report_grp4_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -570,7 +570,7 @@ Figure&nbsp;11: Spectral Analysis from Models for L=1 &amp; L=2
 <h1 data-number="4"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</h1>
 <p>In this section, we will deal with realization of our Delta-Sigma Modulator on the circuit level for given specifications. We will consider the basic behaviour of the circuit, and implement them.</p>
 <p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
-<p>First of all, let’s see conceptually simplest Sample and Hold <strong>(S/H)</strong> consists of a Switch and Capacitor in <a href="#fig-SIMPLE_SH" class="quarto-xref">Figure&nbsp;19</a>.</p>
+<p>First of all, let’s see conceptually simplest Sample and Hold <em>(S/H)</em> consists of a Switch and Capacitor in <a href="#fig-SIMPLE_SH" class="quarto-xref">Figure&nbsp;19</a>.</p>
 <div id="fig-SIMPLE_SH" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -581,17 +581,17 @@ Figure&nbsp;12: Simple Sample and Hold
 </figcaption>
 </figure>
 </div>
-<p>If the Switch is closed, the Capacitor will charge up to the input voltage which denotes to track phase. When Switch is opened, the Capacitor will hold the input voltage which denotes to hold phase, such circuits are also known as <strong>Track and Hold</strong> circuits.</p>
+<p>If the Switch is closed, the Capacitor will charge up to the input voltage which denotes to track phase. When Switch is opened, the Capacitor will hold the input voltage which denotes to hold phase, such circuits are also known as <em>Track and Hold</em> circuits.</p>
 <section id="non-idealities" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="non-idealities"><span class="header-section-number">4.1</span> Non-Idealities</h2>
-<p>Unlike ideal Switches, real switches have some “On-Resistance <strong>Ron</strong>” which is some function of input. 1/RonC is the bandwidth during the tracking phase. The signal is being stored in Capacitor in terms of charge, smaller the Capacitor more the tendency of getting disturbed or leakage.</p>
-<p>Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage $$ in series with resistance. Ouput Noise is present for all frequencies also known as <strong>Whilte Noise</strong> and is given as</p>
+<p>Unlike ideal Switches, real switches have some On-Resistance <span class="math inline">\(R_{on}\)</span> which is some function of input. <span class="math inline">\(\frac{1}{R_{onC}}\)</span> is the bandwidth during the tracking phase. The signal is being stored in Capacitor in terms of charge, smaller the Capacitor more the tendency of getting disturbed or leakage.</p>
+<p>Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage <span class="math inline">\(V_n\)</span> in series with resistance. Ouput Noise is present for all frequencies also known as <em>Whilte Noise</em> and is given as</p>
 <p><span class="math display">\[
 V_\mathrm{n}^2 = \frac{k T}{C}
 \]</span></p>
 <p>where <span class="math inline">\(k\)</span> is Boltzmann’s constant, <span class="math inline">\(T\)</span> is temperature in Kelvin.</p>
-<p>Candidate for switch in circuit is MOSFET. Above were the non-idealities present if switch is ON. Even if switch is OFF its far from being ideal. Ideally, it should be open circuit but there is some <span class="math inline">\(C_{OFF}\)</span> present.</p>
-<p>More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to <strong>Charge Injection</strong>. Injected Charge is Non-Linear function of Vin. Due to these reasons we are using <strong>Bottom Plate Switching</strong>.</p>
+<p>Candidate for switch in circuit is MOSFET. Above were the non-idealities present if switch is <em>ON</em>. Even if switch is <em>OFF</em> its far from being ideal. Ideally, it should be open circuit but there is some <span class="math inline">\(C_{OFF}\)</span> present.</p>
+<p>More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to <em>Charge Injection</em>. Injected Charge is Non-Linear function of <span class="math inline">\(V_{in}\)</span>. Due to these reasons we are using <em>Bottom Plate Switching</em>.</p>
 </section>
 <section id="switched-capacitor-integrator" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">4.2</span> Switched Capacitor Integrator</h2>
@@ -734,14 +734,11 @@ Figure&nbsp;16: Basic structure for delayed clock phase generation
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[Warning] Variable data type is detected as double precision.</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div id="fig-delay_norm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="report_grp4_files/figure-html/fig-delay_norm-output-2.png" width="602" height="449" class="figure-img">
+<img src="report_grp4_files/figure-html/fig-delay_norm-output-1.png" width="602" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;17: Delayed clock signals
@@ -792,7 +789,7 @@ Figure&nbsp;18: Gates used for clock generating structures
 </section>
 <section id="switch-capacitor-design" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Switch Capacitor Design</h1>
-<p>We are using “CIFB” topology to realize our design.</p>
+<p>We are using “CIFB” topology also known as Cascade of integrators, feedback form to realize our design.</p>
 <div id="fig-SIMPLE_SH" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -806,7 +803,7 @@ Figure&nbsp;19: Second-Order CIFB modulator
 <p>Functions of <span class="math inline">\(\Sigma \Delta\)</span> toolbox in MATLAB enables us to realize the NTF function and based upon that we can get our coefficients.</p>
 <section id="capacitor-sizing" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="capacitor-sizing"><span class="header-section-number">6.1</span> Capacitor Sizing</h2>
-<p>In the first stage capacitance ratio ccan be computed as follows:</p>
+<p>As mentioned above, the coefficients translate into capacitor ratios. In the first stage capacitance ratio can be computed as follows:</p>
 <p><span class="math display">\[
 a_1 = \frac{C_1 V_\text{ref}}{C_2} = \frac{C_1 V_\text{dd}}{C_2}
 \]</span></p>
@@ -824,8 +821,28 @@ b_1 = \frac{C_1 V_\text{FS}}{M C_2} = \frac{C_1 V_\text{dd}}{C_2}
 </section>
 <section id="ota-sizing" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="ota-sizing"><span class="header-section-number">6.2</span> OTA Sizing</h2>
-<p>For integrator, we first implemented 5 transistor OTA. Using components available in IHP Microelectronics SG13G2 technology. First of all, we need to run the technology sweep to get the response of the OTA at various <span class="math inline">\(V_{gs}\)</span> and <span class="math inline">\(V_{ds}\)</span> values. Then we can use the sweep data to get the optimal graphs.</p>
-<p><font color="red"> ADD TECHSWEEP SCREENSHOT and ota diagram </font></p>
+<p>For integrator, we first implemented 5 transistor OTA. Using components available in IHP Microelectronics SG13G2 technology. First of all, we need to run the technology sweep to get the response of the OTA at various <span class="math inline">\(V_{gs}\)</span> and <span class="math inline">\(V_{ds}\)</span> values. Then we can use the sweep data to get the optimal graphs in MATLAB.</p>
+<div id="fig-Nmos_sweep" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Nmos_sweep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/switch_cap/techsweep_nmos.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Nmos_sweep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;20: Testsweep for LV NMOS g_m/I_d Characterisation
+</figcaption>
+</figure>
+</div>
+<p>We have a similar tesbench for LV_PMOS which to depict their behaviour. We would use the data provided by these sweep to realize the sizing of OTA discussed below <a href="#fig-basic_ota" class="quarto-xref">Figure&nbsp;21</a></p>
+<div id="fig-basic_ota" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-basic_ota-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/switch_cap/techsweep_nmos.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basic_ota-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;21: 5 Transistor OTA Design
+</figcaption>
+</figure>
+</div>
 <section id="choosing-i_d-and-g_m" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="choosing-i_d-and-g_m"><span class="header-section-number">6.2.1</span> Choosing <span class="math inline">\(I_{d}\)</span> and <span class="math inline">\(g_{m}\)</span></h3>
 <p>The value of <span class="math inline">\(I_d\)</span> plays a very important role in the design of the OTA. At the start of each charge-transfer phase, the OTA input terminals are driven such that current in differential switches fully to one side. The magnitude output current of I (bias current) in each half of differential pair. It should be large enough to transfer the charge from input capacitor to integrating capacitor in allowed time.</p>
@@ -860,7 +877,7 @@ g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
 </section>
 <section id="comparator-stage" class="level3" data-number="6.4.2">
 <h3 data-number="6.4.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">6.4.2</span> Comparator Stage</h3>
-<p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;20</a>.</p>
+<p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;22</a>.</p>
 <p>While the classical StrongArm would utilize pmos transistors for M3 &amp; M4 (with their sources being pulled to <span class="math inline">\(V_DD\)</span> and their drains connected to the node above M1 and M2) instead, the behaviour would in both cases be the same, as tested in simulations.</p>
 <p>It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches.</p>
 <div id="fig-strongarm_circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -869,7 +886,7 @@ g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
 <img src="figures/comp/comp_architecture.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;20: Comparator, realized through inverter based architecture
+Figure&nbsp;22: Comparator, realized through inverter based architecture
 </figcaption>
 </figure>
 </div>
@@ -887,14 +904,14 @@ Figure&nbsp;20: Comparator, realized through inverter based architecture
 <h3 data-number="6.4.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">6.4.3</span> Latching Circuit</h3>
 <p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs. The way this was done in our case is through an “SR-Latch”, which stands for “set” and “reset”.</p>
 <p>In general, such a latch utilizes two logic gates with 2 inputs and one output each, where one of the inputs will be one of the input signals, while the other will be the fed-back output signal from the respective other logic gate. The provided logic should result in only the Q output or it’s complement nQ to be high, depending .</p>
-<p>The main task of this block is to only change it’s output, while either the positive or negative output of our comparator is “high”. For SR-latches there will be one case for equal inputs (either both “high” or both “low”) where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in <a href="#fig-sr_latch" class="quarto-xref">Figure&nbsp;21</a>, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters.</p>
+<p>The main task of this block is to only change it’s output, while either the positive or negative output of our comparator is “high”. For SR-latches there will be one case for equal inputs (either both “high” or both “low”) where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in <a href="#fig-sr_latch" class="quarto-xref">Figure&nbsp;23</a>, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters.</p>
 <div id="fig-sr_latch" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sr_latch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/SR_latch.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sr_latch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;21: SR-Latch for Comparator Application
+Figure&nbsp;23: SR-Latch for Comparator Application
 </figcaption>
 </figure>
 </div>
@@ -909,20 +926,20 @@ Figure&nbsp;21: SR-Latch for Comparator Application
 <img src="figures/comp/comp_test.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xschem_comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;22: StrongArm Circuit
+Figure&nbsp;24: StrongArm Circuit
 </figcaption>
 </figure>
 </div>
 <p>This circuit is proposed by Boris Murmann in his EE628 lecture series (e.g.&nbsp;lec 6), while he himself adopted the design from the paper given in [<font color="red">[cite paper]</font>]. The MOSFET lengths (L) can be chosen minimal (<span class="math inline">\(\approx\)</span> 130 nm), since almost all of them simply serve as switches, with only those for the inputsignal are choosen with a slightly greater margin.</p>
 <p>While the mentioned sources also propose a latching circuit, we will directly utilize the logic gates available through the used PDK, which generally helps to make the comparator system more universally applicable. Specifically, the proposed design showed a lesser tolerence for very small differences between the input signals, once the latch was cascaded. This becomes worse for higher supply voltages (e.g.&nbsp;3V3 instead of 1V5).</p>
-<p>The testbench file is shown next in <a href="#fig-xschem_comp_tb" class="quarto-xref">Figure&nbsp;23</a>.</p>
+<p>The testbench file is shown next in <a href="#fig-xschem_comp_tb" class="quarto-xref">Figure&nbsp;25</a>.</p>
 <div id="fig-xschem_comp_tb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-xschem_comp_tb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/comp_tb.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xschem_comp_tb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;23: Comparator Testbench
+Figure&nbsp;25: Comparator Testbench
 </figcaption>
 </figure>
 </div>
@@ -933,57 +950,54 @@ Figure&nbsp;23: Comparator Testbench
 <div class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ltspice <span class="im">as</span> lt</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#parse data from .raw file</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#for compiling the finished document this path needs to be relative to "report_grp4.qmd"</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>fpath       <span class="op">=</span> <span class="st">'../../design/design_comp/simulations/tb_comp_test.raw'</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>l           <span class="op">=</span> lt.Ltspice(fpath)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>l.parse()</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#extract relevant data</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>time        <span class="op">=</span> l.get_time()</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>clk         <span class="op">=</span> l.get_data(<span class="st">'v(clk)'</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>outp        <span class="op">=</span> l.get_data(<span class="st">'v(outp)'</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>outn        <span class="op">=</span> l.get_data(<span class="st">'v(outn)'</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>out2dff     <span class="op">=</span> l.get_data(<span class="st">'v(out2dff)'</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>nout2dff    <span class="op">=</span> l.get_data(<span class="st">'v(nout2dff)'</span>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#redefine data arrays considering new length</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">factor = 10</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">length = round(len(time)/factor)</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">time        = time[:length]</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">clk         = np.flip(clk[:length])</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">outp        = np.flip(outp[:length])</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">outn        = np.flip(outn[:length])</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">out2dff     = np.flip(out2dff[:length])</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">nout2dff    = np.flip(nout2dff[:length])</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, clk, label<span class="op">=</span><span class="vs">r'clk'</span>)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, outp, label<span class="op">=</span><span class="vs">r'outp'</span>)</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, outn, label<span class="op">=</span><span class="vs">r'outn'</span>)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Output Voltages from StrongArm Comparator'</span>)</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time/ ns'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Voltage/ V'</span>)</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid()</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">2</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, out2dff, label<span class="op">=</span><span class="vs">r'to d-flip-flop'</span>)</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, nout2dff, label<span class="op">=</span><span class="vs">r'complement'</span>)</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Output of RS-Latch'</span>)</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time/ ns'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Voltage/ V'</span>)</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ltspice <span class="im">as</span> lt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#parse data from .raw file</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#for compiling the finished document this path needs to be relative to "report_grp4.qmd"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fpath       <span class="op">=</span> <span class="st">'../../design/design_comp/simulations/tb_comp_test.raw'</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>l           <span class="op">=</span> lt.Ltspice(fpath)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>l.parse()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#extract relevant data</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>time        <span class="op">=</span> l.get_time()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>clk         <span class="op">=</span> l.get_data(<span class="st">'v(clk)'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>outp        <span class="op">=</span> l.get_data(<span class="st">'v(outp)'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>outn        <span class="op">=</span> l.get_data(<span class="st">'v(outn)'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>out2dff     <span class="op">=</span> l.get_data(<span class="st">'v(out2dff)'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>nout2dff    <span class="op">=</span> l.get_data(<span class="st">'v(nout2dff)'</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#redefine data arrays considering new length</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">factor = 10</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">length = round(len(time)/factor)</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">time        = time[:length]</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">clk         = np.flip(clk[:length])</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">outp        = np.flip(outp[:length])</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">outn        = np.flip(outn[:length])</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">out2dff     = np.flip(out2dff[:length])</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">nout2dff    = np.flip(nout2dff[:length])</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, clk, label<span class="op">=</span><span class="vs">r'clk'</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, outp, label<span class="op">=</span><span class="vs">r'outp'</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, outn, label<span class="op">=</span><span class="vs">r'outn'</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Output Voltages from StrongArm Comparator'</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time/ ns'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Voltage/ V'</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid()</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">2</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, out2dff, label<span class="op">=</span><span class="vs">r'to d-flip-flop'</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, nout2dff, label<span class="op">=</span><span class="vs">r'complement'</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Output of RS-Latch'</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time/ ns'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Voltage/ V'</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[Warning] Variable data type is detected as double precision.</code></pre>
-</div>
 <div id="fig-comp_plot" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -991,7 +1005,7 @@ Figure&nbsp;23: Comparator Testbench
 <div id="fig-comp_plot-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comp_plot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="report_grp4_files/figure-html/fig-comp_plot-output-2.png" data-ref-parent="fig-comp_plot" width="597" height="449" class="figure-img">
+<img src="report_grp4_files/figure-html/fig-comp_plot-output-1.png" data-ref-parent="fig-comp_plot" width="597" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comp_plot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) Waveworms of Comparator Subsystem
@@ -1003,7 +1017,7 @@ Figure&nbsp;23: Comparator Testbench
 <div id="fig-comp_plot-2" class="quarto-float quarto-figure quarto-figure-center anchored" width="597" height="449">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comp_plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="report_grp4_files/figure-html/fig-comp_plot-output-3.png" id="fig-comp_plot-2" data-ref-parent="fig-comp_plot" width="597" height="449" class="figure-img">
+<img src="report_grp4_files/figure-html/fig-comp_plot-output-2.png" id="fig-comp_plot-2" data-ref-parent="fig-comp_plot" width="597" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comp_plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b)
@@ -1013,7 +1027,7 @@ Figure&nbsp;23: Comparator Testbench
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;24
+Figure&nbsp;26
 </figcaption>
 </figure>
 </div>
