@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-02-08">
+<meta name="dcterms.date" content="2025-02-10">
 
 <title>theory</title>
 <style>
@@ -89,8 +89,10 @@ window.Quarto = {
   <li><a href="#system-overview-of-deltasigma-modulators" id="toc-system-overview-of-deltasigma-modulators" class="nav-link" data-scroll-target="#system-overview-of-deltasigma-modulators"><span class="header-section-number">1.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</a>
   <ul>
   <li><a href="#oversampling-circuits" id="toc-oversampling-circuits" class="nav-link" data-scroll-target="#oversampling-circuits"><span class="header-section-number">1.2.1</span> Oversampling circuits</a></li>
-  <li><a href="#principle-of-noise-shaping" id="toc-principle-of-noise-shaping" class="nav-link" data-scroll-target="#principle-of-noise-shaping"><span class="header-section-number">1.2.2</span> Principle of Noise Shaping</a></li>
-  <li><a href="#behavioural-analysis-using-matlab" id="toc-behavioural-analysis-using-matlab" class="nav-link" data-scroll-target="#behavioural-analysis-using-matlab"><span class="header-section-number">1.2.3</span> Behavioural Analysis using MATLAB</a></li>
+  <li><a href="#principle-of-noise-shaping-1st-order" id="toc-principle-of-noise-shaping-1st-order" class="nav-link" data-scroll-target="#principle-of-noise-shaping-1st-order"><span class="header-section-number">1.2.2</span> Principle of Noise Shaping (1st-Order)</a></li>
+  <li><a href="#sqnr-and-enob" id="toc-sqnr-and-enob" class="nav-link" data-scroll-target="#sqnr-and-enob"><span class="header-section-number">1.2.3</span> SQNR and ENOB</a></li>
+  <li><a href="#nd-order-modulator" id="toc-nd-order-modulator" class="nav-link" data-scroll-target="#nd-order-modulator"><span class="header-section-number">1.2.4</span> 2nd-Order Modulator</a></li>
+  <li><a href="#behavioural-analysis-confirmation-using-matlab" id="toc-behavioural-analysis-confirmation-using-matlab" class="nav-link" data-scroll-target="#behavioural-analysis-confirmation-using-matlab"><span class="header-section-number">1.2.5</span> Behavioural Analysis/ Confirmation using MATLAB</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -140,7 +142,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-02-08</p>
+      <p class="date">2025-02-10</p>
     </div>
   </div>
   
@@ -181,9 +183,37 @@ window.Quarto = {
 <h2 data-number="1.2" class="anchored" data-anchor-id="system-overview-of-deltasigma-modulators"><span class="header-section-number">1.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</h2>
 <section id="oversampling-circuits" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">1.2.1</span> Oversampling circuits</h3>
+<p>Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth <span class="math inline">\(f_B\)</span>, so that the input can be reconstructed reliably afterwards (avoiding aliasing). <span class="math display">\[\begin{align}
+  f_s \geq 2\cdot f_B
+\end{align}\]</span></p>
+<p>These converters operate in a way that input samples …</p>
+<p>Oversampling converters utilize sampling rates that are well beyond the minimum required Nyquist-rate, typically sampling at rates that are multiple powers of 2 higher.</p>
+<p>The oversampling ratio (OSR) denotes the factor by which the Nyquist rate is exceeded.</p>
+<p><span class="math display">\[\begin{align}
+  OSR = \frac{f_s}{2 \cdot f_B}
+\end{align}\]</span></p>
+<p><font color="red">[schreier]</font></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Nyquist Converters</th>
+<th>Oversampling Converters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="principle-of-noise-shaping" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="principle-of-noise-shaping"><span class="header-section-number">1.2.2</span> Principle of Noise Shaping</h3>
+<section id="principle-of-noise-shaping-1st-order" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="principle-of-noise-shaping-1st-order"><span class="header-section-number">1.2.2</span> Principle of Noise Shaping (1st-Order)</h3>
 <p>The key advantage that Delta-Sigma Modulation brings to the table is “noise shaping”. This is enabled by the feedback structure that is given in our modulator system.</p>
 <p>For that, let’s observe the following block diagram of a first order model.</p>
 <div id="fig-loopfilter_sys_1st_order" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -192,13 +222,13 @@ window.Quarto = {
 <img src="figures/theory/Simple_1stOrder_Mod_sys.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loopfilter_sys_1st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: System Overview of the 1st order loopfilter
+Figure&nbsp;1: Linear Model of the 1st-Order Modulator
 </figcaption>
 </figure>
 </div>
 <p>It showcases a simple I/O behavioural model of a system that is inherently representative of what a Delta-Sigma modulator is.</p>
 <p>‘u’ is our input signal, in case of an ADC application it should therefore denote our “analog input”, which we will assume to be handled in a discrete fashion. ‘v’ denotes the output of our feedback system, which should contain sufficient information about our original input (more on the specific extraction later).</p>
-<p>The system contains the so called “loopfilter”, the elemental block for the desireed shaping process. We also include an additive error, representing the error in our output due to quantization. The feedback path includes a unit delay to indicate that past output samples will impact the current computation of the input.</p>
+<p>The system contains the so called “loopfilter”, the elemental block for the desired shaping process. We also include an additive error, representing the error in our output due to quantization. The feedback path includes a unit delay to indicate that past output samples will impact the current computation of the input.</p>
 <p>Using the markings <span class="math inline">\(*_1\)</span> and <span class="math inline">\(*_2\)</span>, we can derive the transfer behaviour of our system as follows:</p>
 <p><span class="math display">\[\begin{align}
   v &amp;= e + *_2\,;\quad *_2 = (\frac{1}{1-z^{-1}}) \, *_1\,; \quad *_1 = u - v\,z^{-1} \\
@@ -211,37 +241,180 @@ Figure&nbsp;1: System Overview of the 1st order loopfilter
 <p><span class="math display">\[\begin{align}
   v = STF(z)\,u + NTF(z)\,e
 \end{align}\]</span></p>
+<p>The Noiseshaping is now privided due to the given NTF, which will apply a high-pass characteristic onto the internal noise. As a first general validation of that, if we check over a normalized frequency range of <span class="math inline">\(\omega = [0, \pi]\)</span> we derive for <span class="math inline">\(z = e^{j\omega}\)</span> at either z = e^{j} = 1 or z = e^{j} = -1. Plugging that into the proposed NTF will lead to:</p>
+<p><span class="math display">\[\begin{align}
+  NTF(z) &amp;= 1-z^{-1} \hat{=} 1-\frac{1}{e^{j\omega}} = 0\,; \quad \text{for}\ \omega \rightarrow 0  \\
+  NTF(z) &amp;= 1-z^{-1} \hat{=} 1-\frac{1}{e^{j\omega}} = 2\,; \quad \text{for}\ \omega \rightarrow \pi  \\
+
+\end{align}\]</span></p>
 <p><font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font></p>
 </section>
-<section id="behavioural-analysis-using-matlab" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="behavioural-analysis-using-matlab"><span class="header-section-number">1.2.3</span> Behavioural Analysis using MATLAB</h3>
+<section id="sqnr-and-enob" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="sqnr-and-enob"><span class="header-section-number">1.2.3</span> SQNR and ENOB</h3>
+<p>Having effective noise shaping will increase the Signal-to-Quantazation-Noise-Ratio (SQNR) of the system within the band of interest. The SQNR is fundamentally tied to the “effective number of bits” (ENOB) that can be converted reliably. For a sine wave input to an ideal Nyquist converter, the relation between SNR and the ENOB is given through the following equation.</p>
+<p><span class="math display">\[\begin{align}
+  SNR_{dB} = 6.02 \cdot ENOB + 1.76
+\end{align}\]</span></p>
+<p>For oversampling circuits, the resulting SQNR of a system is tied to the applied OSR.</p>
+</section>
+<section id="nd-order-modulator" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="nd-order-modulator"><span class="header-section-number">1.2.4</span> 2nd-Order Modulator</h3>
+<p>A second order Modulator can be realized by simply exchanging the quantizer of the first order system with yet another instance of the first order system, thereby reducing the in-band quantization noise. The Blockdiagram will end-up like in <a href="#fig-loopfilter_sys_2st_order" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div id="fig-loopfilter_sys_2st_order" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loopfilter_sys_2st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/Simple_2nd_order_Mod_sys.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loopfilter_sys_2st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Linear Model of the 2nd-Order Modulator
+</figcaption>
+</figure>
+</div>
+<p>Regarding the noise shaping we will ultimately end up with <span class="math inline">\(NTF_2(z) = (1-z^{-1})^2\)</span>, so the square of the previous NTF. From that we can</p>
+<div id="tbl-2nd_vs_1st" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-2nd_vs_1st-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Considerations between MOD1 and MOD2
+</figcaption>
+<div aria-describedby="tbl-2nd_vs_1st-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Benefits of <span class="math inline">\(2^{nd}\)</span>-Order</th>
+<th>Downsides of <span class="math inline">\(2^{nd}\)</span>-Order</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Better Loopfilter Gain Tolerance</td>
+<td>Added complexity due to extra circuitry</td>
+</tr>
+<tr class="even">
+<td>Superior SQNR/OSR trade-off</td>
+<td>Reduced stability insurance (more limited input range)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>See <a href="#tbl-2nd_vs_1st" class="quarto-xref">Table&nbsp;1</a>.</p>
+</section>
+<section id="behavioural-analysis-confirmation-using-matlab" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="behavioural-analysis-confirmation-using-matlab"><span class="header-section-number">1.2.5</span> Behavioural Analysis/ Confirmation using MATLAB</h3>
+<p>The behavioural analysis in MATLAB sztarts by setting some specifications for the system, which are the following:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Order of modulator</td>
+<td>L = 1 or 2 (order)</td>
+</tr>
+<tr class="even">
+<td>Cascade of integrator feedback</td>
+<td>form = ‘CIFB’;</td>
+</tr>
+<tr class="odd">
+<td>No optimisation</td>
+<td>opt = 0;</td>
+</tr>
+<tr class="even">
+<td>Quantizer level</td>
+<td>nLev = 2;</td>
+</tr>
+<tr class="odd">
+<td>Sampling frequency</td>
+<td>fs = 220e3;</td>
+</tr>
+<tr class="even">
+<td>Sampling time</td>
+<td>Ts = 1/fs;</td>
+</tr>
+<tr class="odd">
+<td>OSR</td>
+<td>M = 512;</td>
+</tr>
+<tr class="even">
+<td>Sim. length (output samples), FFT points</td>
+<td>N = 16*M;</td>
+</tr>
+<tr class="odd">
+<td>Bandwidth</td>
+<td>fB = fs/2/M;</td>
+</tr>
+<tr class="even">
+<td>Number of sinusoids</td>
+<td>cycles = 9;</td>
+</tr>
+<tr class="odd">
+<td>Test tone</td>
+<td>fx = cycles * fs/N;</td>
+</tr>
+<tr class="even">
+<td>Signal amplitude</td>
+<td>A = 0.8;</td>
+</tr>
+<tr class="odd">
+<td>Time vector</td>
+<td>t = Ts * [0:N-1];</td>
+</tr>
+<tr class="even">
+<td>Input signal</td>
+<td>u = A * sin(2 * pi * fx/fs * [0:N-1]);</td>
+</tr>
+</tbody>
+</table>
+<p>To validate some of the behavioural characteristics, given by the established theoretical concepts, the following models for the 1st- and 2nd order modulators were used within MATLAB Simulink. We will mainly focus on the results from the 2nd-order model to keep this section more concise</p>
 <div id="fig-simulink_MOD2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-simulink_MOD2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/theory/simulink_2ndOrder_model.PNG" class="img-fluid figure-img">
+<img src="figures/theory/simulink_2ndOrd_model.PNG" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simulink_MOD2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Utilized 2nd-Order Model in Simulink (CIFB)
+Figure&nbsp;3: Utilized 2nd-Order Model in Simulink (CIFB)
 </figcaption>
 </figure>
 </div>
 <div id="fig-matlab_MOD2_IO_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-matlab_MOD2_IO_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/theory/2nd_order_behav_output.svg" class="img-fluid figure-img">
+<img src="figures/theory/2nd_order_behav_output.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_IO_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: I/O behaviour from MATLAB simulation model
+Figure&nbsp;4: I/O behaviour from MATLAB simulation model
 </figcaption>
 </figure>
 </div>
-<div id="fig-matlab_MOD2_NTF" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-matlab_MOD2_pz_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-matlab_MOD2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/theory/spectralNTF_MOD2_matlab.svg" class="img-fluid figure-img">
+<div aria-describedby="fig-matlab_MOD2_pz_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/2nd_order_pz_plot.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: I/O behaviour from MATLAB simulation model
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_pz_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Pole-Zero Plot from the NTF, synthesized by MATLAB
+</figcaption>
+</figure>
+</div>
+<div id="fig-matlab_MOD1_2_NTF" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-matlab_MOD1_2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/spectral_analysis_L1_and_L2.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD1_2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Spectral Analysis from Models for L=1 &amp; L=2
 </figcaption>
 </figure>
 </div>

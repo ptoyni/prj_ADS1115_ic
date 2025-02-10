@@ -89,7 +89,12 @@ The ratio of the capacitors would be a potential gain factor for the, which coul
 The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in @fig-loopfilter_sys_1st_order.
 
 ## Ideal system model in LTSpice
-The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components.\
-For the switched capacitor input stage, ideal switches were used. These switches activate when the difference on the two input terminals is greater than zero. The non-overlap in the phases can be controlled by setting the voltage sources modeling the phase generator appropriately.
-The OTA is modeled by a simple voltage controlled current source with a resistor in parallel. This roughly follows the small signal representation of an OTA. 
-Following the OTA is a comparator consisting of an input difference amplifier which compares the output of the OTA to a constant voltage of $V_{DD}/2$. The latching is done by two ideal switches with oppositely connected supply terminals. The output is then amplified by comparing the current output voltage level to 0V and setting a voltage source to $V_{SS}$ or $V_{DD}$ accordingly. 
+For first simulation results the behaviour described in the previous subchapter can be implemented as an indealized model in LTSpice. Files for this were provided by the supervising professor and will be explained briefly.\
+\ 
+The simulation of the first order idealized $\Delta \Sigma$-Modulator comprises the switched capacitance input stage, an integrator and a comparator whose output is fed back into the the input stage.\
+\ 
+For the input stage, ideal switches are used which are controlled by voltage sources modeling the input clocks. These are configured in such a way, that the clock phases are not overlapping. Because of the design restrictions given, the clock frequency is modeled to be around 220kHz.\
+\ 
+The operational amplifier is is planned to be an operational transconductrance amplifier (OTA) which is realized as a voltage controlled current source that outputs a current proportional to the difference of its two input signals. This representation is linear for all inputs and can be chosen, if the input signal can is guaranteed to be within the linear range of the real OTA. If the OTA is to operate in saturation, this model would not be valid anymore.\
+\ 
+The comparator has to compare the current input sample to a fixed value. If, at the rising edge of the reference clock, the input voltage lies above this threshold a logic high, represented by $V_{DD}$ is output, if the value lies below the threshold a logic low ($V_{SS}$) will be output. Additionally, this output value has to be held until the next rising edge of the controlling clock. This latching functionallity is realized using two clock controlled switches that open and close inversely. <font color="red">PHRASING OK?</font> The comparison for the dermination of the output is done through a voltage source and a mathematical comparison.

@@ -15,9 +15,9 @@ x3 out2dff outn VDD VSS nout2dff sg13g2_nor2b_1
 .inc /foss/pdks/sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 
 
-.param temp=27 vdd=3.3 per=10n vdiff=1m
-.param Wnmos=1u Wpmos=2u
-.param Lnmos=.3u Lpmos=.3u Lnmos2=2u
+.param temp=27 vdd=1.5 per=10n vdiff=1m
+.param Wnmos=2u Wpmos=4u
+.param Lnmos=.13u Lpmos=.13u Lnmos2=1u
 .option method=gear reltol=1e-5
 .ic v(outp)=0
 
@@ -49,12 +49,12 @@ XM5p outn clk VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
 XM4n outp outn VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
 XM4p outn outp VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
 XM5n outp clk VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
-XM3p outn outp d2p VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
-XM3n outp outn d2m VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
-XM2n d2m clk d1m VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
-XM2p d2p clk d1p VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
-XM1n d1m vin_n VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
-XM1p d1p vin_p VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+XM3p outn outp net3 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM3n outp outn net4 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM1n net1 vin_n VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+XM1p net2 vin_p VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+XM1 net4 clk net1 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM2 net3 clk net2 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
 .ends
 
 .GLOBAL GND
