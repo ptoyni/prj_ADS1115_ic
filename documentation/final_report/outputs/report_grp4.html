@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
+<<<<<<< HEAD
+<meta name="generator" content="quarto-1.6.37">
+=======
 <meta name="generator" content="quarto-1.6.36">
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,7 +72,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="report_grp4_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="report_grp4_files/libs/quarto-html/anchor.min.js"></script>
 <link href="report_grp4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<<<<<<< HEAD
+<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+=======
 <link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 <script src="report_grp4_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="report_grp4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="report_grp4_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -137,23 +145,34 @@ window.Quarto = {
   </ul></li>
   <li><a href="#basic-behaviour-on-circuit-level" id="toc-basic-behaviour-on-circuit-level" class="nav-link" data-scroll-target="#basic-behaviour-on-circuit-level"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</a>
   <ul>
-  <li><a href="#switched-capacitor-integrator-as-loop-filter" id="toc-switched-capacitor-integrator-as-loop-filter" class="nav-link" data-scroll-target="#switched-capacitor-integrator-as-loop-filter"><span class="header-section-number">4.1</span> Switched Capacitor Integrator as Loop Filter</a></li>
-  <li><a href="#ideal-system-model-in-ltspice" id="toc-ideal-system-model-in-ltspice" class="nav-link" data-scroll-target="#ideal-system-model-in-ltspice"><span class="header-section-number">4.2</span> Ideal system model in LTSpice</a></li>
+  <li><a href="#non-idealities" id="toc-non-idealities" class="nav-link" data-scroll-target="#non-idealities"><span class="header-section-number">4.1</span> Non-Idealities</a></li>
+  <li><a href="#switched-capacitor-integrator" id="toc-switched-capacitor-integrator" class="nav-link" data-scroll-target="#switched-capacitor-integrator"><span class="header-section-number">4.2</span> Switched Capacitor Integrator</a></li>
+  <li><a href="#ideal-system-model-in-ltspice" id="toc-ideal-system-model-in-ltspice" class="nav-link" data-scroll-target="#ideal-system-model-in-ltspice"><span class="header-section-number">4.3</span> Ideal system model in LTSpice</a></li>
   </ul></li>
   <li><a href="#design-proposals" id="toc-design-proposals" class="nav-link" data-scroll-target="#design-proposals"><span class="header-section-number">5</span> Design Proposals</a>
   <ul>
   <li><a href="#clock-phase-generation" id="toc-clock-phase-generation" class="nav-link" data-scroll-target="#clock-phase-generation"><span class="header-section-number">5.1</span> Clock-Phase generation</a></li>
-  <li><a href="#comparator-design" id="toc-comparator-design" class="nav-link" data-scroll-target="#comparator-design"><span class="header-section-number">5.2</span> Comparator Design</a>
+  </ul></li>
+  <li><a href="#switch-capacitor-design" id="toc-switch-capacitor-design" class="nav-link" data-scroll-target="#switch-capacitor-design"><span class="header-section-number">6</span> Switch Capacitor Design</a>
   <ul>
-  <li><a href="#model--architecture-elaboration" id="toc-model--architecture-elaboration" class="nav-link" data-scroll-target="#model--architecture-elaboration"><span class="header-section-number">5.2.1</span> Model-/ Architecture elaboration</a></li>
-  <li><a href="#comparator-stage" id="toc-comparator-stage" class="nav-link" data-scroll-target="#comparator-stage"><span class="header-section-number">5.2.2</span> Comparator Stage</a></li>
-  <li><a href="#latching-circuit" id="toc-latching-circuit" class="nav-link" data-scroll-target="#latching-circuit"><span class="header-section-number">5.2.3</span> Latching Circuit</a></li>
-  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">5.2.4</span> Implementation</a></li>
-  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation"><span class="header-section-number">5.2.5</span> Validation</a></li>
+  <li><a href="#capacitor-sizing" id="toc-capacitor-sizing" class="nav-link" data-scroll-target="#capacitor-sizing"><span class="header-section-number">6.1</span> Capacitor Sizing</a></li>
+  <li><a href="#ota-sizing" id="toc-ota-sizing" class="nav-link" data-scroll-target="#ota-sizing"><span class="header-section-number">6.2</span> OTA Sizing</a>
+  <ul>
+  <li><a href="#choosing-i_d-and-g_m" id="toc-choosing-i_d-and-g_m" class="nav-link" data-scroll-target="#choosing-i_d-and-g_m"><span class="header-section-number">6.2.1</span> Choosing <span class="math inline">\(I_{d}\)</span> and <span class="math inline">\(g_{m}\)</span></a></li>
+  <li><a href="#choosing-w-and-l-parameters" id="toc-choosing-w-and-l-parameters" class="nav-link" data-scroll-target="#choosing-w-and-l-parameters"><span class="header-section-number">6.2.2</span> Choosing W and L parameters</a></li>
   </ul></li>
-  <li><a href="#digital-output-filtering" id="toc-digital-output-filtering" class="nav-link" data-scroll-target="#digital-output-filtering"><span class="header-section-number">5.3</span> Digital Output Filtering</a></li>
+  <li><a href="#xschem-realization" id="toc-xschem-realization" class="nav-link" data-scroll-target="#xschem-realization"><span class="header-section-number">6.3</span> Xschem Realization</a></li>
+  <li><a href="#comparator-design" id="toc-comparator-design" class="nav-link" data-scroll-target="#comparator-design"><span class="header-section-number">6.4</span> Comparator Design</a>
+  <ul>
+  <li><a href="#model--architecture-elaboration" id="toc-model--architecture-elaboration" class="nav-link" data-scroll-target="#model--architecture-elaboration"><span class="header-section-number">6.4.1</span> Model-/ Architecture elaboration</a></li>
+  <li><a href="#comparator-stage" id="toc-comparator-stage" class="nav-link" data-scroll-target="#comparator-stage"><span class="header-section-number">6.4.2</span> Comparator Stage</a></li>
+  <li><a href="#latching-circuit" id="toc-latching-circuit" class="nav-link" data-scroll-target="#latching-circuit"><span class="header-section-number">6.4.3</span> Latching Circuit</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="header-section-number">6.4.4</span> Implementation</a></li>
+  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation"><span class="header-section-number">6.4.5</span> Validation</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
+  <li><a href="#digital-output-filtering" id="toc-digital-output-filtering" class="nav-link" data-scroll-target="#digital-output-filtering"><span class="header-section-number">6.5</span> Digital Output Filtering</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="report_grp4.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -375,12 +394,15 @@ Figure&nbsp;6: Linear Model of the 1st-Order Modulator
 <p><span class="math display">\[\begin{align}
   v = STF(z)\,u + NTF(z)\,e
 \end{align}\]</span></p>
+<<<<<<< HEAD
+=======
 <p>The Noiseshaping is now privided due to the given NTF, which will apply a high-pass characteristic onto the internal noise. As a first general validation of that, if we check over a normalized frequency range of <span class="math inline">\(\omega = [0, \pi]\)</span> we derive for <span class="math inline">\(z = e^{j\omega}\)</span> at either z = e^{j} = 1 or z = e^{j} = -1. Plugging that into the proposed NTF will lead to:</p>
 <p><span class="math display">\[\begin{align}
   NTF(z) &amp;= 1-z^{-1} \hat{=} 1-\frac{1}{e^{j\omega}} = 0\,; \quad \text{for}\ \omega \rightarrow 0  \\
   NTF(z) &amp;= 1-z^{-1} \hat{=} 1-\frac{1}{e^{j\omega}} = 2\,; \quad \text{for}\ \omega \rightarrow \pi  \\
 
 \end{align}\]</span></p>
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 <p><font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font></p>
 </section>
 <section id="sqnr-and-enob" class="level3" data-number="3.2.3">
@@ -557,16 +579,55 @@ Figure&nbsp;11: Spectral Analysis from Models for L=1 &amp; L=2
 </section>
 <section id="basic-behaviour-on-circuit-level" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</h1>
-<p>(to be cited: Schreier)</p>
-<section id="switched-capacitor-integrator-as-loop-filter" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="switched-capacitor-integrator-as-loop-filter"><span class="header-section-number">4.1</span> Switched Capacitor Integrator as Loop Filter</h2>
+<p>In this section, we will deal with realization of our Delta-Sigma Modulator on the circuit level for given specifications. We will consider the basic behaviour of the circuit, and implement them.</p>
 <p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
+<<<<<<< HEAD
+<p>First of all, let’s see conceptually simplest Sample and Hold <strong>(S/H)</strong> consists of a Switch and Capacitor in <a href="#fig-SIMPLE_SH" class="quarto-xref">Figure&nbsp;17</a>.</p>
+<div id="fig-SIMPLE_SH" class="quarto-float quarto-figure quarto-figure-center anchored">
+=======
 <p>A classic implementation of realizing an active integrator would be with the following opamp circuit in figure <a href="#fig-opamp_integrator" class="quarto-xref">Figure&nbsp;12</a>.</p>
 <div id="fig-opamp_integrator" class="quarto-float quarto-figure quarto-figure-center anchored">
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-opamp_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/theory/Integrator_Circuit.svg" class="img-fluid figure-img">
+<div aria-describedby="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/switch_cap/_basic_sh.svg" class="img-fluid figure-img">
 </div>
+<<<<<<< HEAD
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Simple Sample and Hold
+</figcaption>
+</figure>
+</div>
+<p>If the Switch is closed, the Capacitor will charge up to the input voltage which denotes to track phase. When Switch is opened, the Capacitor will hold the input voltage which denotes to hold phase, such circuits are also known as <strong>Track and Hold</strong> circuits.</p>
+<section id="non-idealities" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="non-idealities"><span class="header-section-number">4.1</span> Non-Idealities</h2>
+<p>Unlike ideal Switches, real switches have some “On-Resistance <strong>Ron</strong>” which is some function of input. 1/RonC is the bandwidth during the tracking phase. The signal is being stored in Capacitor in terms of charge, smaller the Capacitor more the tendency of getting disturbed or leakage.</p>
+<p>Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage $$ in series with resistance. Ouput Noise is present for all frequencies also known as <strong>Whilte Noise</strong> and is given as</p>
+<p><span class="math display">\[
+V_\mathrm{n}^2 = \frac{k T}{C}
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is Boltzmann’s constant, <span class="math inline">\(T\)</span> is temperature in Kelvin.</p>
+<p>Candidate for switch in circuit is MOSFET. Above were the non-idealities present if switch is ON. Even if switch is OFF its far from being ideal. Ideally, it should be open circuit but there is some <span class="math inline">\(C_{OFF}\)</span> present.</p>
+<p>More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to <strong>Charge Injection</strong>. Injected Charge is Non-Linear function of Vin. Due to these reasons we are using <strong>Bottom Plate Switching</strong>.</p>
+</section>
+<section id="switched-capacitor-integrator" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">4.2</span> Switched Capacitor Integrator</h2>
+<p>A classic implementation of realizing an active integrator would be with the opamp circuit using a switch capacitor. However, in IC level implementation we use OTA instead of OpAMP as output resistance of OTA is infinte which benefits us heavily. H(z) enables us to realize any Discrete Time Transfer Function. There are two types of integrators:</p>
+<ul>
+<li><strong>Delay Free Integrator</strong>: This form of integrator include the current sample of the input signal as well. Its transfer function is given as:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+  \frac{H(z)} = \frac{1}{1-z^{-1}}
+\end{align}\]</span></p>
+<ul>
+<li><strong>Delayed Integrator</strong>: This form of integrator does not include the current sample of the input signal. Its transfer function is given as:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+  \frac{H(z)} = \frac{z^{-1}}{1-z^{-1}}
+\end{align}\]</span></p>
+<p>We will be usinf the second form of integrator in our system.</p>
+<p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <a href="#fig-opamp_sc_integrator" class="quarto-xref">Figure&nbsp;11</a>, which leads to a switched-capacitor integrator.</p>
+=======
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-opamp_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12: Simple opamp based integrator
 </figcaption>
@@ -575,6 +636,7 @@ Figure&nbsp;12: Simple opamp based integrator
 <p>(explain basic principle of shown integrator circuit)</p>
 <p>There is however the inconvinience that the resistor on the input is generally a lossy and potentially noisy element for our system.</p>
 <p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <a href="#fig-opamp_sc_integrator" class="quarto-xref">Figure&nbsp;13</a>, which leads to a switched-capacitor integrator.</p>
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 <div id="fig-opamp_sc_integrator" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-opamp_sc_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -625,8 +687,14 @@ Figure&nbsp;15: Integrator state during phase 2
   \frac{V_{out}}{V_{in}} = \frac{z^{-1}}{1-z^{-1}} \frac{C1}{C2} = H_v(z)
 \end{align}\]</span></p>
 <p>The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain (<span class="math inline">\(C_1 = C_2\)</span>).</p>
-<p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in Figure <a href="#fig-loopfilter_sys_1st_order" class="quarto-xref">Figure&nbsp;6</a>.</p>
+<p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in <a href="#fig-loopfilter_sys_1st_order" class="quarto-xref">Figure&nbsp;6</a>.</p>
 </section>
+<<<<<<< HEAD
+<section id="ideal-system-model-in-ltspice" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="ideal-system-model-in-ltspice"><span class="header-section-number">4.3</span> Ideal system model in LTSpice</h2>
+<p>The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components.<br>
+For the switched capacitor input stage, ideal switches were used. These switches activate when the difference on the two input terminals is greater than zero. The non-overlap in the phases can be controlled by setting the voltage sources modeling the phase generator appropriately. The OTA is modeled by a simple voltage controlled current source with a resistor in parallel. This roughly follows the small signal representation of an OTA. Following the OTA is a comparator consisting of an input difference amplifier which compares the output of the OTA to a constant voltage of <span class="math inline">\(V_{DD}/2\)</span>. The latching is done by two ideal switches with oppositely connected supply terminals. The output is then amplified by comparing the current output voltage level to 0V and setting a voltage source to <span class="math inline">\(V_{SS}\)</span> or <span class="math inline">\(V_{DD}\)</span> accordingly.</p>
+=======
 <section id="ideal-system-model-in-ltspice" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="ideal-system-model-in-ltspice"><span class="header-section-number">4.2</span> Ideal system model in LTSpice</h2>
 <p>For first simulation results the behaviour described in the previous subchapter can be implemented as an indealized model in LTSpice. Files for this were provided by the supervising professor and will be explained briefly.<br>
@@ -634,6 +702,7 @@ Figure&nbsp;15: Integrator state during phase 2
 &nbsp; For the input stage, ideal switches are used which are controlled by voltage sources modeling the input clocks. These are configured in such a way, that the clock phases are not overlapping. Because of the design restrictions given, the clock frequency is modeled to be around 220kHz.<br>
 &nbsp; The operational amplifier is is planned to be an operational transconductrance amplifier (OTA) which is realized as a voltage controlled current source that outputs a current proportional to the difference of its two input signals. This representation is linear for all inputs and can be chosen, if the input signal can is guaranteed to be within the linear range of the real OTA. If the OTA is to operate in saturation, this model would not be valid anymore.<br>
 &nbsp; The comparator has to compare the current input sample to a fixed value. If, at the rising edge of the reference clock, the input voltage lies above this threshold a logic high, represented by <span class="math inline">\(V_{DD}\)</span> is output, if the value lies below the threshold a logic low (<span class="math inline">\(V_{SS}\)</span>) will be output. Additionally, this output value has to be held until the next rising edge of the controlling clock. This latching functionallity is realized using two clock controlled switches that open and close inversely. <font color="red">PHRASING OK?</font> The comparison for the dermination of the output is done through a voltage source and a mathematical comparison.</p>
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 </section>
 </section>
 <section id="design-proposals" class="level1" data-number="5">
@@ -751,9 +820,80 @@ Figure&nbsp;18: Gates used for clock generating structures
 </div>
 <p>The cascading of two CMOS inverters in figure <a href="#fig-inv" class="quarto-xref">Figure&nbsp;18 (a)</a> is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font></p>
 </section>
-<section id="comparator-design" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="comparator-design"><span class="header-section-number">5.2</span> Comparator Design</h2>
+</section>
+<section id="switch-capacitor-design" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Switch Capacitor Design</h1>
+<p>We are using “CIFB” topology to realize our design.</p>
+<div id="fig-SIMPLE_SH" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/switch_cap/_coeff.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17: Second-Order CIFB modulator
+</figcaption>
+</figure>
+</div>
+<p>Functions of <span class="math inline">\(\Sigma \Delta\)</span> toolbox in MATLAB enables us to realize the NTF function and based upon that we can get our coefficients.</p>
+<section id="capacitor-sizing" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="capacitor-sizing"><span class="header-section-number">6.1</span> Capacitor Sizing</h2>
+<p>In the first stage capacitance ratio ccan be computed as follows:</p>
+<p><span class="math display">\[
+a_1 = \frac{C_1 V_\text{ref}}{C_2} = \frac{C_1 V_\text{dd}}{C_2}
+\]</span></p>
+<p><span class="math display">\[
+b_1 = \frac{C_1 V_\text{FS}}{M C_2} = \frac{C_1 V_\text{dd}}{C_2}
+\]</span></p>
+<p>The absolute value of <span class="math inline">\(C_{1}\)</span> is computed by thermal noise constraint. Mean-square noise yielding an SNR of 101 dB is</p>
+<p><span class="math display">\[\overline{v_n^2} = \frac{\left(\frac{V_\text{dd}}{2}\right)^2 / 2}{10^{\text{SNR}/10}}\]</span></p>
+<p>The in-band input-referred mean-square noise voltage associated with first integrator:</p>
+<p><span class="math display">\[v_n^2 = \frac{kT}{\text{OSR} \cdot C_1}\]</span></p>
+<p>From above equations we can get the value of <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>. For capacitences for the second integrator can be computed from:</p>
+<p><span class="math display">\[$c_1 = \frac{C_3}{C_5}\]</span></p>
+<p><span class="math display">\[a_2 = \frac{C_4 V_\text{dd}}{C_5}\]</span></p>
+<p>Since, due to oversampling ratio is high, the in-band thermal noise of the second integrator is heavily attenuated by gain of the first integrator. Therefore, we set <span class="math inline">\(C_4\)</span> is taken 0.1pF.</p>
+</section>
+<section id="ota-sizing" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="ota-sizing"><span class="header-section-number">6.2</span> OTA Sizing</h2>
+<p>For integrator, we first implemented 5 transistor OTA. Using components available in IHP Microelectronics SG13G2 technology. First of all, we need to run the technology sweep to get the response of the OTA at various <span class="math inline">\(V_{gs}\)</span> and <span class="math inline">\(V_{ds}\)</span> values. Then we can use the sweep data to get the optimal graphs.</p>
+<p><font color="red"> ADD TECHSWEEP SCREENSHOT and ota diagram </font></p>
+<section id="choosing-i_d-and-g_m" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="choosing-i_d-and-g_m"><span class="header-section-number">6.2.1</span> Choosing <span class="math inline">\(I_{d}\)</span> and <span class="math inline">\(g_{m}\)</span></h3>
+<p>The value of <span class="math inline">\(I_d\)</span> plays a very important role in the design of the OTA. At the start of each charge-transfer phase, the OTA input terminals are driven such that current in differential switches fully to one side. The magnitude output current of I (bias current) in each half of differential pair. It should be large enough to transfer the charge from input capacitor to integrating capacitor in allowed time.</p>
+<p><span class="math display">\[I &gt; \frac{C_1 V_\text{dd}}{T / 4}\]</span></p>
+<p>Next important parameter is <span class="math inline">\(g_m\)</span>.In small-signal model of an integrator in charge-transfer phase from which we can see time-constant is</p>
+<p><span class="math display">\[
+\tau = RC = \frac{C_1 + C_3 + C_1C_3 / C_2}{g_m}
+\]</span></p>
+<p>which gives</p>
+<p><span class="math display">\[
+g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
+\]</span></p>
+<p>Now, we have both the values of <span class="math inline">\(I_d\)</span> and <span class="math inline">\(g_m\)</span>. We would divide the two values to get <span class="math inline">\(g_m/I_d\)</span> ratio and check whether it is in moderate region or not. If it is not, we need to adjust the value of <span class="math inline">\(I_d\)</span> and <span class="math inline">\(g_m\)</span> which can be done by increasing the value of <span class="math inline">\(I_d\)</span>.</p>
+</section>
+<section id="choosing-w-and-l-parameters" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="choosing-w-and-l-parameters"><span class="header-section-number">6.2.2</span> Choosing W and L parameters</h3>
+<p>In a design we would have different NMOS and PMOS with different parameters depending upon their presence in design. We have used <strong>Whilson Current Mirror</strong> for creating reference current in our circuit. All NMOS and PMOS in this section would have double <span class="math inline">\(W/L\)</span> compared to the NMOS and PMOS in the differential pair.</p>
+<p>We would generate MATLAB scripts or also known as lookup table to generate the required plots for our technology node. In figure <span class="math inline">\(g_m/I_d\)</span> vs <span class="math inline">\(I_d/W\)</span> for NMOS. We can see that <span class="math inline">\(g_m/I_d\)</span> is in moderate region and for various <span class="math inline">\(L\)</span> values corresponding <span class="math inline">\(I_d/W\)</span> values can be see. Choose the length value in such a way that after calculation your <span class="math inline">\(W\)</span> is not less 130nm. Repeat the same procedure for PMOS. You have <span class="math inline">\(W\)</span> and <span class="math inline">\(L\)</span> values for both NMOS and PMOS but keep in mind choose length atleast three or four times of <span class="math inline">\(L_{min}\)</span>.</p>
+<p><font color="red"> Add pic of graph </font></p>
+</section>
+</section>
+<section id="xschem-realization" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="xschem-realization"><span class="header-section-number">6.3</span> Xschem Realization</h2>
+<p>To simulate our design we are using Xschem and ngspice. <font color="red">Add xschem pics here </font></p>
+</section>
+<section id="comparator-design" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="comparator-design"><span class="header-section-number">6.4</span> Comparator Design</h2>
 <p>As the output stage of the modulator subsystem of the desired <span class="math inline">\(\Delta\Sigma\)</span> modulator, the comparator stage serves to realize the desired quantization to discretize the amplitude of our analog signal. A comparator suffices to realize a 1-bit quantization, where the representative output from our data samples is either “high” or “low”, which will do fine to give us the PWM signal at the output.</p>
+<<<<<<< HEAD
+<section id="model--architecture-elaboration" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">6.4.1</span> Model-/ Architecture elaboration</h3>
+<p>The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide. Lastly it also utilizes a d-flip-flop for the “digitized” output signal(-s), to be fed back to the loopfilter structures.</p>
+</section>
+<section id="comparator-stage" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">6.4.2</span> Comparator Stage</h3>
+<p>The comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;18</a>. It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches.</p>
+=======
 <section id="model--architecture-elaboration" class="level3" data-number="5.2.1">
 <h3 data-number="5.2.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">5.2.1</span> Model-/ Architecture elaboration</h3>
 <p>The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide. Lastly we could consider utilizing a d-flip-flop for the “digitized” output signal(-s), also to be fed back to the loopfilter structures.</p>
@@ -763,13 +903,18 @@ Figure&nbsp;18: Gates used for clock generating structures
 <p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;19</a>.</p>
 <p>While the classical StrongArm would utilize pmos transistors for M3 &amp; M4 (with their sources being pulled to <span class="math inline">\(V_DD\)</span> and their drains connected to the node above M1 and M2) instead, the behaviour would in both cases be the same, as tested in simulations.</p>
 <p>It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches.</p>
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 <div id="fig-strongarm_circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/comp_architecture.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<<<<<<< HEAD
+Figure&nbsp;18: Comparator, realized through inverter based architecture
+=======
 Figure&nbsp;19: Comparator, realized through inverter based architecture
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 </figcaption>
 </figure>
 </div>
@@ -783,6 +928,19 @@ Figure&nbsp;19: Comparator, realized through inverter based architecture
 <p>During high clock phases the nmos transistors (above the input nmos transistors) start to conduct and allow for current to flow to the shared source contact of the input differential pair, so to <span class="math inline">\(V_{SS}\)</span></p>
 <p>Depending on the conductivity of the MOSFETS that are fed by the input signals, one branch will “discharge” quicker. This in turn will lead to either M7 or M8 conducting again, once the applied gate voltage drops below the <span class="math inline">\(V_{DD}-V_{th}\)</span> (since they are pmos). So, in case of <span class="math inline">\(in+ &gt; in-\)</span>, the gate of M8 would reach that level faster, therefore conducting earlier and in the process pulling outp back to <span class="math inline">\(V_DD\)</span>, while this in turn ultimately negates M7 from reaching that level, leading to outn decaying further to <span class="math inline">\(V_{SS}\)</span>.</p>
 </section>
+<<<<<<< HEAD
+<section id="latching-circuit" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">6.4.3</span> Latching Circuit</h3>
+<p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs.</p>
+</section>
+<section id="implementation" class="level3" data-number="6.4.4">
+<h3 data-number="6.4.4" class="anchored" data-anchor-id="implementation"><span class="header-section-number">6.4.4</span> Implementation</h3>
+<p>[xschem circuit to be placed here]</p>
+</section>
+<section id="validation" class="level3" data-number="6.4.5">
+<h3 data-number="6.4.5" class="anchored" data-anchor-id="validation"><span class="header-section-number">6.4.5</span> Validation</h3>
+<p>[some basic simulation plots to be placed here (validating clock behaviour, latching capability, etc.)]</p>
+=======
 <section id="latching-circuit" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">5.2.3</span> Latching Circuit</h3>
 <p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs. The way this was done in our case is through an “SR-Latch”, which stands for “set” and “reset”.</p>
@@ -830,6 +988,7 @@ Figure&nbsp;22: Comparator Testbench
 <section id="validation" class="level3" data-number="5.2.5">
 <h3 data-number="5.2.5" class="anchored" data-anchor-id="validation"><span class="header-section-number">5.2.5</span> Validation</h3>
 <p>The following plots show the outputs of both the comparator and the cascaded SR-latch. For the first 8 ns, the positive input voltage of the comparator is 1 mV higher than the negative input. At around 8.1 ns, that polarityis reversed.</p>
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 <div class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
@@ -910,7 +1069,11 @@ Figure&nbsp;22: Comparator Testbench
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<<<<<<< HEAD
+Figure&nbsp;19
+=======
 Figure&nbsp;23
+>>>>>>> f734a61879c461d0039d50fe33d53bb6cd114071
 </figcaption>
 </figure>
 </div>
@@ -920,13 +1083,13 @@ Figure&nbsp;23
 <p>The behavior is the pretty much the same, both for <span class="math inline">\(V_DD\)</span> equaling 3.3 V or 1.5 V, where only the small spikes on the latch output are smaller for 3.3 V.</p>
 </section>
 </section>
-<section id="digital-output-filtering" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="digital-output-filtering"><span class="header-section-number">5.3</span> Digital Output Filtering</h2>
+<section id="digital-output-filtering" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="digital-output-filtering"><span class="header-section-number">6.5</span> Digital Output Filtering</h2>
 <p>The topic of digital filtering and decimation after the actual modulator stage could not be explored extensively during this semester. We do however want to briefly describe that subsystem from a conceptual perspective.</p>
 </section>
 </section>
-<section id="references" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
+<section id="references" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> References</h1>
 </section>
 
 </main>

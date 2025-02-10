@@ -12,7 +12,7 @@
 <meta name="author" content="Aftab Nagarji">
 <meta name="dcterms.date" content="2025-02-10">
 
-<title>ideal_circ</title>
+<title>design</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -28,16 +28,16 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="ideal_circ_files/libs/clipboard/clipboard.min.js"></script>
-<script src="ideal_circ_files/libs/quarto-html/quarto.js"></script>
-<script src="ideal_circ_files/libs/quarto-html/popper.min.js"></script>
-<script src="ideal_circ_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="ideal_circ_files/libs/quarto-html/anchor.min.js"></script>
-<link href="ideal_circ_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="ideal_circ_files/libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="ideal_circ_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="ideal_circ_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="ideal_circ_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="design_files/libs/clipboard/clipboard.min.js"></script>
+<script src="design_files/libs/quarto-html/quarto.js"></script>
+<script src="design_files/libs/quarto-html/popper.min.js"></script>
+<script src="design_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="design_files/libs/quarto-html/anchor.min.js"></script>
+<link href="design_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="design_files/libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="design_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="design_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="design_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -80,14 +80,17 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#basic-behaviour-on-circuit-level" id="toc-basic-behaviour-on-circuit-level" class="nav-link active" data-scroll-target="#basic-behaviour-on-circuit-level"><span class="header-section-number">1</span> Basic Behaviour on Circuit Level</a>
+  <li><a href="#switch-capacitor-design" id="toc-switch-capacitor-design" class="nav-link active" data-scroll-target="#switch-capacitor-design"><span class="header-section-number">1</span> Switch Capacitor Design</a>
   <ul>
-  <li><a href="#non-idealities" id="toc-non-idealities" class="nav-link" data-scroll-target="#non-idealities"><span class="header-section-number">1.1</span> Non-Idealities</a></li>
-  <li><a href="#switched-capacitor-integrator" id="toc-switched-capacitor-integrator" class="nav-link" data-scroll-target="#switched-capacitor-integrator"><span class="header-section-number">1.2</span> Switched Capacitor Integrator</a></li>
-  <li><a href="#ideal-system-model-in-ltspice" id="toc-ideal-system-model-in-ltspice" class="nav-link" data-scroll-target="#ideal-system-model-in-ltspice"><span class="header-section-number">1.3</span> Ideal system model in LTSpice</a></li>
+  <li><a href="#capacitor-sizing" id="toc-capacitor-sizing" class="nav-link" data-scroll-target="#capacitor-sizing"><span class="header-section-number">1.1</span> Capacitor Sizing</a></li>
+  <li><a href="#ota-sizing" id="toc-ota-sizing" class="nav-link" data-scroll-target="#ota-sizing"><span class="header-section-number">1.2</span> OTA Sizing</a>
+  <ul>
+  <li><a href="#choosing-i_d-and-g_m" id="toc-choosing-i_d-and-g_m" class="nav-link" data-scroll-target="#choosing-i_d-and-g_m"><span class="header-section-number">1.2.1</span> Choosing <span class="math inline">\(I_{d}\)</span> and <span class="math inline">\(g_{m}\)</span></a></li>
+  <li><a href="#choosing-w-and-l-parameters" id="toc-choosing-w-and-l-parameters" class="nav-link" data-scroll-target="#choosing-w-and-l-parameters"><span class="header-section-number">1.2.2</span> Choosing W and L parameters</a></li>
+  </ul></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ideal_circ.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="design.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -145,106 +148,62 @@ window.Quarto = {
 </header>
 
 
-<section id="basic-behaviour-on-circuit-level" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Basic Behaviour on Circuit Level</h1>
-<p>In this section, we will deal with realization of our Delta-Sigma Modulator on the circuit level for given specifications. We will consider the basic behaviour of the circuit, and implement them.</p>
-<p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
-<p>First of all, let’s see conceptually simplest Sample and Hold <strong>(S/H)</strong> consists of a Switch and Capacitor in <a href="#fig-SIMPLE_SH" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<section id="switch-capacitor-design" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Switch Capacitor Design</h1>
+<p>We are using “CIFB” topology to realize our design.</p>
 <div id="fig-SIMPLE_SH" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/switch_cap/_basic_sh.svg" class="img-fluid figure-img">
+<img src="figures/switch_cap/_coeff.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Simple Sample and Hold
+Figure&nbsp;1: Second-Order CIFB modulator
 </figcaption>
 </figure>
 </div>
-<p>If the Switch is closed, the Capacitor will charge up to the input voltage which denotes to track phase. When Switch is opened, the Capacitor will hold the input voltage which denotes to hold phase, such circuits are also known as <strong>Track and Hold</strong> circuits.</p>
-<section id="non-idealities" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="non-idealities"><span class="header-section-number">1.1</span> Non-Idealities</h2>
-<p>Unlike ideal Switches, real switches have some “On-Resistance <strong>Ron</strong>” which is some function of input. 1/RonC is the bandwidth during the tracking phase. The signal is being stored in Capacitor in terms of charge, smaller the Capacitor more the tendency of getting disturbed or leakage.</p>
-<p>Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage $$ in series with resistance. Ouput Noise is present for all frequencies also known as <strong>Whilte Noise</strong> and is given as</p>
+<p>Functions of <span class="math inline">\(\Sigma \Delta\)</span> toolbox in MATLAB enables us to realize the NTF function and based upon that we can get our coefficients.</p>
+<section id="capacitor-sizing" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="capacitor-sizing"><span class="header-section-number">1.1</span> Capacitor Sizing</h2>
+<p>In the first stage capacitance ratio ccan be computed as follows:</p>
 <p><span class="math display">\[
-V_\mathrm{n}^2 = \frac{k T}{C}
+a_1 = \frac{C_1 V_\text{ref}}{C_2} = \frac{C_1 V_\text{dd}}{C_2}
 \]</span></p>
-<p>where <span class="math inline">\(k\)</span> is Boltzmann’s constant, <span class="math inline">\(T\)</span> is temperature in Kelvin.</p>
-<p>Candidate for switch in circuit is MOSFET. Above were the non-idealities present if switch is ON. Even if switch is OFF its far from being ideal. Ideally, it should be open circuit but there is some <span class="math inline">\(C_{OFF}\)</span> present.</p>
-<p>More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to <strong>Charge Injection</strong>. Injected Charge is Non-Linear function of Vin. Due to these reasons we are using <strong>Bottom Plate Switching</strong>.</p>
+<p><span class="math display">\[
+b_1 = \frac{C_1 V_\text{FS}}{M C_2} = \frac{C_1 V_\text{dd}}{C_2}
+\]</span></p>
+<p>The absolute value of <span class="math inline">\(C_{1}\)</span> is computed by thermal noise constraint. Mean-square noise yielding an SNR of 101 dB is</p>
+<p><span class="math display">\[\overline{v_n^2} = \frac{\left(\frac{V_\text{dd}}{2}\right)^2 / 2}{10^{\text{SNR}/10}}\]</span></p>
+<p>The in-band input-referred mean-square noise voltage associated with first integrator:</p>
+<p><span class="math display">\[v_n^2 = \frac{kT}{\text{OSR} \cdot C_1}\]</span></p>
+<p>From above equations we can get the value of <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>. For capacitences for the second integrator can be computed from:</p>
+<p><span class="math display">\[$c_1 = \frac{C_3}{C_5}\]</span></p>
+<p><span class="math display">\[a_2 = \frac{C_4 V_\text{dd}}{C_5}\]</span></p>
+<p>Since, due to oversampling ratio is high, the in-band thermal noise of the second integrator is heavily attenuated by gain of the first integrator. Therefore, we set <span class="math inline">\(C_4\)</span> is taken 0.1pF.</p>
 </section>
-<section id="switched-capacitor-integrator" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">1.2</span> Switched Capacitor Integrator</h2>
-<p>A classic implementation of realizing an active integrator would be with the opamp circuit using a switch capacitor. However, in IC level implementation we use OTA instead of OpAMP as output resistance of OTA is infinte which benefits us heavily. H(z) enables us to realize any Discrete Time Transfer Function. There are two types of integrators:</p>
-<ul>
-<li><strong>Delay Free Integrator</strong>: This form of integrator include the current sample of the input signal as well. Its transfer function is given as:</li>
-</ul>
-<p><span class="math display">\[\begin{align}
-  {H(z)} = \frac{1}{1-z^{-1}}
-\end{align}\]</span></p>
-<ul>
-<li><strong>Delayed Integrator</strong>: This form of integrator does not include the current sample of the input signal. Its transfer function is given as:</li>
-</ul>
-<p><span class="math display">\[\begin{align}
-  {H(z)} = \frac{z^{-1}}{1-z^{-1}}
-\end{align}\]</span></p>
-<p>We will be usinf the second form of integrator in our system.</p>
-<p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <a href="#fig-opamp_sc_integrator" class="quarto-xref">Figure&nbsp;2</a>, which leads to a switched-capacitor integrator.</p>
-<div id="fig-opamp_sc_integrator" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-opamp_sc_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/theory/SC_Integrator_Circuit.svg" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-opamp_sc_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Opamp based switched capacitor integrator
-</figcaption>
-</figure>
-</div>
-<p>The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit’s functionality.</p>
-<p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases, depicted in Figures <a href="#fig-phase1_integrator" class="quarto-xref">Figure&nbsp;3</a> and <a href="#fig-phase2_integrator" class="quarto-xref">Figure&nbsp;4</a>.</p>
-<div id="fig-phase1_integrator" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-phase1_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/theory/sc_integrator_ph1.PNG" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase1_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Integrator state during phase 1
-</figcaption>
-</figure>
-</div>
-<div id="fig-phase2_integrator" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-phase2_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/theory/sc_integrator_ph2.PNG" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase2_integrator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Integrator state during phase 2
-</figcaption>
-</figure>
-</div>
-<p>The first phase allows for the capacitor <span class="math inline">\(C_1\)</span> to be charged from the input, leading to the charge accumulation <span class="math inline">\(q_1[1]\)</span>, during which the integrating capacitor <span class="math inline">\(C_2\)</span> holds it’s previous charge (<span class="math inline">\(q_2[n]\)</span>). Due to the relation <span class="math inline">\(V = \frac{Q}{C}\)</span>, the output voltage will be equal to the ratio of that charge <span class="math inline">\(q_2[n]\)</span> to the capacitance <span class="math inline">\(C_2\)</span>.</p>
-<p>The second phase will than result in the charge of <span class="math inline">\(C_1\)</span> to accumulate in <span class="math inline">\(C_2\)</span>, due to the opamps input behaviour related to it’s “virtual ground”. C2 will therefore have the sum of charges, leading to</p>
-<p><span class="math display">\[\begin{align}\label{sc_charge_ph2}
-  q_2[n+1] = q_2 + q_1.
-\end{align}\]</span></p>
-<p>After applying the <span class="math inline">\(z\)</span>-transform, the result is</p>
-<p><span class="math display">\[\begin{align}
-  Q_2(z) = Q_2(z)\,z^{-1} + Q_1(z)\,z^{-1}
-\end{align}\]</span></p>
-<p>which in turn can be rearranged to get</p>
-<p><span class="math display">\[\begin{align}
-  \frac{Q_2(z)}{Q_1(z)} = \frac{z^{-1}}{1-z^{-1}}
-\end{align}\]</span></p>
-<p>Utilizing the aforementions relation between voltage, charge and capacitance, we can derive the voltage I/O behaviour (transfer function) to be the following</p>
-<p><span class="math display">\[\begin{align}
-  \frac{V_{out}}{V_{in}} = \frac{z^{-1}}{1-z^{-1}} \frac{C1}{C2} = H_v(z)
-\end{align}\]</span></p>
-<p>The ratio of the capacitors would be a potential gain factor for the, which could also be choosen to achieve unity gain (<span class="math inline">\(C_1 = C_2\)</span>).</p>
-<p>The remaining term, describing a delayed integrator, is what will be utilized in the MATLAB assited system analysis. That ultimately leads to the following description of out feedback system, which overlaps with the established linear model from our system analysis in MATLAB, previously shown in <strong>?@fig-loopfilter_sys_1st_order</strong>.</p>
+<section id="ota-sizing" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="ota-sizing"><span class="header-section-number">1.2</span> OTA Sizing</h2>
+<p>For integrator, we first implemented 5 transistor OTA. Using components available in IHP Microelectronics SG13G2 technology. First of all, we need to run the technology sweep to get the response of the OTA at various <span class="math inline">\(V_{gs}\)</span> and <span class="math inline">\(V_{ds}\)</span> values. Then we can use the sweep data to get the optimal graphs.</p>
+<p><font color="red"> ADD TECHSWEEP SCREENSHOT and ota diagram </font></p>
+<section id="choosing-i_d-and-g_m" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="choosing-i_d-and-g_m"><span class="header-section-number">1.2.1</span> Choosing <span class="math inline">\(I_{d}\)</span> and <span class="math inline">\(g_{m}\)</span></h3>
+<p>The value of <span class="math inline">\(I_d\)</span> plays a very important role in the design of the OTA. At the start of each charge-transfer phase, the OTA input terminals are driven such that current in differential switches fully to one side. The magnitude output current of I (bias current) in each half of differential pair. It should be large enough to transfer the charge from input capacitor to integrating capacitor in allowed time.</p>
+<p><span class="math display">\[I &gt; \frac{C_1 V_\text{dd}}{T / 4}\]</span></p>
+<p>Next important parameter is <span class="math inline">\(g_m\)</span>.In small-signal model of an integrator in charge-transfer phase from which we can see time-constant is</p>
+<p><span class="math display">\[
+\tau = RC = \frac{C_1 + C_3 + C_1C_3 / C_2}{g_m}
+\]</span></p>
+<p>which gives</p>
+<p><span class="math display">\[
+g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
+\]</span></p>
+<p>Now, we have both the values of <span class="math inline">\(I_d\)</span> and <span class="math inline">\(g_m\)</span>. We would divide the two values to get <span class="math inline">\(g_m/I_d\)</span> ratio and check whether it is in moderate region or not. If it is not, we need to adjust the value of <span class="math inline">\(I_d\)</span> and <span class="math inline">\(g_m\)</span> which can be done by increasing the value of <span class="math inline">\(I_d\)</span>.</p>
 </section>
-<section id="ideal-system-model-in-ltspice" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="ideal-system-model-in-ltspice"><span class="header-section-number">1.3</span> Ideal system model in LTSpice</h2>
-<p>The complete system comprising the different components described above were also modeled in LTSpice. This includes only idealized simulation components.<br>
-For the switched capacitor input stage, ideal switches were used. These switches activate when the difference on the two input terminals is greater than zero. The non-overlap in the phases can be controlled by setting the voltage sources modeling the phase generator appropriately. The OTA is modeled by a simple voltage controlled current source with a resistor in parallel. This roughly follows the small signal representation of an OTA. Following the OTA is a comparator consisting of an input difference amplifier which compares the output of the OTA to a constant voltage of <span class="math inline">\(V_{DD}/2\)</span>. The latching is done by two ideal switches with oppositely connected supply terminals. The output is then amplified by comparing the current output voltage level to 0V and setting a voltage source to <span class="math inline">\(V_{SS}\)</span> or <span class="math inline">\(V_{DD}\)</span> accordingly.</p>
+<section id="choosing-w-and-l-parameters" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="choosing-w-and-l-parameters"><span class="header-section-number">1.2.2</span> Choosing W and L parameters</h3>
+<p>In a design we would have different NMOS and PMOS with different parameters depending upon their presence in design. We have used <strong>Whilson Current Mirror</strong> for creating reference current in our circuit. All NMOS and PMOS in this section would have double <span class="math inline">\(W/L\)</span> compared to the NMOS and PMOS in the differential pair.</p>
+<p>We would generate MATLAB scripts or also known as lookup table to generate the required plots for our technology node. In figure <span class="math inline">\(g_m/I_d\)</span> vs <span class="math inline">\(I_d/W\)</span> for NMOS. We can see that <span class="math inline">\(g_m/I_d\)</span> is in moderate region and for various <span class="math inline">\(L\)</span> values corresponding <span class="math inline">\(I_d/W\)</span> values can be see. Choose the length value in such a way that after calculation your <span class="math inline">\(W\)</span> is not less 130nm. Repeat the same procedure for PMOS. You have <span class="math inline">\(W\)</span> and <span class="math inline">\(L\)</span> values for both NMOS and PMOS but keep in mind choose length atleast three or four times of <span class="math inline">\(L_{min}\)</span>.</p>
+<p><font color="red"> Add pic of graph </font></p>
+</section>
 </section>
 </section>
 
