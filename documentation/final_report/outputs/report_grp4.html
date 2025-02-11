@@ -747,7 +747,7 @@ Figure&nbsp;16: Opamp based switched capacitor integrator
 </figcaption>
 </figure>
 </div>
-<p>The depicted switches are clocked in a way to ensure non-overlapping high levels. This is of great importance, since turning both switches marked as <span class="math inline">\(\phi_1\)</span> off simultaneously would result in part of the channel charge of the series transistor transfering to the sample capacitor. Since this channel charge is signal dependent, it is nonlinearly related to the input signal. If however the series transistor is still on when turning of the parallel transistor, only a fixed amount of charge is added which introduces a dc offset. <span class="citation" data-cites="schreier">(<a href="#ref-schreier" role="doc-biblioref">Schreier 2017</a>)</span></p>
+<p>The depicted switches are clocked in a way to ensure non-overlapping high levels. This is of great importance, since turning both switches marked as <span class="math inline">\(\phi_1\)</span> off simultaneously would result in part of the channel charge of the series transistor transfering to the sample capacitor. Since this channel charge is signal dependent, it is nonlinearly related to the input signal. If however the series transistor is still on when turning off the parallel transistor, only a fixed amount of charge is added which introduces a dc offset. <span class="citation" data-cites="schreier">(<a href="#ref-schreier" role="doc-biblioref">Schreier 2017</a>)</span></p>
 <p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases, depicted in Figures <a href="#fig-phase1_integrator" class="quarto-xref">Figure&nbsp;17</a> and <a href="#fig-phase2_integrator" class="quarto-xref">Figure&nbsp;18</a>.</p>
 <div id="fig-phase1_integrator" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -847,7 +847,7 @@ Figure&nbsp;22: LTSpice representation of the delaying inverter
 <p>This chapter shall highlight our attempts at realizing the desired subsystems of the <span class="math inline">\(\Delta\Sigma\)</span> modulator on transistor level, utilizing the 130 nm technology offered from the IHP’s sg13g2 BiCMOS PDK for open source usage.</p>
 <p>The following subchapters will elaborate on the separate subcircuits, briefly explain the workings of the circuits before going over the achieved simulation results. Xschem was used as the schematic capture EDA tool, while the testbench-driven simulations utilize ngspice.</p>
 <table class="caption-top table">
-<caption>IHP SG13G2 devices {#tbl-sg13g2-devices}<span class="citation" data-cites="pretl">(<a href="#ref-pretl" role="doc-biblioref"><strong>pretl?</strong></a>)</span></caption>
+<caption>IHP SG13G2 devices {#tbl-sg13g2-devices}<span class="citation" data-cites="pretl2025">(<a href="#ref-pretl2025" role="doc-biblioref">Pretl, Koefinger, and Dorrer 2025</a>)</span></caption>
 <colgroup>
 <col style="width: 26%">
 <col style="width: 14%">
@@ -1003,12 +1003,20 @@ a_1 = \frac{C_1 V_\text{ref}}{C_2} = \frac{C_1 V_\text{dd}}{C_2}
 b_1 = \frac{C_1 V_\text{FS}}{M C_2} = \frac{C_1 V_\text{dd}}{C_2}
 \]</span></p>
 <p>The absolute value of <span class="math inline">\(C_{1}\)</span> is computed by thermal noise constraint. Mean-square noise yielding an SNR of 101 dB is</p>
-<p><span class="math display">\[\overline{v_n^2} = \frac{\left(\frac{V_\text{dd}}{2}\right)^2 / 2}{10^{\text{SNR}/10}}\]</span></p>
+<p><span class="math display">\[
+\overline{v_n^2} = \frac{\left(\frac{V_\text{dd}}{2}\right)^2 / 2}{10^{\text{SNR}/10}}
+\]</span></p>
 <p>The in-band input-referred mean-square noise voltage associated with first integrator:</p>
-<p><span class="math display">\[v_n^2 = \frac{kT}{\text{OSR} \cdot C_1}\]</span></p>
+<p><span class="math display">\[
+v_n^2 = \frac{kT}{\text{OSR} \cdot C_1}
+\]</span></p>
 <p>From above equations we can get the value of <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>. For capacitences for the second integrator can be computed from:</p>
-<p><span class="math display">\[$c_1 = \frac{C_3}{C_5}\]</span></p>
-<p><span class="math display">\[a_2 = \frac{C_4 V_\text{dd}}{C_5}\]</span></p>
+<p><span class="math display">\[
+c_1 = \frac{C_3}{C_5}
+\]</span></p>
+<p><span class="math display">\[
+a_2 = \frac{C_4 V_\text{dd}}{C_5}
+\]</span></p>
 <p>Since, due to oversampling ratio is high, the in-band thermal noise of the second integrator is heavily attenuated by gain of the first integrator. Therefore, we set <span class="math inline">\(C_4\)</span> is taken 0.1pF.</p>
 </section>
 <section id="ota-sizing" class="level2" data-number="5.2">
@@ -1067,7 +1075,7 @@ Figure&nbsp;27: Graph for <span class="math inline">\(I_d / W\)</span> for nMOS
 </section>
 <section id="xschem-realization" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="xschem-realization"><span class="header-section-number">5.3</span> Xschem Realization</h2>
-<p>To simulate our design we are using Xschem and ngspice. Realization of Telescopic OTA as after <a href="#fig-basic_ota" class="quarto-xref">Figure&nbsp;26</a> was not compatible with Switched Capacitor. <img src="figures/opamp/Telescopic.svg" class="img-fluid" alt="Implementation of Telescopic OTA"> <img src="figures/opamp/ac0.svg" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/ac1.svg" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/tran0.svg" class="img-fluid" alt="Transient Response of Telescopic OTA"></p>
+<p>To simulate our design we are using Xschem and ngspice. Realization of Telescopic OTA as after <a href="#fig-basic_ota" class="quarto-xref">Figure&nbsp;26</a> was not compatible with Switched Capacitor. <img src="figures/opamp/Telescopic.svg" id="fig-telescope-ota" class="img-fluid" alt="Implementation of Telescopic OTA"> <img src="figures/opamp/ac0.svg" id="fig-ac-telescope-ota" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/ac1.svg" id="fig-ac-telescope-ota2" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/tran0.svg" id="fig-transient-telescope-ota" class="img-fluid" alt="Transient Response of Telescopic OTA"></p>
 <p>Its giving us DC Gain of 9.6059e-01, Gain error of -3.9408e-02 and Slew rate (tsettle) of 7.0329e-07 at <span class="math inline">\(I_0\)</span> equivalent to 0.8microA.Below is the Switch Capacitor circuit with phase 1 and 2.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1303,6 +1311,9 @@ Instruments, Texas. 2009. <em>ADS111x Ultra-Small, Low-Power, I2C-Compatible, 86
 </div>
 <div id="ref-murmann" class="csl-entry" role="listitem">
 Murmann, Boris. 2024. <span>“EE628.”</span> GitHub. 2024. <a href="https://github.com/bmurmann/EE628">https://github.com/bmurmann/EE628</a>.
+</div>
+<div id="ref-pretl2025" class="csl-entry" role="listitem">
+Pretl, Harald, Michael Koefinger, and Simon Dorrer. 2025. <span>“Analog <span>Circuit</span> <span>Design</span>.”</span> February 2, 2025. <a href="https://doi.org/10.5281/zenodo.14387481">https://doi.org/10.5281/zenodo.14387481</a>.
 </div>
 <div id="ref-schreier" class="csl-entry" role="listitem">
 Schreier, Richard. 2017. <em>Understanding Delta‐sigma Data Converters</em>. John Wiley &amp; Sons, Ltd. https://doi.org/<a href="https://doi.org/10.1002/9781119258308.ch1">https://doi.org/10.1002/9781119258308.ch1</a>.
