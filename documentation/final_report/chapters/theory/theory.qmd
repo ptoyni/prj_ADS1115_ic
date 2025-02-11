@@ -49,12 +49,11 @@ The reason why we oversampled in the first place, only to end-up with a lower da
 
 ### Oversampling and Noise Shaping
 
-Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth $f_B$, so that the input can be reconstructed reliably afterwards, according to the Nyquist-Theorem (in turn avoiding aliasing). 
+Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth $f_B$, so that the input can be reconstructed reliably afterwards, according to the Nyquist-Theorem (in turn avoiding aliasing) [@schreier]. 
 \begin{align}
   f_s \geq 2\cdot f_B 
 \end{align}
 
-<font color="red">[schreier]</font>
 
 Nyquist-converters generally suffer from the following aspects, limiting them in their potential to offer outputs with high resolution at decent speeds. They require a high degree of complexity and matching accuracy regarding their analog components for proper precision, which even than is still constrained. Those that can achieve high resolution, meaning a high number of effective bits (ENOB), need circuitries that ultimately result in major slow-downs. They also require more complex anti-aliasing filters due to higher demand for sharp transition bands. Lastly, it has to deal with quantization noise that is uniformly spread across the given sampling bandwidth (assuming it to be white noise).
 
@@ -66,9 +65,8 @@ The oversampling ratio (OSR) denotes the factor by which the Nyquist rate is exc
   OSR = \frac{f_s}{2 \cdot f_B}
 \end{align}
 
-Oversampling systems require high precision & -speed digital circuitry which, as we stated initially, has evolved significantly while becoming increasingly more affordable throughout recent years. Therefore it is a reasonable trade-off. The analog sections in turn are generally less demanding and complex compared to Nyquist converters, e.g. the anti-aliasing filters which can be simpler and of lower order due to lesser likelyhood of "signal folding".
+Oversampling systems require high precision & -speed digital circuitry which, as we stated initially, has evolved significantly while becoming increasingly more affordable throughout recent years. Therefore it is a reasonable trade-off. The analog sections in turn are generally less demanding and complex compared to Nyquist converters, e.g. the anti-aliasing filters which can be simpler and of lower order due to lesser likelyhood of "signal folding" [@schreier].
 
-<font color="red">[schreier]</font>
 
 The key advantage that Delta-Sigma Modulation brings to the table is "noise shaping". This is enabled by the feedback structure that is given in our modulator system.
 
@@ -112,11 +110,9 @@ Hence, the noise is attenuated for low frequencies, while amplified for high fre
 
 ### SQNR and ENOB
 
-<font color="red">[lec-05-oversampling_adc]</font>
-
 Having effective noise shaping will increase the Signal-to-Quantazation-Noise-Ratio (SQNR) of the system within the band of interest. The SQNR is fundamentally tied to the "effective number of bits" (ENOB) that can be converted reliably, which is obviously of great interest for our applications.
 
- For a sine wave input to an ideal Nyquist converter, the relation between SNR and the ENOB is given through the following equation, which will serve as our approximation.
+ For a sine wave input to an ideal Nyquist converter, the relation between SNR and the ENOB is given through the following equation, which will serve as our approximation.[@lec0]
 
 \begin{align}
   SNR_{dB} = 6.02 \cdot ENOB + 1.76 \\
@@ -159,9 +155,7 @@ Regarding the noise shaping we will ultimately end up with
 From that we can see that by making this substitution, we are reducing the in-band quantization noise further.
 As typical for 2nd-order filters, we can now expect a slope with an inclide of 40 dB/ decade for the highpass characteristic of the new $NTF$.
 
-<font color="red">[Schreier]</font>
-
-The peak SQNR achievable with a 2nd order structure, dependend on the given $OSR$, while M denotes the quantization levels, is given by:
+The peak SQNR achievable with a 2nd order structure, dependend on the given $OSR$, while M denotes the quantization levels, is given by [@schreier]:
 
 \begin{align}
   SQNR_{2, peak, dB} = 10\,\log \Big(\frac{15\,M^2\, (OSR)^5}{2\,\pi^4}\Big)
@@ -171,9 +165,7 @@ The in-band noise is proportional to $OSR^{-5}$ (prev.: $OSR^{-5}$).
 From the equation we can observe that for doubling the OSR we will achieve approximately +15 dB in SQNR, which in turn results in roughly +2.5 ENOB, which are both reasonable increases to the 1st-order case.
 
 The second order model may require non-linear considerations for the quantizers gain, tied to the relationship between the quant. noise and the input amplitudes. 
-More representative estimations would require adjustments to the $NTF$. Something that might for example be done for the synthesis of NTFs in MATLAB when using functions from the "delsig" toolbox. 
-
-<font color="red">[Schreier]</font>
+More representative estimations would require adjustments to the $NTF$. Something that might for example be done for the synthesis of NTFs in MATLAB when using functions from the "delsig" toolbox [@schreier]. 
 
 For a gain of $k$, we can rewrite the $NTF_k(z)$ as
 
