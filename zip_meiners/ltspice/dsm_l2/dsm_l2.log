@@ -5,8 +5,8 @@ Error: unknown token in: "v(in)>v(vdd)/2[?]v(vss):v(vdd)"
 WARNING: Less than two connections to node VD.  This node is used by A§DFF.
 Per .tran options, skipping operating point for transient analysis.
 
-Date: Mon Feb 10 23:27:12 2025
-Total elapsed time: 10.668 seconds.
+Date: Tue Feb 11 05:14:47 2025
+Total elapsed time: 7.350 seconds.
 
 tnom = 27
 temp = 27

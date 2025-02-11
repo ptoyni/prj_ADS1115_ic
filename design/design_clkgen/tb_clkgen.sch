@@ -12,8 +12,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=9.9356804e-09
-x2=1.1626022e-08
+x1=9.8532734e-09
+x2=1.2430396e-08
 divx=5
 subdivx=1
 
@@ -48,7 +48,7 @@ C {gnd.sym} 110 -20 0 0 {name=l2 lab=GND}
 C {devices/gnd.sym} 20 -20 0 0 {name=l14 lab=GND}
 C {devices/vsource.sym} 20 -80 0 0 {name=Vsup value=\{vdd\}
 }
-C {lab_pin.sym} 110 -170 0 0 {name=p3 sig_type=std_logic lab=A
+C {lab_pin.sym} 110 -230 0 0 {name=p3 sig_type=std_logic lab=A
 }
 C {vdd.sym} 20 -140 0 0 {name=l4 lab=VDD}
 C {lab_pin.sym} 700 -210 2 0 {name=p1 sig_type=std_logic lab=p1d
