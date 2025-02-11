@@ -39,6 +39,6 @@ The following subchapters will elaborate on the separate subcircuits, briefly ex
 
 # Conclusion
 
-We have come to the end of this design document. 
+This marks the end of the design document. We have explored the basic theoretical aspects of $\Delta\Sigma$-ADC's and proposed our design ideas regarding a custom modulator, including a five transistor OTA as the loop filter. We have also presented corresponding simulations showing promising results. Despite all, there is still a lot of work left, mainly in the area of integrating the singular subsystems, like the OTA, the switched capacitor and the clock generator. Furthermore, the subject of digital filtering needs further exploration, as no real design proposal could be made, due to time limitations.
 
 # References
