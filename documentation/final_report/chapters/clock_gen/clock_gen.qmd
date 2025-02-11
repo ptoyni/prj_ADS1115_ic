@@ -16,7 +16,7 @@ import ltspice as lt
 
 #parse data from .raw file
 #for compiling the finished document this path needs to be relative to "report_grp4.qmd"
-fpath       = '../../matlab_python/clk_gen/tb_clkgen.raw'
+fpath       = '../../matlab_python/clk_gen/tb_clkgen_save.raw'
 l           = lt.Ltspice(fpath)
 l.parse()
 

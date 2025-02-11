@@ -4,9 +4,9 @@ In this section, we will deal with realization of our Delta-Sigma Modulator on t
 
 The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
 
-First of all, let's see conceptually simplest Sample and Hold _(S/H)_ consists of a Switch and Capacitor in @fig-SIMPLE_SH.
+First of all, let's see conceptually simplest Sample and Hold _(S/H)_ consists of a Switch and Capacitor in @fig-simple-sh.
 
-![Simple Sample and Hold](figures/switch_cap/_basic_sh.svg){#fig-SIMPLE_SH}
+![Simple Sample and Hold](figures/switch_cap/basic_sh.svg){#fig-simple-sh}
 
 
 If the Switch is closed, the Capacitor will charge up to the input voltage which denotes to track phase. When Switch is opened, the Capacitor will hold the input voltage which denotes to hold phase, such circuits are also known as _Track and Hold_ circuits.
@@ -50,7 +50,7 @@ Therefore, for our desired discrete integrator, it is worth utilizing the follow
   
 ![Opamp based switched capacitor integrator](figures/theory/SC_Integrator_Circuit.svg){#fig-opamp_sc_integrator}
 
-The depicted switches are clocked in a way to ensure non-overlapping high levels. This is of great importance, since turning both switches marked as $\phi_1$ off simultaneously would result in part of the channel charge of the series transistor transfering to the sample capacitor. Since this channel charge is signal dependent, it is nonlinearly related to the input signal. If however the series transistor is still on when turning of the parallel transistor, only a fixed amount of charge is added which introduces a dc offset. [@schreier]
+The depicted switches are clocked in a way to ensure non-overlapping high levels. This is of great importance, since turning both switches marked as $\phi_1$ off simultaneously would result in part of the channel charge of the series transistor transfering to the sample capacitor. Since this channel charge is signal dependent, it is nonlinearly related to the input signal. If however the series transistor is still on when turning off the parallel transistor, only a fixed amount of charge is added which introduces a dc offset. [@schreier]
 
 To derive the system behaviour of this circuitry, let's consider the two phases of operation, given be the switching phases, depicted in Figures @fig-phase1_integrator and @fig-phase2_integrator.
 

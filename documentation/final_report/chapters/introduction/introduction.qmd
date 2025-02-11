@@ -1,9 +1,9 @@
 # Introduction
-Since more and more manufacturers are ending their production of integrated circuit solutions, the development of full custom solutions is becoming more attractive. Thus, the different subgroups of the course "Concept Engineering Mixed-Technology Systems", held by Professor Meiners at Hochschule Bremen, are tasked with the development of an Analog-Digital-Converter, roughly modeled in a way to replace the ADS1115 by Texas Instruments within a specified measurement system-chain. 
+Since more and more manufacturers are ending their production of integrated circuit solutions, the development of full custom solutions is becoming increasingly attractive. Thus, the different subgroups of the course "Concept Engineering Mixed-Technology Systems", held by Professor Meiners at Hochschule Bremen, are tasked with the development of an Analog-Digital-Converter, roughly modeled in a way to replace the ADS1115 by Texas Instruments within a specified measurement system-chain. 
 
-Data conversion is a hot topic in the world of electronics. Most signal processing nowadays has shifted to the digital domain, due to the enourmous pace with which digital electronics have evolve in terms of speed and size. To the point where datarates in the range of Gigahertz are becoming the norm, while the underlying semiconductor technologies continuously shrink to the point of mere nanometers.
+Data conversion is a hot topic in the world of electronics. Most signal processing nowadays has shifted to the digital domain, due to the enourmous pace with which digital electronics have evolved in terms of speed and size, to the point where data rates in the Gigahertz range are becoming the norm, while the underlying semiconductor technologies continuously shrink to mere nanometers.
 
-However, this doesn't change our analog world, nor the need to interface data from that domain into that of our "state-of-the-art" technologies. This consideration applies to all sorts of trackable or sensable data, of accustic, optical or mechanical nature.
+However, this does not change our analog world, nor the need to interface data from that domain into that of our "state-of-the-art" technologies. This consideration applies to all sorts of trackable or sensable data, of accustic, optical or mechanical nature.
 To fit into the evolving nature of the digital domain, converters should be able to keep up, regarding the speed, precision and reliability with which they interface. 
 
 ![Interfacing between Analog and Digital Domain](figures/introduction/AD_DA_signal_chain.png){#fig-ad_da}
@@ -24,7 +24,7 @@ The mentioned ICs are given as evaluation- & breakout boards as part of the lab 
 
 The accelerometer is a specific example of a micro electro-mechanical system (MEMS) used for the purpuse of sensing. This in essence utilizes capacitive Accelerometer, where the plates of that capacitor are within the internal structure, which allows for varying distances of the plates (or potentially "fingers") resulting in a varying capacitance given an acceleration. The analog change in capacitance is what we will ultimately need to consider when it comes to system interfacing.
 
-![ADS1115 Functional Block Diagram [datasheet]](figures/introduction/ADS1115.PNG){#fig-ADS_block}
+![ADS1115 Functional Block Diagram [@ads_datasheet]](figures/introduction/ADS1115.PNG){#fig-ADS_block}
 
 The ADS1115 is a Delta-Sigma ADC which includes various auxillary subsystems, like a multiplexer for the multiple input channels, an input programmable gain amplifier (PGA), an interface section to support the I2C communication protocol, etc.
 

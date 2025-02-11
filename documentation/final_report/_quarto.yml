@@ -35,12 +35,12 @@ format:
     number-sections: true
     number-depth: 3
     code-fold: true
-    cite-method: biblatex
     css: styles.css
   pdf:
     toc: true
     css: styles.css
     number-sections: true
-    cite-method: biblatex
+    papersize: A4
+    pdf-engine: pdflatex
 
 bibliography: references.bib

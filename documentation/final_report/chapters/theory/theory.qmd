@@ -183,7 +183,7 @@ For a gain of $k$, we can rewrite the $NTF_k(z)$ as
 
 The topic of stability generally gains more importance for the MOD2 system, due to the chance of second-order oscillatory behaviour.
 
-This will result in the need to consider further tweaks to ones model to, leading to the consideration of gain coefficients to sections of the model shown in @fig-loopfilter_sys_2st_order. The previous "BIBO" stable condition is also more stright, where the input usually has to be bound to less then the systems full-scale range (e.g. < 0.9). <font color="red">[Schreier]</font>
+This will result in the need to consider further tweaks to ones model to, leading to the consideration of gain coefficients to sections of the model shown in @fig-loopfilter_sys_2st_order. The previous "BIBO" stable condition is also more stright, where the input usually has to be bound to less then the systems full-scale range (e.g. < 0.9). [@schreier]
 
 
 @tbl-2nd_vs_1st shows some of the main impacts that the transformation of our system to the one of second order has.
