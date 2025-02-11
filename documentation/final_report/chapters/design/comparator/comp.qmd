@@ -39,7 +39,7 @@ Depending on the conductivity of the MOSFETS that are fed by the input signals, 
 After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs. The way this was done in our case is through an "SR-Latch", which stands for "set" and "reset".
 
 In general, such a latch utilizes two logic gates with 2 inputs and one output each, where one of the inputs will be one of the input signals, while the other will be the fed-back output signal from the respective other logic gate.
-The provided logic should result in only the Q output or it's complement nQ to be high, depending .
+The provided logic should result in only the Q output or it's complement nQ to be high, depending.
 
 The main task of this block is to only change it's output, while either the positive or negative output of our comparator is "high". For SR-latches there will be one case for equal inputs (either both "high" or both "low") where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in @fig-sr_latch, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters. 
 
@@ -54,7 +54,7 @@ The comparator is realised in the following way
 
 ![StrongArm Circuit](figures/comp/comp_test.svg){#fig-xschem_comp}
 
-This circuit is proposed by Boris Murmann in his EE628 lecture series (e.g. lec 6), while he himself adopted the design from the paper given in [<font color="red">[cite paper]</font>]. The MOSFET lengths (L) can be chosen minimal ($\approx$ 130 nm), since almost all of them simply serve as switches, with only those for the inputsignal are choosen with a slightly greater margin.
+This circuit is proposed by Boris Murmann in his EE628 lecture series (e.g. lec 6, [@murmann]), while he himself adopted the design from the paper given in [@low_pwr_comp]. The MOSFET lengths (L) can be chosen minimal ($\approx$ 130 nm), since almost all of them simply serve as switches, with only those for the inputsignal are choosen with a slightly greater margin.
 
 While the mentioned sources also propose a latching circuit, we will directly utilize the logic gates available through the used PDK, which generally helps to make the comparator system more universally applicable. Specifically, the proposed design showed a lesser tolerence for very small differences between the input signals, once the latch was cascaded. This becomes worse for higher supply voltages (e.g. 3V3 instead of 1V5).
 
@@ -124,5 +124,6 @@ A clock period of 10 ns is chosen, which is much shorter then for our actual app
 
 The output "out2dff" can now be forwarded to a d-flip-flop, which most comparator designs for ADCs would utilize to gain the "final" clk-controlled digitized output sample.
 
-
 The behavior is the pretty much the same, both for $V_{DD}$ equaling 3.3 V or 1.5 V, where only the small spikes on the latch output are smaller for 3.3 V. 
+
+The designs that are considerable as the final results are given within our design directory with "final_working_comp.sch", "latched_comp.sch" and "latched_comp_dff.sch", the latter also including a d-flip-flop based on design objects PDK.

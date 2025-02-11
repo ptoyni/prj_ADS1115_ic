@@ -76,11 +76,12 @@ We would generate MATLAB scripts or also known as lookup table to generate the r
 ## Xschem Realization
 
 To simulate our design we are using Xschem and ngspice. Realization of Telescopic OTA as after @fig-basic_ota was not compatible with Switched Capacitor.
-![Implementation of Telescopic OTA](figures/opamp/Telescopic.svg)
+![Implementation of Telescopic OTA](figures/opamp/Telescopic.svg){#fig-ota_xschem_circuit}
 ![AC analysis of Telescopic OTA](figures/opamp/ac0.svg)
 ![AC analysis of Telescopic OTA](figures/opamp/ac1.svg)
 ![Transient Response of Telescopic OTA](figures/opamp/tran0.svg)
+{#fig-ota_sim_output}
 
-Its giving us DC Gain of 9.6059e-01, Gain error of -3.9408e-02 and Slew rate (tsettle) of 7.0329e-07 at $I_0$ equivalent to 0.8microA.Below is the Switch Capacitor circuit with phase 1 and 2.
+Its giving us DC Gain of 9.6059e-01, Gain error of -3.9408e-02 and Slew rate ($t_{settle}$) of 7.0329e-07 at $I_0$ equivalent to 0.8microA.Below is the Switch Capacitor circuit with phase 1 and 2.
 
-![Implementation of Switch Capacitor](figures/opamp/Final_circuit_last.svg)
+![Implementation of Switch Capacitor](figures/opamp/Final_circuit_last.svg){#fig-final_circ}
