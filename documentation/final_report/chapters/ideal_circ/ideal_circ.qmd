@@ -50,7 +50,7 @@ Therefore, for our desired discrete integrator, it is worth utilizing the follow
   
 ![Opamp based switched capacitor integrator](figures/theory/SC_Integrator_Circuit.svg){#fig-opamp_sc_integrator}
 
-The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit's functionality. 
+The depicted switches are clocked in a way to ensure non-overlapping high levels. This is of great importance, since turning both switches marked as $\phi_1$ off simultaneously would result in part of the channel charge of the series transistor transfering to the sample capacitor. Since this channel charge is signal dependent, it is nonlinearly related to the input signal. If however the series transistor is still on when turning of the parallel transistor, only a fixed amount of charge is added which introduces a dc offset. [@schreier]
 
 To derive the system behaviour of this circuitry, let's consider the two phases of operation, given be the switching phases, depicted in Figures @fig-phase1_integrator and @fig-phase2_integrator.
 
@@ -91,10 +91,20 @@ The remaining term, describing a delayed integrator, is what will be utilized in
 ## Ideal system model in LTSpice
 For first simulation results the behaviour described in the previous subchapter can be implemented as an indealized model in LTSpice. Files for this were provided by the supervising professor and will be explained briefly.\
 \ 
-The simulation of the first order idealized $\Delta \Sigma$-Modulator comprises the switched capacitance input stage, an integrator and a comparator whose output is fed back into the the input stage.\
+The simulation of the second order idealized $\Delta \Sigma$-Modulator (figure @fig-dsml2) comprises two casecaded versions of a switched capacitance stage followed by an integrator. The output of the second integrator is fed into the comparator, whose output is fed back through an inverter to both switched capacitor stages. The second sampling stage is responsible for correctly adding the delayed sample to the output sample of the first integrator.\
+
+![LTSpice simulation of idealized model](figures/ltspice_ideal/dsm_l2.PNG){#fig-dsml2}
+
+For the input stage, ideal switches are used which are controlled by voltage sources modeling the 220kHz input clocks. These are configured in such a way, that the clock phases are not overlapping. As explained earlier, this is needed to prevent corruption of the sampled signal.\
 \ 
-For the input stage, ideal switches are used which are controlled by voltage sources modeling the input clocks. These are configured in such a way, that the clock phases are not overlapping. Because of the design restrictions given, the clock frequency is modeled to be around 220kHz.\
-\ 
-The operational amplifier is is planned to be an operational transconductrance amplifier (OTA) which is realized as a voltage controlled current source that outputs a current proportional to the difference of its two input signals. This representation is linear for all inputs and can be chosen, if the input signal can is guaranteed to be within the linear range of the real OTA. If the OTA is to operate in saturation, this model would not be valid anymore.\
-\ 
-The comparator has to compare the current input sample to a fixed value. If, at the rising edge of the reference clock, the input voltage lies above this threshold a logic high, represented by $V_{DD}$ is output, if the value lies below the threshold a logic low ($V_{SS}$) will be output. Additionally, this output value has to be held until the next rising edge of the controlling clock. This latching functionallity is realized using two clock controlled switches that open and close inversely. <font color="red">PHRASING OK?</font> The comparison for the dermination of the output is done through a voltage source and a mathematical comparison.
+The operational amplifier is is planned to be an operational transconductrance amplifier (OTA) which is realized as a voltage controlled current source that outputs a current proportional to the difference of its two input signals. A parallel resistor creates a corresponding voltage drop. This representation is linear for all inputs and can be chosen, if the input signal can is guaranteed to be within the linear range of the real OTA. If the OTA is to operate in saturation, this model would not be valid anymore.\
+
+![LTSpice representation of the OTA](figures/ltspice_ideal/ota.png){#fig-ota-spice}
+
+The comparator has to compare the current input sample to a fixed value. If, at the rising edge of the reference clock, the input voltage lies above this threshold a logic high, represented by $V_{DD}$ is output, if the value lies below the threshold a logic low ($V_{SS}$) will be output. Additionally, this output value has to be held until the next rising edge of the controlling clock. This latching functionallity is realized using two clock controlled switches that open and close inversely. The comparison for the dermination of the output is done through a voltage source and a mathematical comparison.\
+
+![LTSpice representation of the comparator](figures/ltspice_ideal/comparator-spice.png){#fig-comp-spice}
+
+The delay of the comparator output fed back into the switched capacitor stages is realized through an inverter. This is possible, since due to the high sample frequency of the comparator, the width of two successive pulses can be assumed to be very small. Thus, inverting the signal is equal to a delay by one sample. The inversion is again done by a mathematical comparison.
+
+![LTSpice representation of the delaying inverter](figures/ltspice_ideal/inverter-spice.png){#fig-inv-spice}
