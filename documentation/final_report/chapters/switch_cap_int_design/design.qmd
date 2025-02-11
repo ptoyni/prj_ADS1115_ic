@@ -42,7 +42,7 @@ For integrator, we first implemented 5 transistor OTA. Using components availabl
 
 We have a similar tesbench for LV_PMOS which to depict their behaviour. We would use the data provided by these sweep to realize the sizing of OTA discussed below @fig-basic_ota 
 
-![5 Transistor OTA Design](figures/switch_cap/techsweep_nmos.svg){#fig-basic_ota}
+![5 Transistor OTA Design](figures/opamp/5t_ota.svg){#fig-basic_ota}
 
 
 ### Choosing $I_{d}$ and $g_{m}$
