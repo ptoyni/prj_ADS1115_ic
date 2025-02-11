@@ -69,10 +69,18 @@ Now, we have both the values of $I_d$ and $g_m$. We would divide the two values 
 
 In a design we would have different NMOS and PMOS with different parameters depending upon their presence in design. We have used **Whilson Current Mirror** for creating reference current in our circuit. All NMOS and PMOS in this section would have double $W/L$ compared to the NMOS and PMOS in the differential pair.
 
-We would generate MATLAB scripts or also known as lookup table to generate the required plots for our technology node. In figure $g_m/I_d$ vs $I_d/W$ for NMOS. We can see that $g_m/I_d$ is in moderate region and for various $L$ values corresponding $I_d/W$ values can be see. Choose the length value in such a way that after calculation your $W$ is not less 130nm. Repeat the same procedure for PMOS. You have $W$ and $L$ values for both NMOS and PMOS but keep in mind choose length atleast three or four times of $L_{min}$.
+We would generate MATLAB scripts or also known as lookup table to generate the required plots for our technology node. In figure $g_m/I_d$ vs $I_d/W$ for NMOS. We can see that $g_m/I_d$ is in moderate region and for various $L$ values corresponding $I_d/W$ values can be see. Choose the length value in such a way that after calculation your $W$ is not less 130nm. Repeat the same procedure for PMOS. You have $W$ and $L$ values for both NMOS and PMOS but keep in mind choose length atleast three or four times of $L_{min}$. We get similar graph attached below for PMOS as well.
 
-<font color="red"> Add pic of graph </font>
+![Graph for $I_d / W$ for nMOS](figures/switch_cap/priyanka_img_matlab.svg){#fig-graph_ota}
 
 ## Xschem Realization
 
-To simulate our design we are using Xschem and ngspice. <font color ="red">Add xschem pics here </font>
+To simulate our design we are using Xschem and ngspice. Realization of Telescopic OTA as after @fig-basic_ota was not compatible with Switched Capacitor.
+![Implementation of Telescopic OTA](figures/opamp/Telescopic.svg)
+![AC analysis of Telescopic OTA](figures/opamp/ac0.svg)
+![AC analysis of Telescopic OTA](figures/opamp/ac1.svg)
+![Transient Response of Telescopic OTA](figures/opamp/tran0.svg)
+
+Its giving us DC Gain of 9.6059e-01, Gain error of -3.9408e-02 and Slew rate (tsettle) of 7.0329e-07 at $I_0$ equivalent to 0.8microA.Below is the Switch Capacitor circuit with phase 1 and 2.
+
+![Implementation of Switch Capacitor](figures/opamp/Final_circuit_last.svg)
