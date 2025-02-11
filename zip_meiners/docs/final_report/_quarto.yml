@@ -36,11 +36,5 @@ format:
     number-depth: 3
     code-fold: true
     css: styles.css
-  pdf:
-    toc: true
-    css: styles.css
-    number-sections: true
-    papersize: A4
-    pdf-engine: pdflatex
 
 bibliography: references.bib
