@@ -15,7 +15,7 @@ If the Switch is closed, the Capacitor will charge up to the input voltage which
 
 Unlike ideal Switches, real switches have some On-Resistance $R_{on}$ which is some function of input. $\frac{1}{R_{onC}}$ is the bandwidth during the tracking phase. The signal is being stored in Capacitor in terms of charge, smaller the Capacitor more the tendency of getting disturbed or leakage. 
 
-Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage $V_n$ in series with resistance. Ouput Noise is present for all frequencies also known as _Whilte Noise_ and is given as 
+Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage $V_n$ in series with resistance. Ouput Noise is present for all frequencies also known as _White Noise_ and is given as 
 
 $$
 V_\mathrm{n}^2 = \frac{k T}{C} 
@@ -25,7 +25,7 @@ where $k$ is Boltzmann's constant, $T$ is temperature in Kelvin.
 
 Candidate for switch in circuit is MOSFET. Above were the non-idealities present if switch is _ON_. Even if switch is _OFF_ its far from being ideal. Ideally, it should be open circuit but there is some $C_{OFF}$ present. 
 
-More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to _Charge Injection_. Injected Charge is Non-Linear function of $V_{in}$. Due to these reasons we are using _Bottom Plate Switching_. 
+More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to _Charge Injection_. Injected Charge is Non-Linear function of $V_{in}$. Due to these reasons we are using _Bottom Plate Sampling_. Instead of sampling directly at top plate, the bottom plate is switched before capturing the sampled value ensuring non distorted output at feedback or top plate capacitor.
 
 
 ## Switched Capacitor Integrator
@@ -44,7 +44,7 @@ A classic implementation of realizing an active integrator would be with the opa
   {H(z)} = \frac{z^{-1}}{1-z^{-1}}
 \end{align}
 
-We will be usinf the second form of integrator in our system.
+We will be using the second form of integrator in our system.
 
 Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure @fig-opamp_sc_integrator, which leads to a switched-capacitor integrator. 
   
