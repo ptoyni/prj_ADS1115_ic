@@ -22,7 +22,7 @@ The mentioned ICs are given as evaluation- & breakout boards as part of the lab 
 
 ![ADXL335 Functional Block Diagram [@adx_datasheet]](figures/introduction/ADXL335.PNG){#fig-ADXL_block}
 
-The accelerometer is a specific example of a micro electro-mechanical system (MEMS) used for the purpuse of sensing. This in essence utilizes capacitive Accelerometer, where the plates of that capacitor are within the internal structure, which allows for varying distances of the plates (or potentially "fingers") resulting in a varying capacitance given an acceleration. The analog change in capacitance is what we will ultimately need to consider when it comes to system interfacing.
+The accelerometer is a specific example of a micro electro-mechanical system (MEMS) used for the purpuse of sensing. This in essence utilizes capacitive Accelerometer, where the plates of that capacitor are within the internal structure, which allows for varying distances of the plates (or potentially "fingers") resulting in a varying capacitance given an acceleration. The analog change in capacitance is what we will ultimately need to consider when it comes to system interfacing. [@fraden]
 
 ![ADS1115 Functional Block Diagram [@ads_datasheet]](figures/introduction/ADS1115.PNG){#fig-ADS_block}
 
