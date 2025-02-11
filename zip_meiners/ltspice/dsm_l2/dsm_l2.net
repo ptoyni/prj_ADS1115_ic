@@ -38,7 +38,8 @@ B1 Vout 0 V=v(hold)>0?v(vdd):0
 .ends ideal_clocked_comparator
 
 .subckt ideal_op_amp Vinm Vinp Out
-E1 Out 0 Vinm Vinp 1000Meg
+G1 0 Out Vinm Vinp 1000
+R1 Out 0 1
 .ends ideal_op_amp
 
 .subckt inv Vdd Vss IN OUT

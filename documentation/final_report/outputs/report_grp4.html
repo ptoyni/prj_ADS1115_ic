@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-02-10">
+<meta name="dcterms.date" content="2025-02-11">
 
 <title>Design of an Analog-Digital-Converter the Delta-Sigma way</title>
 <style>
@@ -213,7 +213,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-02-10</p>
+      <p class="date">2025-02-11</p>
     </div>
   </div>
   
@@ -570,7 +570,7 @@ Figure&nbsp;11: Spectral Analysis from Models for L=1 &amp; L=2
 <h1 data-number="4"><span class="header-section-number">4</span> Basic Behaviour on Circuit Level</h1>
 <p>In this section, we will deal with realization of our Delta-Sigma Modulator on the circuit level for given specifications. We will consider the basic behaviour of the circuit, and implement them.</p>
 <p>The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.</p>
-<p>First of all, let’s see conceptually simplest Sample and Hold <em>(S/H)</em> consists of a Switch and Capacitor in <a href="#fig-SIMPLE_SH" class="quarto-xref">Figure&nbsp;19</a>.</p>
+<p>First of all, let’s see conceptually simplest Sample and Hold <em>(S/H)</em> consists of a Switch and Capacitor in <a href="#fig-SIMPLE_SH" class="quarto-xref">Figure&nbsp;22</a>.</p>
 <div id="fig-SIMPLE_SH" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -620,7 +620,7 @@ Figure&nbsp;13: Opamp based switched capacitor integrator
 </figcaption>
 </figure>
 </div>
-<p>The depicted switches are clocked in a way to ensure non-overlapping high levels, which would mess-up the circuit’s functionality.</p>
+<p>The depicted switches are clocked in a way to ensure non-overlapping high levels. This is of great importance, since turning both switches marked as <span class="math inline">\(\phi_1\)</span> off simultaneously would result in part of the channel charge of the series transistor transfering to the sample capacitor. Since this channel charge is signal dependent, it is nonlinearly related to the input signal. If however the series transistor is still on when turning of the parallel transistor, only a fixed amount of charge is added which introduces a dc offset. <span class="citation" data-cites="schreier">[@schreier]</span></p>
 <p>To derive the system behaviour of this circuitry, let’s consider the two phases of operation, given be the switching phases, depicted in Figures <a href="#fig-phase1_integrator" class="quarto-xref">Figure&nbsp;14</a> and <a href="#fig-phase2_integrator" class="quarto-xref">Figure&nbsp;15</a>.</p>
 <div id="fig-phase1_integrator" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -665,10 +665,54 @@ Figure&nbsp;15: Integrator state during phase 2
 <section id="ideal-system-model-in-ltspice" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="ideal-system-model-in-ltspice"><span class="header-section-number">4.3</span> Ideal system model in LTSpice</h2>
 <p>For first simulation results the behaviour described in the previous subchapter can be implemented as an indealized model in LTSpice. Files for this were provided by the supervising professor and will be explained briefly.<br>
-&nbsp; The simulation of the first order idealized <span class="math inline">\(\Delta \Sigma\)</span>-Modulator comprises the switched capacitance input stage, an integrator and a comparator whose output is fed back into the the input stage.<br>
-&nbsp; For the input stage, ideal switches are used which are controlled by voltage sources modeling the input clocks. These are configured in such a way, that the clock phases are not overlapping. Because of the design restrictions given, the clock frequency is modeled to be around 220kHz.<br>
-&nbsp; The operational amplifier is is planned to be an operational transconductrance amplifier (OTA) which is realized as a voltage controlled current source that outputs a current proportional to the difference of its two input signals. This representation is linear for all inputs and can be chosen, if the input signal can is guaranteed to be within the linear range of the real OTA. If the OTA is to operate in saturation, this model would not be valid anymore.<br>
-&nbsp; The comparator has to compare the current input sample to a fixed value. If, at the rising edge of the reference clock, the input voltage lies above this threshold a logic high, represented by <span class="math inline">\(V_{DD}\)</span> is output, if the value lies below the threshold a logic low (<span class="math inline">\(V_{SS}\)</span>) will be output. Additionally, this output value has to be held until the next rising edge of the controlling clock. This latching functionallity is realized using two clock controlled switches that open and close inversely. <font color="red">PHRASING OK?</font> The comparison for the dermination of the output is done through a voltage source and a mathematical comparison.</p>
+&nbsp; The simulation of the second order idealized <span class="math inline">\(\Delta \Sigma\)</span>-Modulator (figure <a href="#fig-dsml2" class="quarto-xref">Figure&nbsp;16</a>) comprises two casecaded versions of a switched capacitance stage followed by an integrator. The output of the second integrator is fed into the comparator, whose output is fed back through an inverter to both switched capacitor stages. The second sampling stage is responsible for correctly adding the delayed sample to the output sample of the first integrator.<br>
+</p>
+<div id="fig-dsml2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dsml2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/ltspice_ideal/dsm_l2.PNG" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dsml2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: LTSpice simulation of idealized model
+</figcaption>
+</figure>
+</div>
+<p>For the input stage, ideal switches are used which are controlled by voltage sources modeling the 220kHz input clocks. These are configured in such a way, that the clock phases are not overlapping. As explained earlier, this is needed to prevent corruption of the sampled signal.<br>
+&nbsp; The operational amplifier is is planned to be an operational transconductrance amplifier (OTA) which is realized as a voltage controlled current source that outputs a current proportional to the difference of its two input signals. A parallel resistor creates a corresponding voltage drop. This representation is linear for all inputs and can be chosen, if the input signal can is guaranteed to be within the linear range of the real OTA. If the OTA is to operate in saturation, this model would not be valid anymore.<br>
+</p>
+<div id="fig-ota-spice" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ota-spice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/ltspice_ideal/ota.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ota-spice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17: LTSpice representation of the OTA
+</figcaption>
+</figure>
+</div>
+<p>The comparator has to compare the current input sample to a fixed value. If, at the rising edge of the reference clock, the input voltage lies above this threshold a logic high, represented by <span class="math inline">\(V_{DD}\)</span> is output, if the value lies below the threshold a logic low (<span class="math inline">\(V_{SS}\)</span>) will be output. Additionally, this output value has to be held until the next rising edge of the controlling clock. This latching functionallity is realized using two clock controlled switches that open and close inversely. The comparison for the dermination of the output is done through a voltage source and a mathematical comparison.<br>
+</p>
+<div id="fig-comp-spice" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp-spice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/ltspice_ideal/comparator-spice.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp-spice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;18: LTSpice representation of the comparator
+</figcaption>
+</figure>
+</div>
+<p>The delay of the comparator output fed back into the switched capacitor stages is realized through an inverter. This is possible, since due to the high sample frequency of the comparator, the width of two successive pulses can be assumed to be very small. Thus, inverting the signal is equal to a delay by one sample. The inversion is again done by a mathematical comparison.</p>
+<div id="fig-inv-spice" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-inv-spice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/ltspice_ideal/inverter-spice.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-inv-spice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;19: LTSpice representation of the delaying inverter
+</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="design-proposals" class="level1" data-number="5">
@@ -677,18 +721,18 @@ Figure&nbsp;15: Integrator state during phase 2
 <p>The following subchapters will elaborate on the separate subcircuits, briefly explain the workings of the circuits before going over the achieved simulation results. Xschem was used as the schematic capture EDA tool, while the testbench-driven simulations utilize ngspice.</p>
 <section id="clock-phase-generation" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="clock-phase-generation"><span class="header-section-number">5.1</span> Clock-Phase generation</h2>
-<p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;16</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
+<p>The aforementioned delay in the phases of the clocks acting on the switched capacitor can be achieved by the structure in figure <a href="#fig-phase_gen" class="quarto-xref">Figure&nbsp;20</a>. This takes a reference clock signal which provides a signal at the frequency required by the system and outputs four different phases <span class="math inline">\(\phi_1\)</span>, <span class="math inline">\(\phi_{1d}\)</span>, <span class="math inline">\(\phi_2\)</span> and <span class="math inline">\(\phi_{2d}\)</span>. The feedback between the upper and lower strand of the structure, in conjunction with the NAND gates, ensures the prevention of overlap between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> and in turn for their respective delayed versions.</p>
 <div id="fig-phase_gen" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-phase_gen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/clk_gen/schem_clock_generation.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase_gen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;16: Basic structure for delayed clock phase generation
+Figure&nbsp;20: Basic structure for delayed clock phase generation
 </figcaption>
 </figure>
 </div>
-<p>By changing the capacitance of the marked inverters the actual delay between <span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_{id}\)</span> can be controlled. It is worth noting however, that the capacitive load <span class="math inline">\(C_L\)</span> experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;17</a></p>
+<p>By changing the capacitance of the marked inverters the actual delay between <span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_{id}\)</span> can be controlled. It is worth noting however, that the capacitive load <span class="math inline">\(C_L\)</span> experienced at the outputs of the structure also has an influence on the phase delay.</p>
 <div id="cell-fig-delay_norm" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
@@ -725,8 +769,8 @@ Figure&nbsp;16: Basic structure for delayed clock phase generation
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1, label<span class="op">=</span><span class="vs">r'$\phi_1$'</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1e, label<span class="op">=</span><span class="vs">r'$\phi_</span><span class="sc">{1d}</span><span class="vs">$'</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1, label<span class="op">=</span><span class="vs">r'$\phi_</span><span class="sc">{1d}</span><span class="vs">$'</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp1e, label<span class="op">=</span><span class="vs">r'$\phi_1$'</span>)</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.plot(time<span class="op">*</span><span class="fl">1e9</span>, vp2, label<span class="op">=</span><span class="vs">r'$\phi_2$'</span>)</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Voltage input clock over time'</span>)</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$t$/ns'</span>)</span>
@@ -741,50 +785,13 @@ Figure&nbsp;16: Basic structure for delayed clock phase generation
 <img src="report_grp4_files/figure-html/fig-delay_norm-output-1.png" width="602" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delay_norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;17: Delayed clock signals
+Figure&nbsp;21: Delayed clock signals
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;17</a> shows the normal delay between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_{1d}\)</span> as well as the non-overlap with <span class="math inline">\(\phi_2\)</span>. The structure used for clock generation was modeled after the circuit provided by Boris Murman <span class="citation" data-cites="murmann">[@murmann]</span>. In this, they used the <em>sg13g2</em> standard cells for the NAND gates and inverters which are not built from single transistors and hence their capacitance can not be changed. <font color="red">This however does not affect the circuits ability to generate the needed delays and non-overlaps. Creating the gates from transistors, and in turn the whole structure, does show the same behaviour. TO BE CONFIRMED WITH ACUTAL SC/ADC FOLLOWING</font>. We thus continue to use the version with gate parameters controllable through the transistors. <font color="red">WHY WAS THIS DECISION MADE?</font></p>
-<p>The circuits used for the gates are depicted in figures <a href="#fig-inv" class="quarto-xref">Figure&nbsp;18 (a)</a> and <a href="#fig-nand" class="quarto-xref">Figure&nbsp;18 (b)</a> for the inverters and NAND gates respectively.</p>
-<div id="fig-gates" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-gates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-gates" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-inv" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-inv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/clk_gen/inverter.svg" class="img-fluid figure-img" style="width:60.0%" data-ref-parent="fig-gates">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-inv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Inverter
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-gates" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-nand" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-nand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/clk_gen/nand_gate.svg" class="img-fluid figure-img" data-ref-parent="fig-gates">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-nand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) NAND Gate
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;18: Gates used for clock generating structures
-</figcaption>
-</figure>
-</div>
-<p>The cascading of two CMOS inverters in figure <a href="#fig-inv" class="quarto-xref">Figure&nbsp;18 (a)</a> is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color="red">REALLY?</font></p>
+<p>Figure <a href="#fig-delay_norm" class="quarto-xref">Figure&nbsp;21</a> shows the normal delay between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_{1d}\)</span> as well as the non-overlap with <span class="math inline">\(\phi_2\)</span>. The structure used for clock generation was modeled after the circuit provided by Boris Murman <span class="citation" data-cites="murmann">[@murmann]</span>. In this, they used the <em>sg13g2</em> standard cells for the NAND gates and inverters which are not built from single transistors and hence their capacitance can not be changed. Simulations with different values for the load capacitances have proven to not impair the structures functionality. We thus continue with this non-transitorized version, since creating the gates from scratch would add unnecessary complexity.</p>
 </section>
 </section>
 <section id="switch-capacitor-design" class="level1" data-number="6">
@@ -796,7 +803,7 @@ Figure&nbsp;18: Gates used for clock generating structures
 <img src="figures/switch_cap/_coeff.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SIMPLE_SH-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;19: Second-Order CIFB modulator
+Figure&nbsp;22: Second-Order CIFB modulator
 </figcaption>
 </figure>
 </div>
@@ -828,18 +835,18 @@ b_1 = \frac{C_1 V_\text{FS}}{M C_2} = \frac{C_1 V_\text{dd}}{C_2}
 <img src="figures/switch_cap/techsweep_nmos.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Nmos_sweep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;20: Testsweep for LV NMOS g_m/I_d Characterisation
+Figure&nbsp;23: Testsweep for LV NMOS g_m/I_d Characterisation
 </figcaption>
 </figure>
 </div>
-<p>We have a similar tesbench for LV_PMOS which to depict their behaviour. We would use the data provided by these sweep to realize the sizing of OTA discussed below <a href="#fig-basic_ota" class="quarto-xref">Figure&nbsp;21</a></p>
+<p>We have a similar tesbench for LV_PMOS which to depict their behaviour. We would use the data provided by these sweep to realize the sizing of OTA discussed below <a href="#fig-basic_ota" class="quarto-xref">Figure&nbsp;24</a></p>
 <div id="fig-basic_ota" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-basic_ota-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/switch_cap/techsweep_nmos.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basic_ota-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;21: 5 Transistor OTA Design
+Figure&nbsp;24: 5 Transistor OTA Design
 </figcaption>
 </figure>
 </div>
@@ -877,7 +884,7 @@ g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
 </section>
 <section id="comparator-stage" class="level3" data-number="6.4.2">
 <h3 data-number="6.4.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">6.4.2</span> Comparator Stage</h3>
-<p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;22</a>.</p>
+<p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;25</a>.</p>
 <p>While the classical StrongArm would utilize pmos transistors for M3 &amp; M4 (with their sources being pulled to <span class="math inline">\(V_DD\)</span> and their drains connected to the node above M1 and M2) instead, the behaviour would in both cases be the same, as tested in simulations.</p>
 <p>It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches.</p>
 <div id="fig-strongarm_circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -886,7 +893,7 @@ g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
 <img src="figures/comp/comp_architecture.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;22: Comparator, realized through inverter based architecture
+Figure&nbsp;25: Comparator, realized through inverter based architecture
 </figcaption>
 </figure>
 </div>
@@ -904,14 +911,14 @@ Figure&nbsp;22: Comparator, realized through inverter based architecture
 <h3 data-number="6.4.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">6.4.3</span> Latching Circuit</h3>
 <p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs. The way this was done in our case is through an “SR-Latch”, which stands for “set” and “reset”.</p>
 <p>In general, such a latch utilizes two logic gates with 2 inputs and one output each, where one of the inputs will be one of the input signals, while the other will be the fed-back output signal from the respective other logic gate. The provided logic should result in only the Q output or it’s complement nQ to be high, depending .</p>
-<p>The main task of this block is to only change it’s output, while either the positive or negative output of our comparator is “high”. For SR-latches there will be one case for equal inputs (either both “high” or both “low”) where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in <a href="#fig-sr_latch" class="quarto-xref">Figure&nbsp;23</a>, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters.</p>
+<p>The main task of this block is to only change it’s output, while either the positive or negative output of our comparator is “high”. For SR-latches there will be one case for equal inputs (either both “high” or both “low”) where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in <a href="#fig-sr_latch" class="quarto-xref">Figure&nbsp;26</a>, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters.</p>
 <div id="fig-sr_latch" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sr_latch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/SR_latch.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sr_latch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;23: SR-Latch for Comparator Application
+Figure&nbsp;26: SR-Latch for Comparator Application
 </figcaption>
 </figure>
 </div>
@@ -926,20 +933,20 @@ Figure&nbsp;23: SR-Latch for Comparator Application
 <img src="figures/comp/comp_test.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xschem_comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;24: StrongArm Circuit
+Figure&nbsp;27: StrongArm Circuit
 </figcaption>
 </figure>
 </div>
 <p>This circuit is proposed by Boris Murmann in his EE628 lecture series (e.g.&nbsp;lec 6), while he himself adopted the design from the paper given in [<font color="red">[cite paper]</font>]. The MOSFET lengths (L) can be chosen minimal (<span class="math inline">\(\approx\)</span> 130 nm), since almost all of them simply serve as switches, with only those for the inputsignal are choosen with a slightly greater margin.</p>
 <p>While the mentioned sources also propose a latching circuit, we will directly utilize the logic gates available through the used PDK, which generally helps to make the comparator system more universally applicable. Specifically, the proposed design showed a lesser tolerence for very small differences between the input signals, once the latch was cascaded. This becomes worse for higher supply voltages (e.g.&nbsp;3V3 instead of 1V5).</p>
-<p>The testbench file is shown next in <a href="#fig-xschem_comp_tb" class="quarto-xref">Figure&nbsp;25</a>.</p>
+<p>The testbench file is shown next in <a href="#fig-xschem_comp_tb" class="quarto-xref">Figure&nbsp;28</a>.</p>
 <div id="fig-xschem_comp_tb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-xschem_comp_tb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/comp_tb.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xschem_comp_tb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;25: Comparator Testbench
+Figure&nbsp;28: Comparator Testbench
 </figcaption>
 </figure>
 </div>
@@ -1027,7 +1034,7 @@ Figure&nbsp;25: Comparator Testbench
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;26
+Figure&nbsp;29
 </figcaption>
 </figure>
 </div>
