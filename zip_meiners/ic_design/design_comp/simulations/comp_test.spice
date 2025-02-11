@@ -1,0 +1,21 @@
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_test.sch
+**.subckt comp_test VDD clk outn outp vin_p vin_n VSS
+*.ipin clk
+*.iopin VSS
+*.iopin VDD
+*.ipin vin_n
+*.ipin vin_p
+*.opin outn
+*.opin outp
+XM5p outn clk VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM4n outp outn VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM4p outn outp VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM5n outp clk VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3p outn outp net2 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM3n outp outn net1 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM1n net1 vin_n VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+XM1p net2 vin_p VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+XM1 net2 clk VDD VDD sg13_lv_pmos w=4.0u l=0.45u ng=1 m=1
+XM2 net1 clk VDD VDD sg13_lv_pmos w=4.0u l=0.45u ng=1 m=1
+**.ends
+.end

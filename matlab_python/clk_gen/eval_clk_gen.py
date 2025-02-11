@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import ltspice as lt
 
 #parse data from .raw file
-fpath       = 'tb_clkgen_copy.raw'
+fpath       = 'tb_clkgen_save.raw'
 l           = lt.Ltspice(fpath)
 l.parse()
 
@@ -36,7 +36,7 @@ vp2e    = vp2e[1000:1150]
 
 #plot data
 #plt.close('all')
-plt.figure(2, figsize=(20,10))
+plt.figure(6, figsize=(20,10))
 plt.plot(time*1e9, vp1, label=r'$\phi_1$')
 plt.plot(time*1e9, vp1e, label=r'$\phi_{1d}$')
 plt.plot(time*1e9, vp2, label=r'$\phi_2$')

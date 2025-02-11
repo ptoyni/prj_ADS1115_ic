@@ -1,0 +1,59 @@
+** sch_path: /foss/designs/analog-circuit-design/priyanka/untitled.sch
+**.subckt untitled
+Vdd v_dd GND 1.8
+Vss v_ss GND 0
+C1 v_out v_ss 1p m=1
+Vin v_in v_ss dc 0.8 ac 1
+I0 v_dd net1 2.94u
+.save v(v_in)
+.save v(v_out)
+x1 v_dd v_out net1 v_out v_in v_ss trail2-ota5
+**** begin user architecture code
+ .lib cornerMOSlv.lib mos_tt
+
+ .lib cornerRES.lib res_typ
+
+
+
+.temp 27
+.ic v(v_vout)=0
+.control
+
+tran 0.005u 15u uic
+plot v_out
+
+let vout_limit=0.8*0.99
+meas tran tcross WHEN v(v_out)=vout_limit
+
+let tsettle=tcross-tstart
+print tsettle
+
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  trail2-ota5.sym # of pins=6
+** sym_path: /foss/designs/analog-circuit-design/priyanka/trail2-ota5.sym
+** sch_path: /foss/designs/analog-circuit-design/priyanka/trail2-ota5.sch
+.subckt trail2-ota5 vdd vout ibias vinm vinp vss
+*.ipin vss
+*.ipin vdd
+*.ipin ibias
+*.ipin vinm
+*.ipin vinp
+*.opin vout
+XM1 vout net1 vdd vdd sg13_lv_pmos w=0.20u l=0.2u ng=1 m=1
+XM2 net2 vinm vout vss sg13_lv_nmos w=0.141u l=0.2u ng=1 m=1
+XM3 net1 net1 vdd vdd sg13_lv_pmos w=0.20u l=0.2u ng=1 m=1
+XM4 net2 vinp net1 vss sg13_lv_nmos w=0.141u l=0.2u ng=1 m=1
+XM5 vss net3 net2 vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+XM6 vss net3 net4 vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+XM7 vss net3 net3 vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+XM9 net4 ibias vdd vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+XM8 net3 ibias ibias vss sg13_lv_nmos w=0.282u l=0.2u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.end

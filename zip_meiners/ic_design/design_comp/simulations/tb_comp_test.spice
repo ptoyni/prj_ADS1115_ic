@@ -1,0 +1,63 @@
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/tb_comp_test.sch
+**.subckt tb_comp_test out2dff nout2dff
+*.opin out2dff
+*.opin nout2dff
+x1 VDD clk outn outp vin_p vin_n VSS comp_test
+V2 vin_n GND {vdd/2}
+V3 clk GND dc 0 pulse(0, {vdd}, 1n, 50p, 50p, {per/2-1n}, {per})
+Vdiff vin_p vin_n pwl 0 {vdiff} 8n {vdiff} 8.1n {-vdiff}
+Vdd VDD GND dc {vdd}
+Vss VSS GND dc 0
+x2 nout2dff outp VDD VSS out2dff sg13g2_nor2b_1
+x3 out2dff outn VDD VSS nout2dff sg13g2_nor2b_1
+**** begin user architecture code
+ .lib cornerMOSlv.lib mos_tt
+.inc /foss/pdks/sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
+
+.param temp=27 vdd=1.5 per=10n vdiff=1m
+.param Wnmos=2u Wpmos=4u
+.param Lnmos=.13u Lpmos=.13u Lnmos2=1u
+.option method=gear reltol=1e-5
+.ic v(outp)=0
+
+.control
+save all
+tran 10p 25n
+write tb_comp_test1.raw
+write tb_comp_test.raw
+plot clk tran1.outp tran1.outn
+plot tran1.out2dff tran1.nout2dff
+
+.endc
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  comp_test.sym # of pins=7
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_test.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/comp_test.sch
+.subckt comp_test VDD clk outn outp vin_p vin_n VSS
+*.ipin clk
+*.iopin VSS
+*.iopin VDD
+*.ipin vin_n
+*.ipin vin_p
+*.opin outn
+*.opin outp
+XM5p outn clk VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM4n outp outn VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM4p outn outp VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM5n outp clk VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3p outn outp net3 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM3n outp outn net4 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM1n net1 vin_n VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+XM1p net2 vin_p VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos2 ng=1 m=1
+XM1 net4 clk net1 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM2 net3 clk net2 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+.ends
+
+.GLOBAL GND
+.GLOBAL VDD
+.GLOBAL VSS
+.end

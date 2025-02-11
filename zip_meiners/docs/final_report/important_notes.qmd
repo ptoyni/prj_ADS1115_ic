@@ -1,0 +1,9 @@
+# VERY IMPORTANT, PLEASE READ
+
+To get the quarto output to behave properly, some steps have to be taken.
+
+1. When parsing data from .raw files, the toolbox will throw a warning. To prevent this, right click on "l.parse()" -> "Go to definition". There, you comment out  line 197 and the warning is gone.
+
+2. Whenever referencing to a figure, some data file, etc. and you compile the whole document ("report_grp4.qmd") the paths specified have to be relative to the main document, otherwise quarto won't find the specified file
+
+3. If you need help with importing .raw files using python, please look at my version in chapters/clock_gen/clock_gen.qmd

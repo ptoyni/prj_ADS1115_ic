@@ -1,0 +1,21 @@
+
+* expanding   symbol:  latch_stage_test.sym # of pins=6
+** sym_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/latch_stage_test.sym
+** sch_path: /foss/designs/prj_ADS1115_ic-1/design/design_comp/latch_stage_test.sch
+.subckt latch_stage_test VDD in+ in- latch- latch+ VSS
+*.ipin in+
+*.ipin in-
+*.ipin VDD
+*.ipin VSS
+*.opin latch+
+*.opin latch-
+XM8 latch- in+ VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM1 latch+ latch- VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM2 latch- latch+ VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3 latch+ in- VDD VDD sg13_lv_pmos w=Wpmos l=Lpmos ng=1 m=1
+XM3p latch- latch+ net2 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM2p net2 in+ VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM4 latch+ latch- net1 VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+XM5 net1 in- VSS VSS sg13_lv_nmos w=Wnmos l=Lnmos ng=1 m=1
+.ends
+
