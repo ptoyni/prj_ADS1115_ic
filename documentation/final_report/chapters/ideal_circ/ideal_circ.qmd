@@ -4,9 +4,9 @@ In this section, we will deal with realization of our Delta-Sigma Modulator on t
 
 The desired loop filter for the modulator, which is the first and most fundamental building block of our system, will be realised utilizing an active integrator circuit that has a switched capacitance input stage.
 
-First of all, let's see conceptually simplest Sample and Hold _(S/H)_ consists of a Switch and Capacitor in @fig-SIMPLE_SH.
+First of all, let's see conceptually simplest Sample and Hold _(S/H)_ consists of a Switch and Capacitor in @fig-simple-sh.
 
-![Simple Sample and Hold](figures/switch_cap/_basic_sh.svg){#fig-SIMPLE_SH}
+![Simple Sample and Hold](figures/switch_cap/basic_sh.svg){#fig-simple-sh}
 
 
 If the Switch is closed, the Capacitor will charge up to the input voltage which denotes to track phase. When Switch is opened, the Capacitor will hold the input voltage which denotes to hold phase, such circuits are also known as _Track and Hold_ circuits.

@@ -1,6 +1,6 @@
 # Digital Section
 
-The PWM signal output by the comparator represents the input signal but also the quantization error. Thanks to the noise shaping, this error is found at higher frequencies. By applying a lowpass filter, one can reduce this error while retaining the original signal. The requirements for this lowpass filter can be quite strict thus requiring a high order digital filter. With the high frequency error removed, the signal still possesses a high sample rate. However, these samples do not carry additional information, their number can be reduced due to the nyquist theorem. This allows the output data rate of the decimator to be much lower and thus relaxes the speed requirements for the following processing unit.\
+The PWM signal output by the comparator represents the input signal but also the quantization error. Thanks to the noise shaping, this error is found at higher frequencies. By applying a lowpass filter, one can reduce this error while retaining the original signal. The requirements for this lowpass filter can be quite strict thus requiring a high order digital filter. With the high frequency error removed, the signal still possesses a high sample rate. However, these samples do not carry additional information, their number can be reduced due to the nyquist theorem. [@schreier] [@ti_delsigb] This allows the output data rate of the decimator to be much lower and thus relaxes the speed requirements for the following processing unit.\
 \ 
 Conceptually, the digital section can be represented as seen in figure @fig-digital. The signal is lowpass filtered and then decimated for a significantly lower output data rate.
 
@@ -24,4 +24,4 @@ Due to the feedback structure inherent to IIR filters however, where
     H_d(z) = \frac{\sum_{n=0}^Kp_nz^{-n}}{1+\sum_{n=1}^Kd_nz^{-n}}
 \end{equation}
 
-the feedback signal $w[n]$ must be computed for all values of $n$. Therefore, the savings are always less than $M$.
+the feedback signal $w[n]$ must be computed for all values of $n$. Therefore, the savings are always less than $M$. [@wolter]

@@ -2,7 +2,7 @@
 
 We are using "CIFB" topology also known as Cascade of integrators, feedback form to realize our design.
 
-![Second-Order CIFB modulator](figures/switch_cap/_coeff.svg){#fig-SIMPLE_SH}
+![Second-Order CIFB modulator](figures/switch_cap/basic_sh.svg)
 
 Functions of $\Sigma \Delta$ toolbox in MATLAB enables us to realize the NTF function and based upon that we can get our coefficients.
 

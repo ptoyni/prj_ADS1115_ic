@@ -3,7 +3,6 @@ title: "Design of an Analog-Digital-Converter the Delta-Sigma way"
 
 bibliography: references.bib
 ---
-{{< include important_notes.qmd >}}
 
 {{< include chapters/introduction/introduction.qmd >}}
 
@@ -27,6 +26,8 @@ The following subchapters will elaborate on the separate subcircuits, briefly ex
 | Poly resistor high           | `rhigh`        | $R_\square=1360\,\Omega \pm 15\%$, $\text{TC}_1=-2300\,\text{ppm/K}$ |
 | MIM capacitor                | `cap_cmim`     | $C'=1.5\,\text{fF}/\mu\text{m}^2 \pm 10\%$, $\text{VC}_1=-26\text{ppm/V}$, $\text{TC}_1=3.6\text{ppm/K}$, breakdown voltage $>15\,\text{V}$ |
 | MOM capacitor                | n/a            | The metal stack is well-suited for MOM capacitors due to 5 thin metal layers, but no primitive capacitor device is available at this point. |
+
+: IHP SG13G2 devices {#tbl-sg13g2-devices}[@pretl]
 
 {{< include chapters/clock_gen/clock_gen.qmd >}}
 
