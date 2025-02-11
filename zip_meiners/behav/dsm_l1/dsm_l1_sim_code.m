@@ -56,6 +56,7 @@ simoptions=simset( ...
 %% Post-processing quantizer gain
 y = simout(:,1)'; % prime to adapt dimension
 v = simout(:,2)'; % prime to adapt dimension
+diff = simout(:,3);
 %y = simOut.yout.get('y').Values.Data';
 %v = simOut.yout.get('v').Values.Data';
 k = (v*y')/(y*y');
@@ -64,15 +65,15 @@ k = (v*y')/(y*y');
 close; 
 fig1 = figure(1);
 set(gca, 'fontsize', 12);
-%plot(t, y, 'LineWidth', 1); 
-hold on;
-axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
 stairs(t, v, 'LineWidth', 1.5);
-plot(t, y, 'LineWidth', 1);
+hold on;
+%plot(t, diff, "LineWidth",1)
+%plot(t, y, 'LineWidth', 1);
 plot(t, u, 'LineWidth', 2);
+axis([ min(t) max(t)/8 1.1*min(v) 1.1*max(v) ]);
 xlabel('Time t/T');
 ylabel('Amplitude');
-legend('v', 'y', 'u');
+legend('v', 'u');
 title('1st Order \Sigma\Delta');
 hold off;
 

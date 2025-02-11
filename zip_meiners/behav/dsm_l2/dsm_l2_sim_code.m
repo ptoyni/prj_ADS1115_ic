@@ -22,7 +22,7 @@ u = A * sin(2 * pi * fx/fs * [0:N-1]);
 
 %% Design NTF
 H = synthesizeNTF(L, M, opt, 2);
-
+synthesizeSTF
 [a, g, b, c] = realizeNTF(H, form);
 b(2:end) = 0;
 ABCD = stuffABCD(a, g, b, c, form);

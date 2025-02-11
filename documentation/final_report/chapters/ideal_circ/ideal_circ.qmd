@@ -30,7 +30,7 @@ More critical areas are when MOSFET is transitioning from ON to OFF and vice ver
 
 ## Switched Capacitor Integrator
 
-A classic implementation of realizing an active integrator would be with the opamp circuit using a switch capacitor. However, in IC level implementation we use OTA instead of OpAMP as output resistance of OTA is infinte which benefits us heavily. H(z) enables us to realize any Discrete Time Transfer Function. There are two types of integrators:
+A classic implementation of realizing an active integrator would be with the opamp circuit using a switch capacitor. However, in IC level implementation we use OTA instead of OpAMP as output resistance of OTA is infinte which benefits us heavily. $H(z)$ enables us to realize any Discrete Time Transfer Function. There are two types of integrators:
 
 - **Delay Free Integrator**: This form of integrator include the current sample of the input signal as well. Its transfer function is given as: 
 

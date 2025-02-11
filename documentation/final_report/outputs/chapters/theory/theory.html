@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-02-10">
+<meta name="dcterms.date" content="2025-02-11">
 
 <title>theory</title>
 <style>
@@ -88,15 +88,15 @@ window.Quarto = {
   <li><a href="#top-level-overview" id="toc-top-level-overview" class="nav-link" data-scroll-target="#top-level-overview"><span class="header-section-number">1.1</span> Top-Level Overview</a></li>
   <li><a href="#system-overview-of-deltasigma-modulators" id="toc-system-overview-of-deltasigma-modulators" class="nav-link" data-scroll-target="#system-overview-of-deltasigma-modulators"><span class="header-section-number">1.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</a>
   <ul>
-  <li><a href="#oversampling-circuits" id="toc-oversampling-circuits" class="nav-link" data-scroll-target="#oversampling-circuits"><span class="header-section-number">1.2.1</span> Oversampling circuits</a></li>
-  <li><a href="#principle-of-noise-shaping-1st-order" id="toc-principle-of-noise-shaping-1st-order" class="nav-link" data-scroll-target="#principle-of-noise-shaping-1st-order"><span class="header-section-number">1.2.2</span> Principle of Noise Shaping (1st-Order)</a></li>
-  <li><a href="#sqnr-and-enob" id="toc-sqnr-and-enob" class="nav-link" data-scroll-target="#sqnr-and-enob"><span class="header-section-number">1.2.3</span> SQNR and ENOB</a></li>
-  <li><a href="#nd-order-modulator" id="toc-nd-order-modulator" class="nav-link" data-scroll-target="#nd-order-modulator"><span class="header-section-number">1.2.4</span> 2nd-Order Modulator</a></li>
+  <li><a href="#oversampling-and-noise-shaping" id="toc-oversampling-and-noise-shaping" class="nav-link" data-scroll-target="#oversampling-and-noise-shaping"><span class="header-section-number">1.2.1</span> Oversampling and Noise Shaping</a></li>
+  <li><a href="#sqnr-and-enob" id="toc-sqnr-and-enob" class="nav-link" data-scroll-target="#sqnr-and-enob"><span class="header-section-number">1.2.2</span> SQNR and ENOB</a></li>
+  <li><a href="#nd-order-modulator-extension" id="toc-nd-order-modulator-extension" class="nav-link" data-scroll-target="#nd-order-modulator-extension"><span class="header-section-number">1.2.3</span> 2nd-Order Modulator Extension</a></li>
+  <li><a href="#specifications-for-the-system" id="toc-specifications-for-the-system" class="nav-link" data-scroll-target="#specifications-for-the-system"><span class="header-section-number">1.2.4</span> Specifications for the System</a></li>
   <li><a href="#behavioural-analysis-confirmation-using-matlab" id="toc-behavioural-analysis-confirmation-using-matlab" class="nav-link" data-scroll-target="#behavioural-analysis-confirmation-using-matlab"><span class="header-section-number">1.2.5</span> Behavioural Analysis/ Confirmation using MATLAB</a></li>
   </ul></li>
   </ul></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="theory.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -142,7 +142,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-02-10</p>
+      <p class="date">2025-02-11</p>
     </div>
   </div>
   
@@ -158,8 +158,8 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Theory and Charactersitics of Delta-Sigma Modulators</h1>
 <section id="top-level-overview" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="top-level-overview"><span class="header-section-number">1.1</span> Top-Level Overview</h2>
-<p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilizes the principles of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements that are commenly utilized by these modulator systems.</p>
-<p>The system itself can be represented, using the following block diagram for the case of analog-to-digital conversion.</p>
+<p>Delta-Sigma modulators (<span class="math inline">\(\Delta\Sigma\)</span>) are generally speaking 1-bit sampling systems that utilize the principle of “oversampling”. To start this chapter of, we would like to briefly elaborate on some of the key elements of these modulator systems.</p>
+<p>An ADC with respect to <span class="math inline">\(\Delta\Sigma\)</span> modulator systems can be represented, using the following block diagram for the case of analog-to-digital conversion.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -177,32 +177,64 @@ window.Quarto = {
 </div>
 <p>Anti-Aliasing measures have to be considered to ensure a “clean” input signal to the modulator system, without unwanted parasitic components.</p>
 <p>The sampling then discretizes the input signal in time, before the quentization does the same with regard to its value (or amplitude).</p>
-<p>The digital filtering is then responsible to transform the discrete signal, which has been creates utilizing oversampling, into a more manageable format, typically utilizing “moving-average filtering”.</p>
+<p>The digital filtering is then responsible to transform the discrete signal into an output from which the original input can be extracted. This typically involves lowpass filtering, specifically utilizing a “moving-average” filter. In case of <span class="math inline">\(\Delta\Sigma\)</span> modulators, which utilize oversampling, it also includes down-sampling/ decimating. The resulting data rate then most often resembles something close to the Nyquist rate of the signal band.</p>
 </section>
 <section id="system-overview-of-deltasigma-modulators" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="system-overview-of-deltasigma-modulators"><span class="header-section-number">1.2</span> System overview of <span class="math inline">\(\Delta\Sigma\)</span> Modulators</h2>
-<section id="oversampling-circuits" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="oversampling-circuits"><span class="header-section-number">1.2.1</span> Oversampling circuits</h3>
-<p>Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth <span class="math inline">\(f_B\)</span>, so that the input can be reconstructed reliably afterwards (avoiding aliasing). <span class="math display">\[\begin{align}
+<p>The modulator, which is a 1-bit sampling system, gets it’s name from two fundamental characteristics of it’s functionality.</p>
+<div id="fig-basic_system" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-basic_system-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/Delt_Sig_Behav_2.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basic_system-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Starting Model of the <span class="math inline">\(\Delta\Sigma\)</span> Modulator
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-basic_system" class="quarto-xref">Figure&nbsp;1</a> shows the fundamental block diagram of the modulator. The delta (<span class="math inline">\(\Delta\)</span>) is realised through the fact that we take the difference between our input signal and the fed back signal from the output as our reference. Therefore we are not exactly sampling the input, but instead the difference/ delta between our input and our previous reference point.</p>
+<p>The next fundamental block in an integrator, which in the discrete domain is also considered an accumulator or summator (<span class="math inline">\(\sum\)</span>). Therefore, our established difference at it’s input is continuously summed up.</p>
+<p>It is because of this that the system is characterizable as an “error accumulation structure”.</p>
+<p>The result of that summation is then fed into a quantizer, which is realized through a 1-Bit ADC, which is in essence a comparator. this checks the incomming accumulator output at the defined high sampling rate and outputs either a ‘1’ or ‘0’, resulting in a 1-Bit datstream that resembles a pulse-width-modulated signal, correlated to the duration of the “rising” and “falling” slopes of the accumulator/ integrators outputs.</p>
+<p>The resulting duty-cycle of the PWM-datastream will then be an indication for the inputsignal of the modulator. Assuming an initial condition of the quantizer output, an input level of zero would result in a <span class="math inline">\(\Delta\)</span> that shifts between the two extremes of the quantizer, equally around 0. The integrator would therefore have equal slope speeds for both the rising and falling periods, leading to equal pulse lengths at the output.</p>
+<p>In case of a non-zero input, e.g.&nbsp;positive, the high-pulses of the PWM will be longer, due to the integrator being fed with a “lower magnitude” of <span class="math inline">\(\Delta\)</span> during this time, therefore showing a slower change at the output, compared to the complementary case.</p>
+<p>The resultig PWM can then lead to valid representations of our input samples by utilizing digital filtering. As mentioned previously, we average a bunch of samples from the PWM datastream, using triangularly weighted coefficients within the filter structure, to get proper individal samples. Those in turn are then down-sampled to the requiered Nyquist rate.</p>
+<div id="fig-filterblocks" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-filterblocks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/theory/Filter_stages.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-filterblocks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Filterstages after the Modulator
+</figcaption>
+</figure>
+</div>
+<p>So summarized, the digital filtering will reduce high-frequency noise while passing the input signal to the output of the converter at a reduced data rate.</p>
+<p>The reason why we oversampled in the first place, only to end-up with a lower datarate anyways, will be discussed in the next chapter.</p>
+<section id="oversampling-and-noise-shaping" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="oversampling-and-noise-shaping"><span class="header-section-number">1.2.1</span> Oversampling and Noise Shaping</h3>
+<p>Oversampling converters offer an alternative to the classical Nyquist-Converters. The latter utilize sampling rates that are either equal or slightly higher than the Nyquist-frequency of the system, meaning at least twice the required signal bandwidth <span class="math inline">\(f_B\)</span>, so that the input can be reconstructed reliably afterwards, according to the Nyquist-Theorem (in turn avoiding aliasing). <span class="math display">\[\begin{align}
   f_s \geq 2\cdot f_B
 \end{align}\]</span></p>
-<p>These converters operate in a way that input samples …</p>
-<p>Oversampling converters utilize sampling rates that are well beyond the minimum required Nyquist-rate, typically sampling at rates that are multiple powers of 2 higher.</p>
+<p><font color="red">[schreier]</font></p>
+<p>Nyquist-converters generally suffer from the following aspects, limiting them in their potential to offer outputs with high resolution at decent speeds. They require a high degree of complexity and matching accuracy regarding their analog components for proper precision, which even than is still constrained. Those that can achieve high resolution, meaning a high number of effective bits (ENOB), need circuitries that ultimately result in major slow-downs. They also require more complex anti-aliasing filters due to higher demand for sharp transition bands. Lastly, it has to deal with quantization noise that is uniformly spread across the given sampling bandwidth (assuming it to be white noise).</p>
+<p>Oversampling converters are able to outperform such classical converters by utilize sampling rates that are well beyond the minimum required Nyquist-rate, while also utilizing multiple samples (so including preceeding ones) for their outputs.</p>
 <p>The oversampling ratio (OSR) denotes the factor by which the Nyquist rate is exceeded.</p>
 <p><span class="math display">\[\begin{align}
   OSR = \frac{f_s}{2 \cdot f_B}
 \end{align}\]</span></p>
+<p>Oversampling systems require high precision &amp; -speed digital circuitry which, as we stated initially, has evolved significantly while becoming increasingly more affordable throughout recent years. Therefore it is a reasonable trade-off. The analog sections in turn are generally less demanding and complex compared to Nyquist converters, e.g.&nbsp;the anti-aliasing filters which can be simpler and of lower order due to lesser likelyhood of “signal folding”.</p>
 <p><font color="red">[schreier]</font></p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
+<th></th>
 <th>Nyquist Converters</th>
-<th>Oversampling Converters</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td></td>
+<td>typical ENOB</td>
 <td></td>
 </tr>
 <tr class="even">
@@ -211,9 +243,6 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-</section>
-<section id="principle-of-noise-shaping-1st-order" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="principle-of-noise-shaping-1st-order"><span class="header-section-number">1.2.2</span> Principle of Noise Shaping (1st-Order)</h3>
 <p>The key advantage that Delta-Sigma Modulation brings to the table is “noise shaping”. This is enabled by the feedback structure that is given in our modulator system.</p>
 <p>For that, let’s observe the following block diagram of a first order model.</p>
 <div id="fig-loopfilter_sys_1st_order" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -222,51 +251,53 @@ window.Quarto = {
 <img src="figures/theory/Simple_1stOrder_Mod_sys.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loopfilter_sys_1st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Linear Model of the 1st-Order Modulator
+Figure&nbsp;3: Linear Model of the 1st-Order Modulator
 </figcaption>
 </figure>
 </div>
 <p>It showcases a simple I/O behavioural model of a system that is inherently representative of what a Delta-Sigma modulator is.</p>
-<p>‘u’ is our input signal, in case of an ADC application it should therefore denote our “analog input”, which we will assume to be handled in a discrete fashion. ‘v’ denotes the output of our feedback system, which should contain sufficient information about our original input (more on the specific extraction later).</p>
-<p>The system contains the so called “loopfilter”, the elemental block for the desired shaping process. We also include an additive error, representing the error in our output due to quantization. The feedback path includes a unit delay to indicate that past output samples will impact the current computation of the input.</p>
+<p><span class="math inline">\('U(z)'\)</span> is our input signal, in case of an ADC application it should therefore denote our “analog input”, which we will assume to be handled in a discrete fashion. <span class="math inline">\('V(z)'\)</span> denotes the output of our feedback system, which should contain sufficient information about our original input, leading to <span class="math inline">\(\hat{U}(z)\)</span> after the averaging- and decimation process mentioned earlier.</p>
+<p>The system contains the so called “loopfilter”, the elemental block for the desired shaping process which is ultimately a delayed discrete integrator, indicating the impact of past samples on the current computation. We also include an additive error, representing the error in our output due to quantization.</p>
 <p>Using the markings <span class="math inline">\(*_1\)</span> and <span class="math inline">\(*_2\)</span>, we can derive the transfer behaviour of our system as follows:</p>
 <p><span class="math display">\[\begin{align}
-  v &amp;= e + *_2\,;\quad *_2 = (\frac{1}{1-z^{-1}}) \, *_1\,; \quad *_1 = u - v\,z^{-1} \\
-  \Rightarrow&amp; *_2 = (\frac{1}{1-z^{-1}})\, (u-v\,z^{-1})\,; v = e + (\frac{1}{1-z^{-1}})\,(u-v\,z^{-1})\\
-  \Leftrightarrow&amp;\, v = \frac{u}{1-z^{-1}} - \frac{v\,z^{-1}}{1-z^{-1}} + e \\
-  \Leftrightarrow&amp;\, v(1-z^{1}) = u - v\,z^{-1} + e(1-z^{-1}) \\
-  \Leftrightarrow&amp;\, v \cancel{-v\,z^{-1}} \cancel{+ v\,z^{-1}} = u + e(1-z^{-1})
+  V(z) &amp;= E(z) + *_2\,;\quad *_2 = \Big(\frac{z^{-1}}{1-z^{-1}}\Big) \, *_1\,; \quad *_1 = U(z) - V(z)\,z^{-1} \\
+  \Rightarrow&amp; *_2 = \Big(\frac{z^{-1}}{1-z^{-1}}\Big)\, (U(z)-V(z)\,z^{-1})\\
+  \Rightarrow&amp; V(z) = E(z) + \Big(\frac{z^{-1}}{1-z^{-1}}\Big)\,(U(z)-V(z)\,z^{-1})\\
+  \Leftrightarrow&amp;\, V(z) = \frac{U(z)\,z^{-1}}{1-z^{-1}} - \frac{V(z)\,z^{-1}}{1-z^{-1}} + E(z) \\
+  \Leftrightarrow&amp;\, V(z)\,(1-z^{1}) = U(z)\,z^{-1} - V(z)\,z^{-1} + e(1-z^{-1}) \\
+  \Leftrightarrow&amp;\, V(z) \cancel{-V(z)\,z^{-1}} \cancel{+ V(z)\,z^{-1}} = U(z)\,z^{-1} + E(z)\,(1-z^{-1})
 \end{align}\]</span></p>
-<p>This shows the dependency of the output v on the separate terms for our input and the quantization error. We can denote these functions of <span class="math inline">\(z\)</span> as our transfer functions for either the signal (<span class="math inline">\(STF(z) = 1\)</span>) or our quantization “noise” (<span class="math inline">\(NTF(z) = 1-z^{-1}\)</span>)</p>
+<p>This shows that the output V(z) is comprised of the delay input and the filtered quantization error. We can denote these functions of <span class="math inline">\(z\)</span> as our transfer functions for either the signal (<span class="math inline">\(STF(z) = z^{-1}\)</span>) or our quantization “noise” (<span class="math inline">\(NTF(z) = 1-z^{-1}\)</span>)</p>
 <p><span class="math display">\[\begin{align}
-  v = STF(z)\,u + NTF(z)\,e
+  V(z) = STF(z)\,U(z) + NTF(z)\,E(z)
 \end{align}\]</span></p>
-<p>The Noiseshaping is now privided due to the given NTF, which will apply a high-pass characteristic onto the internal noise. As a first general validation of that, if we check over a normalized frequency range of <span class="math inline">\(\omega = [0, \pi]\)</span> we derive for <span class="math inline">\(z = e^{j\omega}\)</span> at either z = e^{j} = 1 or z = e^{j} = -1. Plugging that into the proposed NTF will lead to:</p>
+<p>The noiseshaping is now privided due to the given NTF, which will apply a high-pass characteristic onto the internal quantization noise. As a first general validation of that, if we check over a normalized frequency range of <span class="math inline">\(\omega = [0, \pi]\)</span> we derive for <span class="math inline">\(z = e^{j\omega}\)</span> at either z = e^{j} = 1 or z = e^{j} = -1. Plugging that into the proposed NTF will lead to:</p>
 <p><span class="math display">\[\begin{align}
   NTF(z) &amp;= 1-z^{-1} \hat{=} 1-\frac{1}{e^{j\omega}} = 0\,; \quad \text{for}\ \omega \rightarrow 0  \\
   NTF(z) &amp;= 1-z^{-1} \hat{=} 1-\frac{1}{e^{j\omega}} = 2\,; \quad \text{for}\ \omega \rightarrow \pi  \\
 
 \end{align}\]</span></p>
-<p><font color="red">[Still need to find proper way to include the lowpass characteristic regarding the signal]</font></p>
+<p>Hence, the noise is attenuated for low frequencies, while amplified for high frequencies.</p>
 </section>
-<section id="sqnr-and-enob" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="sqnr-and-enob"><span class="header-section-number">1.2.3</span> SQNR and ENOB</h3>
+<section id="sqnr-and-enob" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="sqnr-and-enob"><span class="header-section-number">1.2.2</span> SQNR and ENOB</h3>
+<p><font color="red">[lec-05-oversampling_adc]</font></p>
 <p>Having effective noise shaping will increase the Signal-to-Quantazation-Noise-Ratio (SQNR) of the system within the band of interest. The SQNR is fundamentally tied to the “effective number of bits” (ENOB) that can be converted reliably. For a sine wave input to an ideal Nyquist converter, the relation between SNR and the ENOB is given through the following equation.</p>
 <p><span class="math display">\[\begin{align}
   SNR_{dB} = 6.02 \cdot ENOB + 1.76
 \end{align}\]</span></p>
 <p>For oversampling circuits, the resulting SQNR of a system is tied to the applied OSR.</p>
 </section>
-<section id="nd-order-modulator" class="level3" data-number="1.2.4">
-<h3 data-number="1.2.4" class="anchored" data-anchor-id="nd-order-modulator"><span class="header-section-number">1.2.4</span> 2nd-Order Modulator</h3>
-<p>A second order Modulator can be realized by simply exchanging the quantizer of the first order system with yet another instance of the first order system, thereby reducing the in-band quantization noise. The Blockdiagram will end-up like in <a href="#fig-loopfilter_sys_2st_order" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<section id="nd-order-modulator-extension" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="nd-order-modulator-extension"><span class="header-section-number">1.2.3</span> 2nd-Order Modulator Extension</h3>
+<p>A second order Modulator can be realized by simply exchanging the quantizer of the first order system with yet another instance of the first order system, thereby reducing the in-band quantization noise. The Blockdiagram will end-up like in <a href="#fig-loopfilter_sys_2st_order" class="quarto-xref">Figure&nbsp;4</a>.</p>
 <div id="fig-loopfilter_sys_2st_order" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-loopfilter_sys_2st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/theory/Simple_2nd_order_Mod_sys.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loopfilter_sys_2st_order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Linear Model of the 2nd-Order Modulator
+Figure&nbsp;4: Linear Model of the 2nd-Order Modulator
 </figcaption>
 </figure>
 </div>
@@ -304,13 +335,55 @@ Table&nbsp;1: Considerations between MOD1 and MOD2
 </div>
 <p>See <a href="#tbl-2nd_vs_1st" class="quarto-xref">Table&nbsp;1</a>.</p>
 </section>
+<section id="specifications-for-the-system" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="specifications-for-the-system"><span class="header-section-number">1.2.4</span> Specifications for the System</h3>
+<p>To later interface the system in the context of a system-chain, given e.g.&nbsp;by our meassurement system, a few things should be specified about our desired converter system up front, given the now séstablished theory. Among them are for example the following things, mainly related to our expected inputs.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dynamic Range</td>
+<td>16 Bit ~ 98 dB</td>
+</tr>
+<tr class="even">
+<td>System Order L</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Signal Bandwidth f_B</td>
+<td>215 Hz</td>
+</tr>
+<tr class="even">
+<td>Nyq. Frequency f_N</td>
+<td>430 Hz</td>
+</tr>
+<tr class="odd">
+<td>Sampling Frequency f_s</td>
+<td>220 kHz</td>
+</tr>
+<tr class="even">
+<td>Oversampling Ratio (OSR)</td>
+<td>512</td>
+</tr>
+<tr class="odd">
+<td>Samples per Second (SPS_{max})</td>
+<td>860</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="behavioural-analysis-confirmation-using-matlab" class="level3" data-number="1.2.5">
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="behavioural-analysis-confirmation-using-matlab"><span class="header-section-number">1.2.5</span> Behavioural Analysis/ Confirmation using MATLAB</h3>
 <p>The behavioural analysis in MATLAB sztarts by setting some specifications for the system, which are the following:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 40%">
+<col style="width: 59%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -324,8 +397,8 @@ Table&nbsp;1: Considerations between MOD1 and MOD2
 <td>L = 1 or 2 (order)</td>
 </tr>
 <tr class="even">
-<td>Cascade of integrator feedback</td>
-<td>form = ‘CIFB’;</td>
+<td>Structure</td>
+<td>form = ‘CIFB’ % Cascade of Integrators Feedback;</td>
 </tr>
 <tr class="odd">
 <td>No optimisation</td>
@@ -384,7 +457,7 @@ Table&nbsp;1: Considerations between MOD1 and MOD2
 <img src="figures/theory/simulink_2ndOrd_model.PNG" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simulink_MOD2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Utilized 2nd-Order Model in Simulink (CIFB)
+Figure&nbsp;5: Utilized 2nd-Order Model in Simulink (CIFB)
 </figcaption>
 </figure>
 </div>
@@ -394,17 +467,18 @@ Figure&nbsp;3: Utilized 2nd-Order Model in Simulink (CIFB)
 <img src="figures/theory/2nd_order_behav_output.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_IO_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: I/O behaviour from MATLAB simulation model
+Figure&nbsp;6: I/O behaviour from MATLAB simulation model
 </figcaption>
 </figure>
 </div>
+<p>The plot of the model output shows the expected indirect representation of the input signal in the momentary duty-cycle of the PMW output, from which one could obtain the input signal by applying a moving average filter to the PMW datastream.</p>
 <div id="fig-matlab_MOD2_pz_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-matlab_MOD2_pz_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/theory/2nd_order_pz_plot.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD2_pz_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Pole-Zero Plot from the NTF, synthesized by MATLAB
+Figure&nbsp;7: Pole-Zero Plot from the NTF, synthesized by MATLAB
 </figcaption>
 </figure>
 </div>
@@ -414,7 +488,7 @@ Figure&nbsp;5: Pole-Zero Plot from the NTF, synthesized by MATLAB
 <img src="figures/theory/spectral_analysis_L1_and_L2.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matlab_MOD1_2_NTF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Spectral Analysis from Models for L=1 &amp; L=2
+Figure&nbsp;8: Spectral Analysis from Models for L=1 &amp; L=2
 </figcaption>
 </figure>
 </div>
