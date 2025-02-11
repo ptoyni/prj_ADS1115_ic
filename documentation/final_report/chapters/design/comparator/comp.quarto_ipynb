@@ -72,7 +72,7 @@
         "\n",
         "The following plots show the outputs of both the comparator and the cascaded SR-latch. For the first 8 ns, the positive input voltage of the comparator is 1 mV higher than the negative input. At around 8.1 ns, that polarityis reversed.\n"
       ],
-      "id": "d5d5546d"
+      "id": "7e18a55b"
     },
     {
       "cell_type": "code",
@@ -145,7 +145,7 @@
         "\n",
         "The behavior is the pretty much the same, both for $V_{DD}$ equaling 3.3 V or 1.5 V, where only the small spikes on the latch output are smaller for 3.3 V. "
       ],
-      "id": "f8517124"
+      "id": "8599a24e"
     }
   ],
   "metadata": {
