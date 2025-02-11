@@ -20,11 +20,17 @@ The specific board-level components that are considered for this signal-chain ar
 
 The mentioned ICs are given as evaluation- & breakout boards as part of the lab inventory.
 
-![ADXL335 Functional Block Diagram [@adx_datasheet])](figures/introduction/ADXL335.PNG){#fig-ADXL_block}
+![ADXL335 Functional Block Diagram [@]](figures/introduction/ADXL335.PNG){#fig-ADXL_block}
+
+The accelerometer is a specific example of a micro electro-mechanical system (MEMS) used for the purpuse of sensing. This in essence utilizes capacitive Accelerometer, where the plates of that capacitor are within the internal structure, which allows for varying distances of the plates (or potentially "fingers") resulting in a varying capacitance given an acceleration. The analog change in capacitance is what we will ultimately need to consider when it comes to system interfacing.
 
 ![ADS1115 Functional Block Diagram [@ads_datasheet]](figures/introduction/ADS1115.PNG){#fig-ADS_block}
 
+The ADS1115 is a Delta-Sigma ADC which includes various auxillary subsystems, like a multiplexer for the multiple input channels, an input programmable gain amplifier (PGA), an interface section to support the I2C communication protocol, etc.
+
 ![ESP8266 Breakoutboard Pinout](figures/introduction/ESP8266_breakout.PNG){#fig-ESP8266}
+
+The ESP8266 is a typical microcontroller, which allows us to measure data either directly through analog pins, which would utilize internal ADCs, or we can use the digital pins to utilize the full-fletched ADS1115 for the job of data conversion.
 
 
 ## General Overview of given ADC

@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
+<<<<<<< HEAD
+<meta name="generator" content="quarto-1.6.39">
+=======
 <meta name="generator" content="quarto-1.6.36">
+>>>>>>> 05c14c0ad568523ec95583d66ff2fd24a19ab30f
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -88,10 +92,14 @@ div.csl-indent {
 <script src="report_grp4_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="report_grp4_files/libs/quarto-html/anchor.min.js"></script>
 <link href="report_grp4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<<<<<<< HEAD
+<link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+=======
 <link href="report_grp4_files/libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+>>>>>>> 05c14c0ad568523ec95583d66ff2fd24a19ab30f
 <script src="report_grp4_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="report_grp4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="report_grp4_files/libs/bootstrap/bootstrap-933a14f46f0e4d1503cecf416b5e09b4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="report_grp4_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="report_grp4_files/libs/quarto-diagram/mermaid.min.js"></script>
 <script src="report_grp4_files/libs/quarto-diagram/mermaid-init.js"></script>
 <link href="report_grp4_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -286,6 +294,7 @@ Figure&nbsp;3: ADXL335 Functional Block Diagram <span class="citation" data-cite
 </figcaption>
 </figure>
 </div>
+<p>The accelerometer is a specific example of a micro electro-mechanical system (MEMS) used for the purpuse of sensing.</p>
 <div id="fig-ADS_block" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ADS_block-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1067,16 +1076,27 @@ g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
 <img src="figures/switch_cap/priyanka_img_matlab.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-graph_ota-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<<<<<<< HEAD
+Figure&nbsp;28: Graph for <span class="math inline">\(I_d / W\)</span> for nMOS
+=======
 Figure&nbsp;27: Graph for <span class="math inline">\(I_d / W\)</span> for nMOS
+>>>>>>> 05c14c0ad568523ec95583d66ff2fd24a19ab30f
 </figcaption>
 </figure>
 </div>
 </section>
 </section>
+<<<<<<< HEAD
+<section id="xschem-realization" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="xschem-realization"><span class="header-section-number">6.3</span> Xschem Realization</h2>
+<p>To simulate our design we are using Xschem and ngspice. Realization of Telescopic OTA as after <a href="#fig-basic_ota" class="quarto-xref">Figure&nbsp;27</a> was not compatible with Switched Capacitor. <img src="figures/opamp/Telescopic.svg" id="fig-ota_xschem_circuit" class="img-fluid" alt="Implementation of Telescopic OTA"> <img src="figures/opamp/ac0.svg" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/ac1.svg" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/tran0.svg" class="img-fluid" alt="Transient Response of Telescopic OTA"> {#fig-ota_sim_output}</p>
+<p>Its giving us DC Gain of 9.6059e-01, Gain error of -3.9408e-02 and Slew rate (<span class="math inline">\(t_{settle}\)</span>) of 7.0329e-07 at <span class="math inline">\(I_0\)</span> equivalent to 0.8microA.Below is the Switch Capacitor circuit with phase 1 and 2.</p>
+=======
 <section id="xschem-realization" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="xschem-realization"><span class="header-section-number">5.3</span> Xschem Realization</h2>
 <p>To simulate our design we are using Xschem and ngspice. Realization of Telescopic OTA as after <a href="#fig-basic_ota" class="quarto-xref">Figure&nbsp;26</a> was not compatible with Switched Capacitor. <img src="figures/opamp/Telescopic.svg" id="fig-telescope-ota" class="img-fluid" alt="Implementation of Telescopic OTA"> <img src="figures/opamp/ac0.svg" id="fig-ac-telescope-ota" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/ac1.svg" id="fig-ac-telescope-ota2" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/tran0.svg" id="fig-transient-telescope-ota" class="img-fluid" alt="Transient Response of Telescopic OTA"></p>
 <p>Its giving us DC Gain of 9.6059e-01, Gain error of -3.9408e-02 and Slew rate (tsettle) of 7.0329e-07 at <span class="math inline">\(I_0\)</span> equivalent to 0.8microA.Below is the Switch Capacitor circuit with phase 1 and 2.</p>
+>>>>>>> 05c14c0ad568523ec95583d66ff2fd24a19ab30f
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/opamp/Final_circuit_last.svg" class="img-fluid figure-img"></p>
@@ -1091,9 +1111,15 @@ Figure&nbsp;27: Graph for <span class="math inline">\(I_d / W\)</span> for nMOS
 <h3 data-number="5.4.1" class="anchored" data-anchor-id="model--architecture-elaboration"><span class="header-section-number">5.4.1</span> Model-/ Architecture elaboration</h3>
 <p>The considered implementation of our comparator utilizes an initial inverter based comparator stage, followed by a latching circuit to account for the reseting within the comparator and the resulting “invalid” outputs it would provide. Lastly we could consider utilizing a d-flip-flop for the “digitized” output signal(-s), also to be fed back to the loopfilter structures.</p>
 </section>
+<<<<<<< HEAD
+<section id="comparator-stage" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">6.4.2</span> Comparator Stage</h3>
+<p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;29</a>.</p>
+=======
 <section id="comparator-stage" class="level3" data-number="5.4.2">
 <h3 data-number="5.4.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">5.4.2</span> Comparator Stage</h3>
 <p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;28</a>.</p>
+>>>>>>> 05c14c0ad568523ec95583d66ff2fd24a19ab30f
 <p>While the classical StrongArm would utilize pmos transistors for M3 &amp; M4 (with their sources being pulled to <span class="math inline">\(V_{DD}\)</span> and their drains connected to the node above M1 and M2) instead, the behaviour would in both cases be the same, as tested in simulations.</p>
 <p>It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches.</p>
 <div id="fig-strongarm_circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1102,7 +1128,7 @@ Figure&nbsp;27: Graph for <span class="math inline">\(I_d / W\)</span> for nMOS
 <img src="figures/comp/comp_architecture.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;28: Comparator, realized through inverter based architecture
+Figure&nbsp;29: Comparator, realized through inverter based architecture
 </figcaption>
 </figure>
 </div>
@@ -1119,15 +1145,15 @@ Figure&nbsp;28: Comparator, realized through inverter based architecture
 <section id="latching-circuit" class="level3" data-number="5.4.3">
 <h3 data-number="5.4.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">5.4.3</span> Latching Circuit</h3>
 <p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs. The way this was done in our case is through an “SR-Latch”, which stands for “set” and “reset”.</p>
-<p>In general, such a latch utilizes two logic gates with 2 inputs and one output each, where one of the inputs will be one of the input signals, while the other will be the fed-back output signal from the respective other logic gate. The provided logic should result in only the Q output or it’s complement nQ to be high, depending .</p>
-<p>The main task of this block is to only change it’s output, while either the positive or negative output of our comparator is “high”. For SR-latches there will be one case for equal inputs (either both “high” or both “low”) where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in <a href="#fig-sr_latch" class="quarto-xref">Figure&nbsp;29</a>, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters.</p>
+<p>In general, such a latch utilizes two logic gates with 2 inputs and one output each, where one of the inputs will be one of the input signals, while the other will be the fed-back output signal from the respective other logic gate. The provided logic should result in only the Q output or it’s complement nQ to be high, depending.</p>
+<p>The main task of this block is to only change it’s output, while either the positive or negative output of our comparator is “high”. For SR-latches there will be one case for equal inputs (either both “high” or both “low”) where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in <a href="#fig-sr_latch" class="quarto-xref">Figure&nbsp;30</a>, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters.</p>
 <div id="fig-sr_latch" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sr_latch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/SR_latch.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sr_latch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;29: SR-Latch for Comparator Application
+Figure&nbsp;30: SR-Latch for Comparator Application
 </figcaption>
 </figure>
 </div>
@@ -1142,20 +1168,20 @@ Figure&nbsp;29: SR-Latch for Comparator Application
 <img src="figures/comp/comp_test.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xschem_comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;30: StrongArm Circuit
+Figure&nbsp;31: StrongArm Circuit
 </figcaption>
 </figure>
 </div>
 <p>This circuit is proposed by Boris Murmann in his EE628 lecture series (e.g.&nbsp;lec 6), while he himself adopted the design from the paper given in [<font color="red">[cite paper]</font>]. The MOSFET lengths (L) can be chosen minimal (<span class="math inline">\(\approx\)</span> 130 nm), since almost all of them simply serve as switches, with only those for the inputsignal are choosen with a slightly greater margin.</p>
 <p>While the mentioned sources also propose a latching circuit, we will directly utilize the logic gates available through the used PDK, which generally helps to make the comparator system more universally applicable. Specifically, the proposed design showed a lesser tolerence for very small differences between the input signals, once the latch was cascaded. This becomes worse for higher supply voltages (e.g.&nbsp;3V3 instead of 1V5).</p>
-<p>The testbench file is shown next in <a href="#fig-xschem_comp_tb" class="quarto-xref">Figure&nbsp;31</a>.</p>
+<p>The testbench file is shown next in <a href="#fig-xschem_comp_tb" class="quarto-xref">Figure&nbsp;32</a>.</p>
 <div id="fig-xschem_comp_tb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-xschem_comp_tb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/comp_tb.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xschem_comp_tb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;31: Comparator Testbench
+Figure&nbsp;32: Comparator Testbench
 </figcaption>
 </figure>
 </div>
@@ -1243,7 +1269,7 @@ Figure&nbsp;31: Comparator Testbench
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;32
+Figure&nbsp;33
 </figcaption>
 </figure>
 </div>
@@ -1251,6 +1277,7 @@ Figure&nbsp;32
 <p>A clock period of 10 ns is chosen, which is much shorter then for our actual application. Therefore proving, that even for a fraction of the desired clock period, the circuit is sufficiently fast when it comes to settling. The latch outputs show the desired behavior, where only during the active clock periods the output will change in case the polarity of the input difference has changed, while remaining constant during the reseting of the comparator.</p>
 <p>The output “out2dff” can now be forwarded to a d-flip-flop, which most comparator designs for ADCs would utilize to gain the “final” clk-controlled digitized output sample.</p>
 <p>The behavior is the pretty much the same, both for <span class="math inline">\(V_{DD}\)</span> equaling 3.3 V or 1.5 V, where only the small spikes on the latch output are smaller for 3.3 V.</p>
+<p>The designs that are considerable as the final results are given within our design directory with “final_working_comp.sch”, “latched_comp.sch” and “latched_comp_dff.sch”, the latter also including a d-flip-flop based on design objects PDK.</p>
 </section>
 </section>
 </section>
