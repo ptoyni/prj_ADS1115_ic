@@ -38,7 +38,7 @@ B1 Vout 0 V=v(hold)>0?v(vdd):0
 .ends ideal_clocked_comparator
 
 .subckt ideal_op_amp Vinm Vinp Out
-E1 Out 0 Vinp Vinm 1000Meg
+E1 Out 0 Vinm Vinp 1000Meg
 .ends ideal_op_amp
 
 .subckt inv Vdd Vss IN OUT
@@ -47,11 +47,11 @@ B1 Out 0 V=v(in)>v(vdd)/2?v(vss):v(vdd)
 
 .tran 30m uic
 .options plotwinsize=0
-.param VDD=3.0
-.param Vref=3.0
+.param VDD=1.5
+.param Vref=1.5
 .param Vcm=VDD/2.0
 .param Voff=Vcm
-.param Vamp=1.4
+.param Vamp=0.5
 .param freq=100
 .param Cs1=1p Ci1=6p Cs2=1p Ci2=3p
 .save v(vx1) v(vx2) v(phi1) v(phi2) v(vq) v(vd) v(vfb) v(vin)

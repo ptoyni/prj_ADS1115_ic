@@ -1,5 +1,7 @@
 ---
 title: "Design of an Analog-Digital-Converter the Delta-Sigma way"
+
+bibliography: references.bib
 ---
 {{< include important_notes.qmd >}}
 
