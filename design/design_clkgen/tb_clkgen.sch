@@ -31,18 +31,18 @@ N 110 -50 110 -20 {lab=GND}
 N 20 -140 20 -110 {lab=VDD}
 N 110 -230 110 -110 {lab=A}
 N 110 -230 220 -230 {lab=A}
-N 520 -230 770 -230 {lab=p1e}
-N 520 -190 630 -190 {lab=p2}
-N 520 -170 570 -170 {lab=p2e}
-N 570 -170 570 -100 {lab=p2e}
+N 520 -230 770 -230 {lab=p1}
+N 520 -190 630 -190 {lab=p2d}
+N 520 -170 570 -170 {lab=p2}
+N 570 -170 570 -100 {lab=p2}
 N 570 -40 570 -20 {lab=GND}
 N 630 -40 630 -20 {lab=GND}
 N 700 -40 700 -20 {lab=GND}
 N 770 -40 770 -20 {lab=GND}
-N 630 -190 630 -100 {lab=p2}
-N 700 -210 700 -100 {lab=p1}
-N 520 -210 700 -210 {lab=p1}
-N 770 -230 770 -100 {lab=p1e}
+N 630 -190 630 -100 {lab=p2d}
+N 700 -210 700 -100 {lab=p1d}
+N 520 -210 700 -210 {lab=p1d}
+N 770 -230 770 -100 {lab=p1}
 C {vsource.sym} 110 -80 0 0 {name=V1 value="dc 0 pulse(0, \{vdd\}, 5n, 100p, 100p, \{per/2\}, \{per\}) " savecurrent=false}
 C {gnd.sym} 110 -20 0 0 {name=l2 lab=GND}
 C {devices/gnd.sym} 20 -20 0 0 {name=l14 lab=GND}
@@ -51,15 +51,18 @@ C {devices/vsource.sym} 20 -80 0 0 {name=Vsup value=\{vdd\}
 C {lab_pin.sym} 110 -170 0 0 {name=p3 sig_type=std_logic lab=A
 }
 C {vdd.sym} 20 -140 0 0 {name=l4 lab=VDD}
-C {lab_pin.sym} 770 -230 2 0 {name=p1 sig_type=std_logic lab=p1e
+C {lab_pin.sym} 700 -210 2 0 {name=p1 sig_type=std_logic lab=p1d
+
 }
-C {lab_pin.sym} 700 -210 2 0 {name=p2 sig_type=std_logic lab=p1}
-C {lab_pin.sym} 630 -190 2 0 {name=p4 sig_type=std_logic lab=p2}
-C {lab_pin.sym} 570 -170 2 0 {name=p5 sig_type=std_logic lab=p2e}
-C {devices/code_shown.sym} 890 -50 0 0 {name=MODEL only_toplevel=true
+C {lab_pin.sym} 770 -230 2 0 {name=p2 sig_type=std_logic lab=p1}
+C {lab_pin.sym} 570 -170 2 0 {name=p4 sig_type=std_logic lab=p2}
+C {lab_pin.sym} 630 -190 2 0 {name=p5 sig_type=std_logic lab=p2d}
+C {devices/code_shown.sym} 890 -90 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
 .lib cornerMOSlv.lib mos_tt
+.inc /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
 "}
 C {devices/capa.sym} 570 -70 0 0 {name=C1
 m=1
@@ -85,7 +88,7 @@ value=\{cl\}
 footprint=1206
 device="ceramic capacitor"}
 C {gnd.sym} 770 -20 0 0 {name=l6 lab=GND}
-C {devices/code_shown.sym} 890 -300 0 0 {name=NGSPICE only_toplevel=true 
+C {devices/code_shown.sym} 890 -340 0 0 {name=NGSPICE only_toplevel=true 
 value="
 .param temp=27 vdd=1.2 per=20n cl=50f
 .option method=gear
@@ -95,7 +98,7 @@ save all
 tran 10p 15n
 meas tran tp1_p1d TRIG v(p1) VAL=0.6 FALL=1 TARG v(p1d) VAL=0.6 FALL=1
 meas tran tp1d_p2d  TRIG v(p1d)  VAL=0.6 FALL=1 TARG v(p2d) VAL=0.6 RISE=1
-write /foss/designs/prj_ADS1115_ic/design/data/tb_clkgen.raw
+write /foss/designs/prj_ADS1115_ic/matlab_python/clk_gen/tb_clkgen_self.raw
 .endc
 "}
 C {devices/launcher.sym} 320 -320 0 0 {name=h1

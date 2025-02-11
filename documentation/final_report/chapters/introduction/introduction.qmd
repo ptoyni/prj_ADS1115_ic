@@ -1,8 +1,14 @@
 # Introduction
-Since more and more manufacturers are ending their production of integrated circuit solutions, the development of full custom solutions is becomming more attractive. Thus, the different subgroups of the course "Concept Engineering Mixed-Technology Systems", held by Professor Meiners at Hochschule Bremen, are tasked with the development of an Analog-Digital-Converter, roughly modeled in a way to replace the ADS1115 by Texas Instruments within a specified measurement system-chain. 
+Since more and more manufacturers are ending their production of integrated circuit solutions, the development of full custom solutions is becoming more attractive. Thus, the different subgroups of the course "Concept Engineering Mixed-Technology Systems", held by Professor Meiners at Hochschule Bremen, are tasked with the development of an Analog-Digital-Converter, roughly modeled in a way to replace the ADS1115 by Texas Instruments within a specified measurement system-chain. 
 
-In the following we present our approach to designing said ADC. This includes a theoretical analysis of the workings of $\Sigma \Delta$ ADC's, an exploration of it's basic behavioural characteristics via system analysis, deriving basic and idealized circuits to match the behaviour, and lastly a detailed step-by-step design using SPICE simulations within the xschem design environment, where solutions on IC-level will be proposed. 
+Data conversion is a hot topic in the world of electronics. Most signal processing nowadays has shifted to the digital domain, due to the enourmous pace with which digital electronics have evolve in terms of speed and size. To the point where datarates in the range of Gigahertz are becoming the norm, while the underlying semiconductor technologies continuously shrink to the point of mere nanometers.
 
+However, this doesn't change our analog world, nor the need to interface data from that domain into that of our "state-of-the-art" technologies. This consideration applies to all sorts of trackable or sensable data, of accustic, optical or mechanical nature.
+To fit into the evolving nature of the digital domain, converters should be able to keep up, regarding the speed, precision and reliability with which they interface. 
+
+![Interfacing between Analog and Digital Domain](figures/introduction/AD_DA_signal_chain.png){#fig-ad_da}
+
+For this reason, we shall attempt to outline one of the most popular ways to convert data given the technology of our time. The approach is that of the Sigma-Delta converter. In the following we present our approach to designing such an ADC. This includes a theoretical analysis of the workings of $\Sigma \Delta$ ADC's, an exploration of it's basic behavioural characteristics on system-level, deriving basic and idealized circuits to match the behaviour, and lastly a detailed design of the established circuit-level system using SPICE simulations within the xschem design environment, where concrete solutions on IC-level will be proposed. 
 
 ## Top-Level Overview of Considered System
 
@@ -23,8 +29,10 @@ The mentioned ICs are given as evaluation- & breakout boards as part of the lab 
 
 ## General Overview of given ADC
 
-Figure @fig-adc_overview shows a more detailed block diagram of the ADS1115. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator and the comparator to output a PWM signal. 
+Figure @fig-adc_overview shows a more detailed block diagram of the ADS1115, which adopts informations from it's datasheet. The focus of our work lies on the components in the orange box. The theory for the digital filter stage following the modulator is also explored. The modulator itself comprises the switched capacitance to sample the input signal, an integrator (or accumulator) and the quantizing comparator to output a PWM signal. 
 The other blocks depicted are considered auxillary block. These include the multiplexer which can be used to switch between different inputs. It is followed by a programmable gain amplifier. The amplification factor can be selected via an I2C interface which is also used to select the input channel, sample rate, as well as for the read out of the converted digital data among others. Since these auxillary blocks do not add to the functionality of the modulator itself it was decided to not explore them any further. In case of the reference oscillator and the voltage reference, these are modeled as ideal inputs during simulations.
 
 ![Block diagram internal structure ADS1115](figures/introduction/BlockDiagramm_ADS1115.svg){#fig-adc_overview}
+
+
 

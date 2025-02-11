@@ -19,7 +19,7 @@
         "\n",
         "The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called \"StrongArm\" architecture, depicted in @fig-strongarm_circuit.\n",
         "\n",
-        "While the classical StrongArm would utilize pmos transistors for M3 & M4 (with their sources being pulled to $V_DD$ and their drains connected to the node above M1 and M2) instead, the behaviour would in both cases be the same, as tested in simulations.\n",
+        "While the classical StrongArm would utilize pmos transistors for M3 & M4 (with their sources being pulled to $V_{DD}$ and their drains connected to the node above M1 and M2) instead, the behaviour would in both cases be the same, as tested in simulations.\n",
         "\n",
         "It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches. \n",
         "\n",
@@ -72,7 +72,7 @@
         "\n",
         "The following plots show the outputs of both the comparator and the cascaded SR-latch. For the first 8 ns, the positive input voltage of the comparator is 1 mV higher than the negative input. At around 8.1 ns, that polarityis reversed.\n"
       ],
-      "id": "a079213c"
+      "id": "d5d5546d"
     },
     {
       "cell_type": "code",
@@ -143,9 +143,9 @@
         "The output \"out2dff\" can now be forwarded to a d-flip-flop, which most comparator designs for ADCs would utilize to gain the \"final\" clk-controlled digitized output sample.\n",
         "\n",
         "\n",
-        "The behavior is the pretty much the same, both for $V_DD$ equaling 3.3 V or 1.5 V, where only the small spikes on the latch output are smaller for 3.3 V. "
+        "The behavior is the pretty much the same, both for $V_{DD}$ equaling 3.3 V or 1.5 V, where only the small spikes on the latch output are smaller for 3.3 V. "
       ],
-      "id": "67393ee5"
+      "id": "f8517124"
     }
   ],
   "metadata": {
@@ -153,7 +153,7 @@
       "name": "python3",
       "language": "python",
       "display_name": "Python 3 (ipykernel)",
-      "path": "C:\\Users\\LENOVO\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\share\\jupyter\\kernels\\python3"
+      "path": "C:\\Users\\nicki\\anaconda3\\share\\jupyter\\kernels\\python3"
     }
   },
   "nbformat": 4,

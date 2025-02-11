@@ -1,5 +1,7 @@
 ---
 title: "Design of an Analog-Digital-Converter the Delta-Sigma way"
+
+bibliography: references.bib
 ---
 {{< include important_notes.qmd >}}
 
@@ -21,5 +23,11 @@ The following subchapters will elaborate on the separate subcircuits, briefly ex
 {{< include chapters/design/comparator/comp.qmd >}}
 
 {{< include chapters/digital_filt/digital_filt.qmd >}}
+
+# Conclusion
+
+We have come to the end of this design document. 
+
+[something conclusive ....]
 
 # References

@@ -12,7 +12,7 @@
         "\n",
         "By changing the capacitance of the marked inverters the actual delay between $\\phi_i$ and $\\phi_{id}$ can be controlled. It is worth noting however, that the capacitive load $C_L$ experienced at the outputs of the structure also has an influence on the phase delay, as can be seen in figure @fig-delay_norm\n"
       ],
-      "id": "b699972a"
+      "id": "7f58711d"
     },
     {
       "cell_type": "code",
@@ -77,7 +77,7 @@
         "The circuits used for the gates are depicted in figures @fig-inv and @fig-nand for the inverters and NAND gates respectively.\n",
         "\n",
         "::: {#fig-gates layout-ncol=2}\n",
-        "![Inverter](figures/clk_gen/inverter.svg){#fig-inv}\n",
+        "![Inverter](figures/clk_gen/inverter.svg){#fig-inv width=60%}\n",
         "\n",
         "![NAND Gate](figures/clk_gen/nand_gate.svg){#fig-nand}\n",
         "\n",
@@ -86,7 +86,7 @@
         "\n",
         "The cascading of two CMOS inverters in figure @fig-inv is needed to create a cleaner output, only using two devices in series will result in poorly defined high and low output levels. <font color=\"red\">REALLY?</font>"
       ],
-      "id": "b6c1c191"
+      "id": "426d2f8a"
     }
   ],
   "metadata": {
@@ -94,7 +94,7 @@
       "name": "python3",
       "language": "python",
       "display_name": "Python 3 (ipykernel)",
-      "path": "C:\\Users\\LENOVO\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\share\\jupyter\\kernels\\python3"
+      "path": "C:\\Users\\nicki\\anaconda3\\share\\jupyter\\kernels\\python3"
     }
   },
   "nbformat": 4,
