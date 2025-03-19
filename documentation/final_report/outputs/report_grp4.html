@@ -10,7 +10,7 @@
 <meta name="author" content="Lars Nickisch">
 <meta name="author" content="Priyanka Toyni">
 <meta name="author" content="Aftab Nagarji">
-<meta name="dcterms.date" content="2025-02-11">
+<meta name="dcterms.date" content="2025-02-12">
 
 <title>Design of an Analog-Digital-Converter the Delta-Sigma way</title>
 <style>
@@ -214,7 +214,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2025-02-11</p>
+      <p class="date">2025-02-12</p>
     </div>
   </div>
   
@@ -672,13 +672,13 @@ Figure&nbsp;15: Simple Sample and Hold
 <section id="non-idealities" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="non-idealities"><span class="header-section-number">4.1</span> Non-Idealities</h2>
 <p>Unlike ideal Switches, real switches have some On-Resistance <span class="math inline">\(R_{on}\)</span> which is some function of input. <span class="math inline">\(\frac{1}{R_{onC}}\)</span> is the bandwidth during the tracking phase. The signal is being stored in Capacitor in terms of charge, smaller the Capacitor more the tendency of getting disturbed or leakage.</p>
-<p>Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage <span class="math inline">\(V_n\)</span> in series with resistance. Ouput Noise is present for all frequencies also known as <em>Whilte Noise</em> and is given as</p>
+<p>Taking a closure look, Resistance is much suspectable to thermal noise and is modelled as voltage <span class="math inline">\(V_n\)</span> in series with resistance. Ouput Noise is present for all frequencies also known as <em>White Noise</em> and is given as</p>
 <p><span class="math display">\[
 V_\mathrm{n}^2 = \frac{k T}{C}
 \]</span></p>
 <p>where <span class="math inline">\(k\)</span> is Boltzmann’s constant, <span class="math inline">\(T\)</span> is temperature in Kelvin.</p>
 <p>Candidate for switch in circuit is MOSFET. Above were the non-idealities present if switch is <em>ON</em>. Even if switch is <em>OFF</em> its far from being ideal. Ideally, it should be open circuit but there is some <span class="math inline">\(C_{OFF}\)</span> present.</p>
-<p>More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to <em>Charge Injection</em>. Injected Charge is Non-Linear function of <span class="math inline">\(V_{in}\)</span>. Due to these reasons we are using <em>Bottom Plate Switching</em>.</p>
+<p>More critical areas are when MOSFET is transitioning from ON to OFF and vice versa, they give rise to <em>Charge Injection</em>. Injected Charge is Non-Linear function of <span class="math inline">\(V_{in}\)</span>. Due to these reasons we are using <em>Bottom Plate Sampling</em>. Instead of sampling directly at top plate, the bottom plate is switched before capturing the sampled value ensuring non distorted output at feedback or top plate capacitor.</p>
 </section>
 <section id="switched-capacitor-integrator" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="switched-capacitor-integrator"><span class="header-section-number">4.2</span> Switched Capacitor Integrator</h2>
@@ -695,7 +695,7 @@ V_\mathrm{n}^2 = \frac{k T}{C}
 <p><span class="math display">\[\begin{align}
   {H(z)} = \frac{z^{-1}}{1-z^{-1}}
 \end{align}\]</span></p>
-<p>We will be usinf the second form of integrator in our system.</p>
+<p>We will be using the second form of integrator in our system.</p>
 <p>Therefore, for our desired discrete integrator, it is worth utilizing the following input structure in Figure <a href="#fig-opamp_sc_integrator" class="quarto-xref">Figure&nbsp;16</a>, which leads to a switched-capacitor integrator.</p>
 <div id="fig-opamp_sc_integrator" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -957,13 +957,29 @@ g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
 <section id="choosing-w-and-l-parameters" class="level3" data-number="6.2.2">
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="choosing-w-and-l-parameters"><span class="header-section-number">6.2.2</span> Choosing W and L parameters</h3>
 <p>In a design we would have different NMOS and PMOS with different parameters depending upon their presence in design. We have used <strong>Whilson Current Mirror</strong> for creating reference current in our circuit. All NMOS and PMOS in this section would have double <span class="math inline">\(W/L\)</span> compared to the NMOS and PMOS in the differential pair.</p>
-<p>We would generate MATLAB scripts or also known as lookup table to generate the required plots for our technology node. In figure <span class="math inline">\(g_m/I_d\)</span> vs <span class="math inline">\(I_d/W\)</span> for NMOS. We can see that <span class="math inline">\(g_m/I_d\)</span> is in moderate region and for various <span class="math inline">\(L\)</span> values corresponding <span class="math inline">\(I_d/W\)</span> values can be see. Choose the length value in such a way that after calculation your <span class="math inline">\(W\)</span> is not less 130nm. Repeat the same procedure for PMOS. You have <span class="math inline">\(W\)</span> and <span class="math inline">\(L\)</span> values for both NMOS and PMOS but keep in mind choose length atleast three or four times of <span class="math inline">\(L_{min}\)</span>.</p>
-<p><font color="red"> Add pic of graph </font></p>
+<p>We would generate MATLAB scripts or also known as lookup table to generate the required plots for our technology node. In figure <span class="math inline">\(g_m/I_d\)</span> vs <span class="math inline">\(I_d/W\)</span> for NMOS. We can see that <span class="math inline">\(g_m/I_d\)</span> is in moderate region and for various <span class="math inline">\(L\)</span> values corresponding <span class="math inline">\(I_d/W\)</span> values can be see. Choose the length value in such a way that after calculation your <span class="math inline">\(W\)</span> is not less 130nm. Repeat the same procedure for PMOS. You have <span class="math inline">\(W\)</span> and <span class="math inline">\(L\)</span> values for both NMOS and PMOS but keep in mind choose length atleast three or four times of <span class="math inline">\(L_{min}\)</span>. We get similar graph attached below for PMOS as well.</p>
+<div id="fig-graph_ota" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-graph_ota-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/switch_cap/priyanka_img_matlab.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-graph_ota-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;28: Graph for <span class="math inline">\(I_d / W\)</span> for nMOS
+</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="xschem-realization" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="xschem-realization"><span class="header-section-number">6.3</span> Xschem Realization</h2>
-<p>To simulate our design we are using Xschem and ngspice. <font color="red">Add xschem pics here </font></p>
+<p>To simulate our design we are using Xschem and ngspice. Realization of Telescopic OTA as after <a href="#fig-basic_ota" class="quarto-xref">Figure&nbsp;27</a> was not compatible with Switched Capacitor. <img src="figures/opamp/Telescopic.svg" class="img-fluid" alt="Implementation of Telescopic OTA"> <img src="figures/opamp/ac0.svg" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/ac1.svg" class="img-fluid" alt="AC analysis of Telescopic OTA"> <img src="figures/opamp/tran0.svg" class="img-fluid" alt="Transient Response of Telescopic OTA"></p>
+<p>Its giving us DC Gain of 9.6059e-01, Gain error of -3.9408e-02 and Slew rate (tsettle) of 7.0329e-07 at <span class="math inline">\(I_0\)</span> equivalent to 0.8microA.Below is the Switch Capacitor circuit with phase 1 and 2.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/opamp/Final_circuit_last.svg" class="img-fluid figure-img"></p>
+<figcaption>Implementation of Switch Capacitor</figcaption>
+</figure>
+</div>
 </section>
 <section id="comparator-design" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="comparator-design"><span class="header-section-number">6.4</span> Comparator Design</h2>
@@ -974,7 +990,7 @@ g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
 </section>
 <section id="comparator-stage" class="level3" data-number="6.4.2">
 <h3 data-number="6.4.2" class="anchored" data-anchor-id="comparator-stage"><span class="header-section-number">6.4.2</span> Comparator Stage</h3>
-<p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;28</a>.</p>
+<p>The inverter-based comparator structure is realized through a symmetric architecture that is closely assossiated to the so called “StrongArm” architecture, depicted in <a href="#fig-strongarm_circuit" class="quarto-xref">Figure&nbsp;29</a>.</p>
 <p>While the classical StrongArm would utilize pmos transistors for M3 &amp; M4 (with their sources being pulled to <span class="math inline">\(V_{DD}\)</span> and their drains connected to the node above M1 and M2) instead, the behaviour would in both cases be the same, as tested in simulations.</p>
 <p>It utilizes both n- and pmos transistors that are generally sized with small values for L, due to the main usage as switches.</p>
 <div id="fig-strongarm_circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -983,7 +999,7 @@ g_m = \frac{C_1 + C_3 + C_1C_3 / C_2}{T/48}
 <img src="figures/comp/comp_architecture.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-strongarm_circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;28: Comparator, realized through inverter based architecture
+Figure&nbsp;29: Comparator, realized through inverter based architecture
 </figcaption>
 </figure>
 </div>
@@ -1001,14 +1017,14 @@ Figure&nbsp;28: Comparator, realized through inverter based architecture
 <h3 data-number="6.4.3" class="anchored" data-anchor-id="latching-circuit"><span class="header-section-number">6.4.3</span> Latching Circuit</h3>
 <p>After the StrongArm comparator, as mentioned previously, a latching circuit is implemented for improved validity of the final outputs. The way this was done in our case is through an “SR-Latch”, which stands for “set” and “reset”.</p>
 <p>In general, such a latch utilizes two logic gates with 2 inputs and one output each, where one of the inputs will be one of the input signals, while the other will be the fed-back output signal from the respective other logic gate. The provided logic should result in only the Q output or it’s complement nQ to be high, depending .</p>
-<p>The main task of this block is to only change it’s output, while either the positive or negative output of our comparator is “high”. For SR-latches there will be one case for equal inputs (either both “high” or both “low”) where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in <a href="#fig-sr_latch" class="quarto-xref">Figure&nbsp;29</a>, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters.</p>
+<p>The main task of this block is to only change it’s output, while either the positive or negative output of our comparator is “high”. For SR-latches there will be one case for equal inputs (either both “high” or both “low”) where one will not result in a change to the output while the other will ultimately result in an output, where the intended logic of the circuit is violated. With the chosen NOR gates (including inverted inputs) depicted in <a href="#fig-sr_latch" class="quarto-xref">Figure&nbsp;30</a>, that violation would occur for a high level on both inputs, which is not given due to the StrongArm comparators operation paired with the inverters.</p>
 <div id="fig-sr_latch" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sr_latch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/SR_latch.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sr_latch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;29: SR-Latch for Comparator Application
+Figure&nbsp;30: SR-Latch for Comparator Application
 </figcaption>
 </figure>
 </div>
@@ -1023,20 +1039,20 @@ Figure&nbsp;29: SR-Latch for Comparator Application
 <img src="figures/comp/comp_test.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xschem_comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;30: StrongArm Circuit
+Figure&nbsp;31: StrongArm Circuit
 </figcaption>
 </figure>
 </div>
 <p>This circuit is proposed by Boris Murmann in his EE628 lecture series (e.g.&nbsp;lec 6), while he himself adopted the design from the paper given in [<font color="red">[cite paper]</font>]. The MOSFET lengths (L) can be chosen minimal (<span class="math inline">\(\approx\)</span> 130 nm), since almost all of them simply serve as switches, with only those for the inputsignal are choosen with a slightly greater margin.</p>
 <p>While the mentioned sources also propose a latching circuit, we will directly utilize the logic gates available through the used PDK, which generally helps to make the comparator system more universally applicable. Specifically, the proposed design showed a lesser tolerence for very small differences between the input signals, once the latch was cascaded. This becomes worse for higher supply voltages (e.g.&nbsp;3V3 instead of 1V5).</p>
-<p>The testbench file is shown next in <a href="#fig-xschem_comp_tb" class="quarto-xref">Figure&nbsp;31</a>.</p>
+<p>The testbench file is shown next in <a href="#fig-xschem_comp_tb" class="quarto-xref">Figure&nbsp;32</a>.</p>
 <div id="fig-xschem_comp_tb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-xschem_comp_tb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/comp/comp_tb.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xschem_comp_tb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;31: Comparator Testbench
+Figure&nbsp;32: Comparator Testbench
 </figcaption>
 </figure>
 </div>
@@ -1114,7 +1130,7 @@ Figure&nbsp;31: Comparator Testbench
 </div>
 </div>
 <div class="cell-output cell-output-display">
-<div id="fig-comp_plot-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="449" width="597">
+<div id="fig-comp_plot-2" class="quarto-float quarto-figure quarto-figure-center anchored" width="597" height="449">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-comp_plot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="report_grp4_files/figure-html/fig-comp_plot-output-3.png" id="fig-comp_plot-2" data-ref-parent="fig-comp_plot" width="597" height="449" class="figure-img">
@@ -1127,7 +1143,7 @@ Figure&nbsp;31: Comparator Testbench
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-comp_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;32
+Figure&nbsp;33
 </figcaption>
 </figure>
 </div>
