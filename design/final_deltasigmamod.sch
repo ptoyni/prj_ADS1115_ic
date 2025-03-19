@@ -126,7 +126,7 @@ lab=GND}
 N 720 -840 720 -800 {p1
 lab=p2}
 N 1330 -570 1330 -470 {lab=vo2}
-N 1810 -490 1910 -490 {lab=GND}
+N 1810 -490 1910 -490 {lab=Vcm}
 N 1810 -510 2150 -510 {lab=vcmp}
 N 2150 -520 2150 -510 {lab=vcmp}
 N 360 -500 500 -500 {lab=#net4}
@@ -141,8 +141,8 @@ N 1220 -460 1220 -350 {lab=Vcm}
 N 1390 -490 1510 -490 {lab=vo2}
 N 1390 -490 1390 -470 {lab=vo2}
 N 1330 -470 1390 -470 {lab=vo2}
-N 1410 -470 1510 -470 {lab=GND}
-N 1410 -470 1410 -440 {lab=GND}
+N 1410 -470 1510 -470 {lab=Vcm}
+N 1410 -470 1410 -440 {lab=Vcm}
 C {devices/gnd.sym} 80 -720 0 0 {name=l14 lab=GND}
 C {devices/vsource.sym} 80 -770 0 0 {name=Vcm value="dc \{vdd/2\}"}
 C {devices/gnd.sym} 200 -720 0 0 {name=l4 lab=GND}
@@ -159,13 +159,13 @@ C {devices/lab_wire.sym} 60 -290 0 0 {name=p4 sig_type=std_logic lab=p2}
 C {devices/switch_ngspice.sym} 360 -290 0 0 {name=S4 model=mysw}
 C {devices/gnd.sym} 290 -240 0 0 {name=l13 lab=GND}
 C {devices/lab_wire.sym} 290 -290 0 0 {name=p5 sig_type=std_logic lab=p1}
-C {devices/capa.sym} 220 -340 3 0 {name=C7
+C {devices/capa.sym} 220 -340 3 0 {name=Cs1
 m=1
 value=0.3p
 footprint=1206
 device="ceramic capacitor"}
 C {devices/lab_wire.sym} 360 -240 0 0 {name=p8 sig_type=std_logic lab=Vcm}
-C {devices/capa.sym} 550 -570 3 0 {name=C1
+C {devices/capa.sym} 550 -570 3 0 {name=Ci1
 m=1
 value=2p
 footprint=1206
@@ -182,13 +182,13 @@ C {devices/lab_wire.sym} 700 -290 0 0 {name=p11 sig_type=std_logic lab=p2}
 C {devices/switch_ngspice.sym} 1000 -290 0 0 {name=S8 model=mysw}
 C {devices/gnd.sym} 930 -240 0 0 {name=l18 lab=GND}
 C {devices/lab_wire.sym} 930 -290 0 0 {name=p12 sig_type=std_logic lab=p1}
-C {devices/capa.sym} 860 -340 3 0 {name=C2
+C {devices/capa.sym} 860 -340 3 0 {name=Cs2
 m=1
 value=0.2p
 footprint=1206
 device="ceramic capacitor"}
 C {devices/lab_wire.sym} 1000 -240 0 0 {name=p14 sig_type=std_logic lab=Vcm}
-C {devices/capa.sym} 1190 -570 3 0 {name=C3
+C {devices/capa.sym} 1190 -570 3 0 {name=Ci2
 m=1
 value=0.7p
 footprint=1206
@@ -207,7 +207,7 @@ value="
 .inc /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 "}
 C {devices/gnd.sym} -120 -720 0 0 {name=l2 lab=GND}
-C {devices/vsource.sym} -120 -770 0 0 {name=Vsup value="dc \{vdd\}"}
+C {devices/vsource.sym} -120 -770 0 0 {name=Vdd value="dc \{vdd\}"}
 C {devices/vdd.sym} -120 -840 0 0 {name=l5 lab=VDD}
 C {devices/gnd.sym} -200 -720 0 0 {name=l19 lab=GND}
 C {devices/vsource.sym} -200 -770 0 0 {name=Vss value= dc 0}
@@ -216,15 +216,15 @@ C {devices/title.sym} 180 110 0 0 {name=l21 author="(c) Priyanka, @HSB"}
 C {devices/code_shown.sym} 2380 -630 0 0 {name=NGSPICE1 only_toplevel=true 
 value="
 .param temp=27 vdd = 1.5
-.param Wnmos=2u Wpmos=4u 
-.param Lnmos=.13u Lpmos=.13u Lnmos2=1u
+.param Wnmos=2u Wpmos=2u Wnmos1=1u Wpmos1=1u Wnmos2=0.5u Wpmos2=0.5u
+.param Lnmos=0.18u Lpmos=0.18u Lnmos1=0.18u Lpmos1=0.18u Lnmos2=0.18u Lpmos2=0.18u
 .model mysw SW vt=\{vdd/2\} ron=0.1
 .option method=gear reltol=1e-4
 
 .control
 save all
 run
-tran 10u 40m
+tran 10u 240u
 plot Vin
 
 set wr_singlescale
@@ -232,8 +232,6 @@ set wr_vecnames
 
 .endc
 "}
-C {devices/gnd.sym} 1410 -440 0 0 {name=l3 lab=GND}
-C {devices/gnd.sym} 1910 -490 0 0 {name=l23 lab=GND}
 C {devices/lab_wire.sym} 1470 -510 0 0 {name=p18 sig_type=std_logic lab=p1}
 C {devices/gnd.sym} 360 -720 0 0 {name=l6 lab=GND}
 C {devices/vsource.sym} 360 -770 0 0 {name=Vp1 value="dc 0 pulse(0, \{vdd\}, 0, 100n, 100n, 2u, 4.5u) "}
@@ -244,6 +242,8 @@ C {devices/lab_wire.sym} 720 -840 0 0 {name=p1 sig_type=std_logic lab=p2}
 C {devices/lab_wire.sym} 1370 -470 0 0 {name=p20 sig_type=std_logic lab=vo2}
 C {SC_ota_VCCS.sym} 700 -470 0 0 {name=x3}
 C {SC_ota_VCCS.sym} 1370 -470 0 0 {name=x4}
-C {/foss/designs/analog-circuit-design/priyanka/comp/final_working_comp.sym} 1660 -490 0 0 {name=x1}
 C {devices/lab_wire.sym} 520 -430 0 0 {name=p6 sig_type=std_logic lab=Vcm}
 C {devices/lab_wire.sym} 1120 -350 0 0 {name=p13 sig_type=std_logic lab=Vcm}
+C {devices/lab_wire.sym} 1410 -440 0 0 {name=p21 sig_type=std_logic lab=Vcm}
+C {devices/lab_wire.sym} 1910 -490 0 0 {name=p22 sig_type=std_logic lab=Vcm}
+C {/foss/designs/analog-circuit-design/priyanka/comp/new_comp2.sym} 1660 -490 0 0 {name=x1}
