@@ -4,7 +4,7 @@ Creating a ADC IC Design similar to TI ADS1115.
 Focusing on ADC block from the Chiplet Design of ADS1115
 
 
-Quarto/git link : https://mimeiners.github.io/cems/
+Quarto/git link : [https://mimeiners.github.io/cems/lab/elie4/]
 
 Initial Specifications: 
 - Dynamic Range (DR): 16-bit ~ 98dB
